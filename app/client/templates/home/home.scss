@@ -1,0 +1,17 @@
+/*****************************************************************************/
+/* Home: Style */
+/*****************************************************************************/
+@import '../../stylesheets/mixins';
+@import '../../stylesheets/placeholders';
+@import '../../stylesheets/variables';
+
+
+
+.home {
+	padding: 0px;
+	margin: 0px;
+	overflow: auto;
+	aside.sidebar {
+		width: 40%;
+	}
+}

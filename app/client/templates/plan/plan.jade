@@ -1,0 +1,8 @@
+template(name='Plan')
+	.plan.transitions-content(id="plan")
+		+MiniNav
+		+RecipeFilter
+		if planPage 'Your Recipes' 'Search Recipes'
+			+Recipes
+		if planPage 'Meal Plan'
+			+MealPlan

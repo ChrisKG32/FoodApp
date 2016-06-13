@@ -1,0 +1,11 @@
+/*****************************************************************************/
+/* Plan: Style */
+/*****************************************************************************/
+@import '../../stylesheets/mixins';
+@import '../../stylesheets/placeholders';
+@import '../../stylesheets/variables';
+
+.plan {
+	height: calc(100% - #{$navbar-height});
+	overflow: auto;
+}

@@ -1,0 +1,22 @@
+/*****************************************************************************/
+/* Nav: Style */
+/*****************************************************************************/
+
+@import '../../stylesheets/mixins';
+@import '../../stylesheets/placeholders';
+@import '../../stylesheets/variables';
+
+
+.nav {
+	height: $navbar-height !important;
+	.wrapper {
+		margin-left: 20%;
+		margin-right: 20%;
+		overflow: auto;		
+	}
+	.navbar-inverse {
+		margin-bottom: 0px;
+		border-bottom-color: $default-border-color;
+		@include linear-gradient(to right, #333333, #1a1a1a);
+	}
+}

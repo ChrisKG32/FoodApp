@@ -1,0 +1,49 @@
+template(name='Nav')
+	.nav
+		nav.navbar.navbar-inverse
+			.container-fluid
+				.navbar-header
+					button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNavbar')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					.wrapper
+						a.navbar-brand(class="{{pageCheck 'plan'}}" href="{{pathFor route='plan'}}" data-transition-out="slideRightOut" data-transition-in="slideRightIn")
+							| Plan
+						a.navbar-brand(class="{{pageCheck 'shop'}}" href="{{pathFor route='shop'}}" data-transition-out="slideLeftOut" data-transition-in="slideLeftIn")
+							| Shop
+						a.navbar-brand(class="{{pageCheck 'prep'}}" href="{{pathFor route='prep'}}" data-transition-out="slideLeftOut" data-transition-in="slideLeftIn")
+							| Prep
+				#myNavbar.collapse.navbar-collapse
+					ul.nav.navbar-nav
+						li.active
+							a(href='#')
+								| Home
+						li
+							a(href="#")
+								| Page 1
+						li
+							a(href='#')
+								| Page 2
+						li
+							a(href='#')
+								| Page 3
+					ul.nav.navbar-nav.navbar-right
+						if loggedIn
+							li.btn-profile
+								a(href="{{pathFor route='profile'}}")
+									span.glyphicon.glyphicon-user
+									|  Profile
+							li.btn-logout
+								a(href="{{pathFor route='login'}}")
+									span.glyphicon.glyphicon-log-out
+									|  Log Out
+						else
+							li.btn-signup
+								a(href="{{pathFor route='signup'}}")
+									span.glyphicon.glyphicon-user
+									|  Sign Up
+							li.btn-login
+								a(href="{{pathFor route='login'}}")
+									span.glyphicon.glyphicon-log-in
+									|  Login

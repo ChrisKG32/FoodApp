@@ -1,0 +1,37 @@
+/*****************************************************************************/
+/* Recipes: Style */
+/*****************************************************************************/
+@import '../../../stylesheets/mixins';
+@import '../../../stylesheets/placeholders';
+@import '../../../stylesheets/variables';
+
+.recipes {
+	height: calc(100% - (#{$mini-nav-height}));
+	overflow-y: scroll;
+	.recipes-inner {
+		@extend %no-gutter;
+
+		&::before {
+			pointer-events: none;
+		    content:"";
+		    display: block;
+		    overflow: visible;
+		    position: fixed;
+		    top: calc(#{$mini-nav-height} + #{$navbar-height});
+		    bottom: 0;
+		    left: 0;
+		    width: 100%;
+		    background: linear-gradient(
+			    rgba(0,0,0,0.5),
+			    rgba(255,255,255,0),
+			    rgba(255,255,255,0),
+			    rgba(255,255,255,0),
+		    	rgba(255,255,255,0),
+			    rgba(255,255,255,0),
+			    rgba(255,255,255,0),
+			    rgba(0,0,0,0.5)
+			);
+		    z-index: 97;
+		}
+	}
+}
