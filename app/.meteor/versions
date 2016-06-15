@@ -24,6 +24,7 @@ ddp-rate-limiter@1.0.4
 ddp-server@1.2.6
 deps@1.0.12
 diff-sequence@1.0.5
+dsyko:jquery-ui-touch-punch@1.2.4
 ecmascript@0.4.3
 ecmascript-runtime@0.2.10
 ejson@1.0.11
@@ -68,6 +69,7 @@ mongo@1.1.7
 mongo-id@1.0.4
 mquandalle:jade@0.4.9
 mquandalle:jade-compiler@0.4.5
+mrt:jquery-ui@1.9.2
 npm-bcrypt@0.8.6_1
 npm-mongo@1.4.43
 observe-sequence@1.0.11

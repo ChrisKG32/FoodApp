@@ -1,19 +1,13 @@
 /*****************************************************************************/
 /* RecipeFilter: Style */
 /*****************************************************************************/
-@import '../../../stylesheets/mixins';
-@import '../../../stylesheets/placeholders';
-@import '../../../stylesheets/variables';
+@import '../../../stylesheets/_mixins';
+@import '../../../stylesheets/_placeholders';
+@import '../../../stylesheets/_variables';
+
 
 .recipe-filter {
-	@extend %absolute;
-	z-index: 98;
-	overflow: auto;
-	width: 85%;
-	padding-right: 7.5%;
-	height: calc(100% - (#{$navbar-height} + #{$mini-nav-height}));
-	transform: translate(-95%);
-
+	height: 100%;
 
 	.wrapper {
 		background-color: $dark-background;

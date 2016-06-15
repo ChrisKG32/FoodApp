@@ -1,12 +1,12 @@
 /*****************************************************************************/
 /* Recipes: Style */
 /*****************************************************************************/
-@import '../../../stylesheets/mixins';
-@import '../../../stylesheets/placeholders';
-@import '../../../stylesheets/variables';
+@import '../../../stylesheets/_mixins';
+@import '../../../stylesheets/_placeholders';
+@import '../../../stylesheets/_variables';
 
 .recipes {
-	height: calc(100% - (#{$mini-nav-height}));
+	height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
 	overflow-y: scroll;
 	.recipes-inner {
 		@extend %no-gutter;
@@ -22,7 +22,7 @@
 		    left: 0;
 		    width: 100%;
 		    background: linear-gradient(
-			    rgba(0,0,0,0.5),
+			    rgba(0,0,0,0),
 			    rgba(255,255,255,0),
 			    rgba(255,255,255,0),
 			    rgba(255,255,255,0),

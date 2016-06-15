@@ -4,7 +4,15 @@
 Template.Nav.events({
 	'click .btn-logout':function(e){
 		Meteor.logout();
+	},
+	'click .navbar-brand':function(e){
+		var currentTarget = $(e.currentTarget);
+
+		if (currentTarget.hasClass('nav-plan')){
+			Session.set('planPage', 'Search Recipes');
+		}
 	}
+
 });
 
 /*****************************************************************************/

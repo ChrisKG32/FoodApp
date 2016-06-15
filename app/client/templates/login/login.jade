@@ -1,0 +1,11 @@
+template(name='Login')
+	.login
+		h3.page-header.text-center
+			| Login
+		form.form.col-xs-10.col-xs-offset-1
+			.form-group
+				input.form-control(id="username" type="text" placeholder="Username")
+			.form-group
+				input.form-control(id="password" type="password" placeholder="Password")
+			button.btn.btn-success(type='submit')
+				| Log In

@@ -1,9 +1,9 @@
 /*****************************************************************************/
 /* MiniNav: Style */
 /*****************************************************************************/
-@import '../../stylesheets/mixins';
-@import '../../stylesheets/placeholders';
-@import '../../stylesheets/variables';
+@import '../../stylesheets/_mixins';
+@import '../../stylesheets/_placeholders';
+@import '../../stylesheets/_variables';
 
 @mixin select-button {
 	text-decoration: none;
@@ -17,7 +17,8 @@
 .mini-nav {
 	padding: 0px 15px;
 	background-color: $dark-background;
-	height: $mini-nav-height;	
+	height: $mini-nav-height;
+	position: relative;
 
 	.dropdown-container {
 		text-align: center;

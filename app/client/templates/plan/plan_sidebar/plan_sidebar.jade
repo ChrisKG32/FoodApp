@@ -1,0 +1,6 @@
+template(name='PlanSidebar')
+	.plan-sidebar(id='filter')
+		unless planPage 'Meal Plan'
+			+RecipeFilter
+		else 
+			+YourRecipes

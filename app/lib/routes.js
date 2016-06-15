@@ -14,7 +14,10 @@ Router.route('/', {
 Router.route('/plan', {
 	name: 'plan',
 	template: 'Plan',
-	where: 'client'
+	where: 'client',
+	waitOn:function(){
+		var planPage = Session.get('planPage');
+	}
 });
 
 Router.route('/shop', {

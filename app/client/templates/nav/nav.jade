@@ -8,15 +8,15 @@ template(name='Nav')
 						span.icon-bar
 						span.icon-bar
 					.wrapper
-						a.navbar-brand(class="{{pageCheck 'plan'}}" href="{{pathFor route='plan'}}" data-transition-out="slideRightOut" data-transition-in="slideRightIn")
+						a.navbar-brand.nav-plan(class="{{pageCheck 'plan'}}" href="{{pathFor route='plan'}}" data-transition-out="slideRightOut" data-transition-in="slideRightIn")
 							| Plan
-						a.navbar-brand(class="{{pageCheck 'shop'}}" href="{{pathFor route='shop'}}" data-transition-out="slideLeftOut" data-transition-in="slideLeftIn")
+						a.navbar-brand.nav-shop(class="{{pageCheck 'shop'}}" href="{{pathFor route='shop'}}" data-transition-out="slideLeftOut" data-transition-in="slideLeftIn")
 							| Shop
-						a.navbar-brand(class="{{pageCheck 'prep'}}" href="{{pathFor route='prep'}}" data-transition-out="slideLeftOut" data-transition-in="slideLeftIn")
+						a.navbar-brand.nav-prep(class="{{pageCheck 'prep'}}" href="{{pathFor route='prep'}}" data-transition-out="slideLeftOut" data-transition-in="slideLeftIn")
 							| Prep
 				#myNavbar.collapse.navbar-collapse
 					ul.nav.navbar-nav
-						li.active
+						li
 							a(href='#')
 								| Home
 						li

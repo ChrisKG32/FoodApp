@@ -1,0 +1,16 @@
+/*****************************************************************************/
+/* PlanSidebar: Style */
+/*****************************************************************************/
+@import '../../../stylesheets/_mixins';
+@import '../../../stylesheets/_placeholders';
+@import '../../../stylesheets/_variables';
+
+.plan-sidebar {
+	@extend %absolute;
+	z-index: 98;
+	overflow: visible;
+	width: 90%;
+	padding-right: 7.5%;
+	height: calc(100% - (#{$navbar-height} + #{$mini-nav-height}));
+	transform: translate(-95%);
+}

@@ -1,17 +1,6 @@
 /*****************************************************************************/
 /* mixins: Style */
 /*****************************************************************************/
-
-/*
-@mixin gradient($direction: 'to bottom', $color1, $color2) {
-	background: $color1;
-	background: -webkit-linear-gradient($color1, $color2);
-	background: -o-linear-gradient($color1, $color2);
-	background: -moz-linear-gradient($color1, $color2);
-	background: linear-gradient($color1, $color2);
-}
-*/
-
 @mixin linear-gradient($direction, $color-stops...) {
   // Direction has been omitted and happens to be a color-stop
   @if is-direction($direction) == false {

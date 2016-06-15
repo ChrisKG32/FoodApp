@@ -92,28 +92,21 @@ Template.Recipes.onRendered(function () {
 	breakpoint = 600;
 
 	//Sidebar and sidebar button positioning/sizing
-		var sidebarEl = $('.filter-sidebar');
-		var swipeBtnEl = $('#swipe-btn');
-		if (sidebarEl && swipeBtnEl) {
+		var sidebarEl = $('#filter');
+		if (sidebarEl) {
 			var viewportPx = $(window).width();
 
 			//Sets sidebar width (different for Recipes page and Meal Plan page)
-			var newSidebarSize = viewportPx * 0.85;
-
-			//Removes transitions for resizing
-			sidebarEl.css('transition', '');
-			swipeBtnEl.css('transition', '');
+			var newSidebarSize = viewportPx * 0.9;
 
 			//Sets width and moves sidebar out of view
 			sidebarEl.css('width', newSidebarSize + 'px');
-			sidebarEl.css({
-				transform: 'translate(-' + newSidebarSize + 'px)'
-			});
-			//Moves button to far left
-			swipeBtnEl.css({
-				transform: 'translate(0px)'
-			});
+			var newWidth = $('.plan-sidebar').width();
+			var sbPosition = ('.plan-sidebar') && $('.plan-sidebar')[0] && $('.plan-sidebar')[0].style;
+			sbPosition.transform = 'translate(-' + (newWidth + 10) + 'px)';
 		}
+
+		
 });
 
 Template.Recipes.onDestroyed(function () {

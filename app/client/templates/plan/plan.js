@@ -25,27 +25,21 @@ Template.Plan.onCreated(function () {
 });
 
 Template.Plan.onRendered(function () {
-	Session.set('planPage', 'Search Recipes');
 
-	var filterSidebar = $('.recipe-filter') && $('.recipe-filter').position() && $('.recipe-filter').position().left;
-	
-	var transform = $('.recipe-filter') && $('.recipe-filter')[0] && $('.recipe-filter')[0].style; 
-	
-	transform.transform = 'translate(' + filterSidebar + 'px)';
-
-	Session.set('planPage', 'Search Recipes');
+	//Set page identifier
+			//Changes sidebar position from % to pixels so swipe will work
+				var filterSidebar = $('.plan-sidebar') && $('.plan-sidebar').position() && $('.plan-sidebar').position().left;
+				var transform = $('.plan-sidebar') && $('.plan-sidebar')[0] && $('.plan-sidebar')[0].style; 
+				transform.transform = 'translate(' + filterSidebar + 'px)';
 
 
+			//Swipe integration with HammerJS.
+				//Uses PAN eventlistener to stick sidebar to touch until release
+				// then the sidebar will animate to the final position depending on
+				// 2 factors: where the user dropped it, and how far it was moved.
 
-	//Swipe integration with HammerJS.
-		//Uses PAN eventlistener to stick sidebar to touch until release
-		// then the sidebar will animate to the final position depending on
-		// 2 factors: where the user dropped it, and how far it was moved.
-
-	if (Session.get('planPage')) {
-			
 			//Swipe element
-			stage = document.getElementById('derp');
+			stage = document.getElementById('filter');
 
 			//Initialize
 			hammertime = new Hammer.Manager(stage);
@@ -64,7 +58,7 @@ Template.Plan.onRendered(function () {
 				hammertime.on('panstart', function(e){		
 
 					//Get INITIAL sidebar location
-					sidebar = $('.recipe-filter');
+					sidebar = $('.plan-sidebar');
 					position = sidebar[0].style.transform;
 					positionValue = Number((position.substr(0, position.indexOf('p'))).slice(10));
 
@@ -81,7 +75,7 @@ Template.Plan.onRendered(function () {
 						//Get viewport width to calculate proper sidebar width from Viewport Units to pixels
 						var viewportWidth = $(window).width();
 						var viewportPx = viewportWidth * 0.85;
-						var sidebarWidth = $('.recipe-filter').width();
+						var sidebarWidth = $('.plan-sidebar').width();
 
 						//Swipe SIDEBAR code
 							//Prevents sidebar from swiping past left-of-viewport (Sticks to left side)
@@ -98,7 +92,7 @@ Template.Plan.onRendered(function () {
 
 				hammertime.on('panend', function(e){
 					//Get sidebar Width
-					var sidebarWidth = $('.recipe-filter').width();
+					var sidebarWidth = $('.plan-sidebar').width();
 					var mealPlanPage = $('.meal-plan');
 
 					//Get final SIDEBAR position
@@ -136,12 +130,8 @@ Template.Plan.onRendered(function () {
 							calendar[0].style.transform = 'translate(0px)';
 						}
 					}
-
-					
-
 				});
 
-	}
 });
 
 Template.Plan.onDestroyed(function () {

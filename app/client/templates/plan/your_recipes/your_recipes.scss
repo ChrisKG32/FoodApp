@@ -1,0 +1,99 @@
+/*****************************************************************************/
+/* YourRecipes: Style */
+/*****************************************************************************/
+@import '../../../stylesheets/_mixins';
+@import '../../../stylesheets/_placeholders';
+@import '../../../stylesheets/_variables';
+
+
+.your-recipes {
+	height: 100%;
+
+	.wrapper {
+		background-color: $dark-background;
+		color: $default-font-color;
+		height: 100%;
+		box-shadow: 5px 0px 20px black;
+	}
+	.filter-item:nth-child(2) {
+		border-top: 1px solid $default-border-color;
+	}
+
+	.filter-item {
+		border-bottom: 1px solid $default-border-color;
+		padding: 5px;
+
+		.filter-list {
+			padding-left: 20px;
+			padding-right: 20px;
+			position: relative;
+			display: none;
+
+			h4 {
+				margin-top: 0;
+			}
+
+			i.page-right {
+				@extend %absolute;
+				top: calc(50% - 17.5px);
+				font-size: 175%;
+				right: 0;
+				padding: 5px 0px 5px 5px;
+			}
+			i.page-left {
+				@extend %absolute;
+				top: calc(50% - 17.5px);
+				font-size: 175%;
+				left: 0;
+				padding: 5px 5px 5px 0px;
+			}
+
+			.recipe-item {
+				padding-left: 2.5px;
+				padding-right: 2.5px;
+
+
+				.image {
+					width: 100%;
+					padding-bottom: 80%;
+					border-radius: 15px;
+					position: relative;
+					background-size: cover;
+					display: inline-block;
+
+					&:before {
+						content: '';
+						border-radius: 15px;
+							@extend %absolute;
+							top: 0;
+							right: 0;
+							bottom: 0;
+							left: 0;
+							@include linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+					}
+
+					span {
+						@extend %absolute;
+						margin-left: 5px;
+						margin-right: 5px;
+						left: 0;
+						right: 0;
+						color: white;
+						text-shadow: 1px 1px 5px black;
+					}
+				}
+			}
+		}
+
+		&:hover {
+
+			h5 {
+				color: white;
+			}
+		}
+
+		&:last-child {
+			border-bottom: 1px solid $default-border-color;
+		}
+	}
+}

@@ -1,0 +1,18 @@
+template(name='MealPlan')
+	.meal-plan
+		.col-xs-12.calendar-wrapper.text-center
+			each dayCheck
+				ul.list-inline
+					li.day-header(id='{{this.date}}' day-id='{{this.date}}').col-xs-4.day
+							span.day-text(aria-hidden='true')
+								| !{this.day}
+							span.badge.pull-right(aria-hidden='true')
+								| {{badges}}
+					li.recipes-header.col-xs-8(day-id='{{this.date}}')
+						| {{badges}} Recipes
+						i.fa.fa-plus-square.pull-right.add-recipe(aria-hidden='true')
+					each recipesList
+						li.assigned-recipe.col-xs-12
+							| !{this.name}
+
+
