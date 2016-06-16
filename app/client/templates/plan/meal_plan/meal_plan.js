@@ -13,8 +13,14 @@ Template.MealPlan.events({
 		var liParent = $('[day-id=' + dayId + ']').parent();
 		var hiddenRecipes = liParent.find('.assigned-recipe');
 		if (hiddenRecipes) {
-			hiddenRecipes.toggle();
-		}		
+			_.each(hiddenRecipes, function(entry){
+				if ($(entry).is(':visible')){
+					$(entry).hide();
+				} else {
+					$(entry).show();
+				}
+			});
+		}
 	}
 });
 

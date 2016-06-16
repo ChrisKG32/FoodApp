@@ -1,0 +1,12 @@
+/*****************************************************************************/
+/* Prep: Style */
+/*****************************************************************************/
+@import '../../stylesheets/_mixins';
+@import '../../stylesheets/_placeholders';
+@import '../../stylesheets/_variables';
+
+.prep {
+	background-color: $dark-background;
+	@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
+	height: calc(100% - #{$navbar-height});
+}

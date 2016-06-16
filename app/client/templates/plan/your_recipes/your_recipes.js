@@ -88,7 +88,8 @@ Template.YourRecipes.helpers({
 			var pages = Math.ceil(recipeLookup.length/4);
 			var pageNumber = 0;
 			var currentSession = Session.get(sectionPage);
-			Session.set(sectionPage, {page: currentSession.page, finalPage: pages - 1});
+			var currentPage = currentSession && currentSession.page;
+			Session.set(sectionPage, {page: currentPage, finalPage: pages - 1});
 
 			for (var i = 0; i < recipeLookup.length; i++){
 				if (i == 0) {
@@ -148,13 +149,13 @@ Template.YourRecipes.helpers({
 	limitPages:function(button){
 		var section = this.name;
 		var pageInfo = Session.get(section);
+		var currentPage = pageInfo && pageInfo.page;
 		var firstPage = 0;
 		var finalPage = pageInfo && pageInfo.finalPage;
-		console.log(pageInfo.page + ' and ' + pageInfo.finalPage);
 
-		if (pageInfo.page == pageInfo.finalPage && button == 'next') {
+		if (currentPage == finalPage && button == 'next') {
 			return false
-		} else if (pageInfo.page === 0 && button === 'prev') {
+		} else if (currentPage === 0 && button === 'prev') {
 			return false
 		} else {
 			return true

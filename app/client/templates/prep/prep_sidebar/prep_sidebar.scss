@@ -1,0 +1,43 @@
+/*****************************************************************************/
+/* PrepSidebar: Style */
+/*****************************************************************************/
+@import '../../../stylesheets/_mixins';
+@import '../../../stylesheets/_placeholders';
+@import '../../../stylesheets/_variables';
+
+
+.prep-sidebar {
+	@extend %absolute;
+	z-index: 98;
+	overflow: visible;
+	width: 90%;
+	padding-right: 7.5%;
+	height: calc(100% - (#{$navbar-height} + #{$mini-nav-height}));
+	transform: translate(-95%);
+	
+	.wrapper {
+		background-color: $dark-background;
+		color: $default-font-color;
+		height: 100%;
+		box-shadow: 5px 0px 20px black;
+		
+	}
+	.filter-item {
+		border-top: 1px solid $default-border-color;
+		padding: 5px;
+
+		&:hover {
+			h5 {
+				color: white;
+			}
+		}
+
+		ul.filter-list {
+			display: none;
+			padding-left: 5px;
+		}
+		&:last-child {
+			border-bottom: 1px solid $default-border-color;
+		}
+	}
+}

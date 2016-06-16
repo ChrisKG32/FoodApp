@@ -43,3 +43,9 @@ Router.route('/signup', {
 	template: 'Signup',
 	where: 'client'
 });
+
+Router.route('/profile', {
+	name: 'profile',
+	template: 'Profile',
+	where: 'client'
+});

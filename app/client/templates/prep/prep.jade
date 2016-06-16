@@ -1,0 +1,18 @@
+template(name='Prep')
+	.prep
+		+MiniNav
+		.col-xs-12.text-center
+			ul.meal-list.text-left
+				each renderMeals
+					li.recipe-prep-item(id="!{this._id}").col-xs-12
+						.col-xs-3.no-gutter.recipe-img
+							img(src="{{this.img}}")
+						.col-xs-6.no-gutter.recipe-name
+							| !{this.name}
+						.col-xs-3.no-gutter.recipe-prep
+							span.pull-right.prep-it
+								| PREP IT!
+			button.btn.btn-sm.btn-default
+				| Add Recipe
+		+PrepSidebar
+
