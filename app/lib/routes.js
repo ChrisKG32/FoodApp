@@ -49,3 +49,15 @@ Router.route('/profile', {
 	template: 'Profile',
 	where: 'client'
 });
+
+Router.route('/settings', {
+	name: 'settings',
+	template: 'Settings',
+	where: 'client'
+});
+
+Router.route('/add-recipe', {
+	name: 'add-recipe',
+	template: 'AddRecipe',
+	where: 'client'
+});

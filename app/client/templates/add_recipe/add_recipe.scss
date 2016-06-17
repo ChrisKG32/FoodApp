@@ -1,0 +1,36 @@
+/*****************************************************************************/
+/* AddRecipe: Style */
+/*****************************************************************************/
+@import '../../stylesheets/_mixins';
+@import '../../stylesheets/_placeholders';
+@import '../../stylesheets/_variables';
+
+.add-recipe {
+	.well {
+		@extend %no-gutter;
+	}
+	.recipe-details {
+		@extend %no-gutter;
+	}
+	.ingredients {
+		@extend %no-gutter;
+		margin-bottom: 50px;
+		ul {
+			overflow: auto;
+			list-style: none;
+			padding: 0;
+			.form-group {
+				margin-bottom: 5px;
+			}
+		}	
+
+		.add-ingredient, .remove-ingredient {
+			@extend %no-gutter;
+			text-align: center;
+
+			h4 {
+
+			}
+		}	
+	}
+}

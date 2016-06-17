@@ -22,6 +22,8 @@ body, html {
 	height: 100%;
 }
 
+$vp-height: calc(100vh - #{$navbar-height});
+
 .profile {
 	height: calc(100% - #{$navbar-height});
 	overflow: auto;
@@ -47,7 +49,6 @@ body, html {
 		.col-xs-4 {
 			height: 100%;
 			@extend %no-gutter;
-			padding: 15px 5px;
 			border-top: 1px solid $default-border-color;
 			color: $default-font-color;
 		}
@@ -57,42 +58,20 @@ body, html {
 		}
 
 	}
+
 	.options {
 		@extend %no-gutter;
 		height: 45%;
+		background-color: $dark-background;
 
-		ul {
-			height: 100%;
-			padding: 0;
-			background-color: $dark-background;
-			margin: 0;
-			
-			li {
-				position: relative;
-				padding-left: 25px;
-				padding-right: 25px;
-				height: 20%;
-				font-size: 125%;
-				list-style: none;
-				color: $default-font-color;
-				border-top: 1px solid $default-border-color;
-				span {
-					position: absolute;
-					top: 25%;
-					bottom: 0;
-					font-size: 150%;
-				}
-				span.glyphicon-star {
-					left: 10%;
-				}
-				span.glyphicon-chevron-right {
-					right: 10%;
-				}	
-				span.li-text {
-					left: 25%;
-					top: 15%;
-				}
-			}
+		.options-item {
+			border-top: 1px solid $default-border-color;
+			color: $default-font-color;
+			width: 100%;
+			display: inline-block;
+			padding-top: 3%;
+			padding-bottom: 3%;
+			font-size: 150%;
 		}
 	}
 }

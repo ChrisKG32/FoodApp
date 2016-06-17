@@ -1,0 +1,104 @@
+template(name='AddRecipe')
+	.add-recipe
+		h3.text-center
+			| Add a recipe
+		form.recipe-form.col-xs-12
+			.image-upload.text-center
+				img(src="meatballs.jpg").col-xs-6.col-xs-offset-3
+				button.btn.btn-success
+					| Upload Image
+			.recipe-details.col-xs-12
+				.form-group
+					input.form-control(id="recipe-name" type="text" placeholder="Recipe name")
+				.form-group
+					input.form-control(id="recipe-category" type="text" placeholder="Category")
+				.form-group
+					input.form-control(id="recipe-yield" type="text" placeholder="Yield")
+				.form-group
+					input.form-control(id="recipe-difficulty" type="text" placeholder="Difficulty")
+				.well.col-xs-12
+					.col-xs-6
+						.checkbox
+							label
+								input(id="cb-paleo" type="checkbox" value="")
+								| Paleo
+						.checkbox
+							label
+								input(id="cb-primal" type="checkbox" value="")
+								| Primal
+						.checkbox
+							label
+								input(id="cb-keto" type="checkbox" value="")
+								| Keto
+						.checkbox
+							label
+								input(id="cb-healthy" type="checkbox" value="")
+								| Healthy
+						.checkbox
+							label
+								input(id="cb-gluten-free" type="checkbox" value="")
+								| Gluten-free
+						.checkbox
+							label
+								input(id="cb-dairy-free" type="checkbox" value="")
+								| Dairy-free
+					.col-xs-6
+						.checkbox
+							label
+								input(id="cb-vegan" type="checkbox" value="")
+								| Vegan
+						.checkbox
+							label
+								input(id="cb-vegetarian" type="checkbox" value="")
+								| Vegetarian
+						.checkbox
+							label
+								input(id="cb-wahls" type="checkbox" value="")
+								| Wahl's
+						.checkbox
+							label
+								input(id="cb-whole-30" type="checkbox" value="")
+								| Whole 30
+						.checkbox
+							label
+								input(id="cb-400-cal" type="checkbox" value="")
+								| Less 400 Cals
+						.checkbox
+							label
+								input(id="cb-crockpot" type="checkbox" value="")
+								| Crockpot
+				.ingredients.col-xs-12
+					ul.ingredient-list
+						li.ingredient-item				
+							.col-xs-2
+								.form-group.text-center
+									label
+										| Amt
+									input.form-control.amt(id="ingredient-amt-1" type="number")
+							.col-xs-2
+								.form-group.text-center
+									label
+										| Unit
+									input.form-control.unit(id="ingredient-unit-1" type="text")
+							.col-xs-8
+								.form-group.text-center
+									label
+										| Ingredient
+									input.form-control.name(id="ingredient-name-1" type="text")
+						each numIngredients
+							+IngredientItem
+					.col-xs-6.remove-ingredient
+						h4.btn.btn-default
+							span.glyphicon.glyphicon-minus
+							| Ingredient
+					.col-xs-6.add-ingredient
+						h4.btn.btn-default
+							span.glyphicon.glyphicon-plus
+							| Ingredient
+							
+				.col-xs-6.text-center
+					button.btn.btn-default.cancel-recipe
+						| Cancel
+				.col-xs-6.text-center
+					button.btn.btn-primary.pull-right.text-center(type="submit")
+						| Submit Recipe
