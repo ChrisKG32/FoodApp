@@ -35,6 +35,7 @@ fortawesome:fontawesome@4.5.0
 fourseven:scss@3.4.3
 geojson-utils@1.0.8
 hammer:hammer@2.0.4_1
+harrison:papa-parse@1.1.1
 hot-code-push@1.0.4
 html-tools@1.0.9
 htmljs@1.0.9
@@ -92,6 +93,7 @@ standard-minifier-css@1.0.6
 standard-minifier-js@1.0.6
 templating@1.1.9
 templating-tools@1.0.4
+themeteorchef:bert@2.1.0
 tracker@1.0.13
 twbs:bootstrap@3.3.6
 ui@1.0.11

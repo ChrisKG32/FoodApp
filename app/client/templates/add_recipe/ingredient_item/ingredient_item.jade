@@ -1,11 +1,20 @@
 template(name='IngredientItem')
-	li.ingredient-item				
+	li.ingredient-item(class="ingredient-item-{{itemNumber}}")
 		.col-xs-2
 			.form-group.text-center
 				input.form-control.amt(type="number")
 		.col-xs-2
 			.form-group.text-center
 				input.form-control.unit(type="text")
-		.col-xs-8
+		.col-xs-8.name-field
 			.form-group.text-center
 				input.form-control.name(type="text")
+			if autocomplete
+				.autocomplete
+					ul
+						each autocomplete
+							li
+								| {{name}}
+						li
+							span.glyphicon.glyphicon-edit
+							| Add Ingredient

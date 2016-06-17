@@ -2,7 +2,7 @@ template(name='AddRecipe')
 	.add-recipe
 		h3.text-center
 			| Add a recipe
-		form.recipe-form.col-xs-12
+		form.recipe-form.col-xs-12(autocomplete='off')
 			.image-upload.text-center
 				img(src="meatballs.jpg").col-xs-6.col-xs-offset-3
 				button.btn.btn-success
@@ -69,7 +69,7 @@ template(name='AddRecipe')
 								| Crockpot
 				.ingredients.col-xs-12
 					ul.ingredient-list
-						li.ingredient-item				
+						li.ingredient-item-1.ingredient-item
 							.col-xs-2
 								.form-group.text-center
 									label
@@ -80,11 +80,20 @@ template(name='AddRecipe')
 									label
 										| Unit
 									input.form-control.unit(id="ingredient-unit-1" type="text")
-							.col-xs-8
+							.col-xs-8.name-field
 								.form-group.text-center
 									label
 										| Ingredient
 									input.form-control.name(id="ingredient-name-1" type="text")
+								if autocomplete
+									.autocomplete
+										ul
+											each autocomplete
+												li
+													| {{name}}
+											li
+												span.glyphicon.glyphicon-edit
+												| Add Ingredient
 						each numIngredients
 							+IngredientItem
 					.col-xs-6.remove-ingredient

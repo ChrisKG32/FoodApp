@@ -25,6 +25,7 @@ Template.Plan.onCreated(function () {
 });
 
 Template.Plan.onRendered(function () {
+	Session.set('planPage', 'Search Recipes');
 
 	//Set page identifier
 			//Changes sidebar position from % to pixels so swipe will work

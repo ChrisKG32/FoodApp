@@ -1,0 +1,10 @@
+template(name='Upload')
+	.upload
+		h4.page-header
+			| Upload a CSV
+		unless uploading
+			input(type="file" name="uploadCSV")
+		else
+			p
+				i.fa.fa-spin.fa-refresh
+					| Uploading files...

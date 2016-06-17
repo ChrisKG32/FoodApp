@@ -49,5 +49,17 @@ Meteor.methods({
 	            }
 	        )
 	    }
-	}
+	},
+	'parseUpload':function(data){
+        for (var i = 0; i < data.length; i++){
+            var item = data[i],
+            exists = Ingredients.findOne({_id: item.id});
+            
+            if (!exists){
+                Ingredients.insert(item);
+            } else {
+                console.warn('Rejected. This item already exists.');
+            }
+        }
+    }
 });

@@ -91,7 +91,27 @@ Template.AddRecipe.events({
 		}
 
 		console.log(data);
+	},
+	'keyup .ingredient-item input.name':function(e){
+		var target = $(e.target);
+		var currentTarget = $(e.currentTarget);
+		var ingredientName = $('input.name:focus').val();
+		if ((ingredientName.length) > 2) {
+			var dbResults = Ingredients.find({name: {$regex: '^' + ingredientName + '.*'}}, {limit: 3}).fetch();
 
+			Session.set('autocomplete', dbResults);
+		} else if (ingredientName.length <= 2) {
+			Session.set('autocomplete', []);
+		}
+	},
+	'click .ingredient-item .autocomplete li':function(e){
+		//parent parent before input.name
+		var target = $(e.target);
+		var currentTarget = $(e.currentTarget);
+		var inputValue = currentTarget.parent().parent().prev().find('input.name');
+		var autocomplete = currentTarget.parent().parent();
+		inputValue.val(currentTarget.text());
+		autocomplete.hide();
 
 	}
 });
@@ -107,6 +127,18 @@ Template.AddRecipe.helpers({
 			randomArray.push('something');
 		}
 		return randomArray
+	},
+	autocomplete:function(){
+		var autocompleteResults = Session.get('autocomplete');
+		if (autocompleteResults) {
+			if (autocompleteResults.length > 0) {
+				return autocompleteResults
+			} else {
+				return []
+			}
+		} else {
+			return []
+		}
 	}
 });
 
@@ -118,6 +150,7 @@ Template.AddRecipe.onCreated(function () {
 
 Template.AddRecipe.onRendered(function () {
 	Session.set('numIngredients', 0);
+	Session.set('something', 1);
 });
 
 Template.AddRecipe.onDestroyed(function () {

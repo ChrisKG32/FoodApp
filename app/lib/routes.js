@@ -61,3 +61,9 @@ Router.route('/add-recipe', {
 	template: 'AddRecipe',
 	where: 'client'
 });
+
+Router.route('/upload', {
+	name: 'upload',
+	template: 'Upload',
+	where: 'client'
+});
