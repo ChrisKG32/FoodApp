@@ -9,16 +9,17 @@ template(name='YourRecipes')
 					h5.header
 						| !{this.name}
 						span.pull-right.fa.fa-caret-down.dropdown
-					if sectionEmpty
-						.filter-list.col-xs-12
-							h4.text-center
-								| Empty
-					else
-						.filter-list.col-xs-12
-							if limitPages 'next'
-								i.fa.fa-chevron-right.page-right(data-id="!{this.name}")
-							if limitPages 'prev'
-								i.fa.fa-chevron-left.page-left(data-id="!{this.name}")
-							each yourRecipes
-								.recipe-item.col-xs-6(id="!{this._id}")
-									+TestImage
+					//
+						if sectionEmpty
+							.filter-list.col-xs-12
+								h4.text-center
+									| Empty
+						else
+					.filter-list.col-xs-12
+						if limitPages 'next'
+							i.fa.fa-chevron-right.page-right(data-id="!{this.name}")
+						if limitPages 'prev'
+							i.fa.fa-chevron-left.page-left(data-id="!{this.name}")
+						each yourRecipes
+							.recipe-item.col-xs-6(id="!{this._id}")
+								+TestImage

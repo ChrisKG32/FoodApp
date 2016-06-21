@@ -36,20 +36,6 @@ Template.AddRecipe.events({
 		var recipeCategory = $('#recipe-category').val();
 		var recipeYield = $('#recipe-yield').val();
 		var recipeDifficulty = $('#recipe-difficulty').val();
-		/*
-		var cbPaleo = $('#cb-paleo').val();
-		var cbPrimal = $('#cb-primal').val();
-		var cbKeto = $('#cb-keto').val();
-		var cbHealthy = $('#cb-healthy').val();
-		var cbGlutenFree = $('#cb-gluten-free').val();
-		var cbDairyFree = $('#cb-dairy-free').val();
-		var cbVegan = $('#cb-vegan').val();
-		var cbVegetarian = $('#cb-vegetarian').val();
-		var cbWahls = $('#cb-wahls').val();
-		var cbWhole30 = $('#cb-whole-30').val();
-		var cb400Cals = $('#cb-400-cals').val();
-		var cbCrockpot = $('#cb-crockpot').val();
-		*/
 
 		var checkboxes = $('input[type="checkbox"]');
 		var allIngredients = $('.ingredient-item');

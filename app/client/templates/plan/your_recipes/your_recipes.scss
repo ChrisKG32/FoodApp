@@ -23,6 +23,12 @@
 		border-bottom: 1px solid $default-border-color;
 		padding: 5px;
 
+		h5 {
+			margin: 0;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+
 		.filter-list {
 			padding-left: 20px;
 			padding-right: 20px;

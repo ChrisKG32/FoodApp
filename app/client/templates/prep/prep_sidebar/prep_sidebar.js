@@ -2,144 +2,62 @@
 /* PrepSidebar: Event Handlers */
 /*****************************************************************************/
 Template.PrepSidebar.events({
-	'click .filter-item':function(e){
-		var currentTarget = $(e.currentTarget);
-		var dropdown = currentTarget.find('.filter-list');
-		var caret = currentTarget.find('.fa');
-		if (caret.hasClass('fa-caret-down')) {
-			$('.filter-item h5 span').removeClass('fa-caret-up').addClass('fa-caret-down');
-			$('.filter-list').hide();
-			dropdown.show();
-			caret.removeClass('fa-caret-down');
-			caret.addClass('fa-caret-up');
-		} else {
-			$('.filter-item h5 span').removeClass('fa-caret-up');
-			$('.filter-item h5 span').addClass('fa-caret-down');
-			caret.removeClass('fa-caret-up');
-			caret.addClass('fa-caret-down');
-			$('.filter-list').hide();
-		}
-	}
+
 });
 
 /*****************************************************************************/
 /* PrepSidebar: Helpers */
 /*****************************************************************************/
 Template.PrepSidebar.helpers({
-	filterItems:function(param1){
-		var filters = [];
-		var filterDiets = {
+	dayCheck:function(){
+		//Displays appropriate days for meal planner
+		//also appends date to the ID of day element
 
-			name: 'Diets',
-			array: [
-				{
-					name: 'Paleo',
-					amount: 29
-				},
-				{
-					name: 'Primal',
-					amount: 23
-				},
-				{
-					name: 'Keto',
-					amount: 12
-				},
-				{
-					name: 'Whole 30',
-					amount: 32
-				}
-			]
-		}
+		//(DATEVAR).toISOString().slice(0,10).replace(/-/g,"")
+		//Changes ISOdate to string in following format: yyymmdd
+		var dates = [];
+		for (var i = 0; i < 7; i++){
+			var data = {};
+			var today = new Date();
+			var newDay = new Date(today);
+				var dateValue = newDay.getDate() + i;
+				newDay.setDate(dateValue);
+			var days = [
+				'Sunday',
+				'Monday',
+				'Tuesday',
+				'Wednesday',
+				'Thursday',
+				'Friday',
+				'Saturday'
+			];
 
-		var filterAllergens = {
-
-			name: 'Allergens',
-			array: [
-				{
-					name: 'Gluten-Free',
-					amount: 32
-				},
-				{
-					name: 'Dairy-Free',
-					amount: 42
-				},
-				{
-					name: 'Nut-Free',
-					amount: 12
-				}
-			]
-		}
-
-		var filterType = {
-
-			name: 'Types',
-			array: [
-				{
-					name: 'Breakfast',
-					amount: 51
-				},
-				{
-					name: 'Main Course',
-					amount: 34
-				},
-				{
-					name: 'Side',
-					amount: 31
-				},
-				{
-					name: 'Soups/Salads',
-					amount: 34
-				},
-				{
-					name: 'Snacks',
-					amount: 12
-				},
-				{
-					name: 'Appetizers',
-					amount: 43
-				},
-				{
-					name: 'Dessert',
-					amount: 12
-				},
-				{
-					name: 'Sauces/Dressings',
-					amount: 43
-				}
-			]
-		}
-		var filterDifficulty = {
-
-			name: 'Difficulty',
-			array: [
-				{
-					name: 'Beginner',
-					amount: 12
-				},
-				{
-					name: 'Intermediate',
-					amount: 32
-				},
-				{
-					name: 'Advanced',
-					amount: 12
-				}
-			]
-		};
-
-		filters.push(filterDiets, filterAllergens, filterType, filterDifficulty);
-
-		if (param1 == 'Filters') {
-			var filterLength = filters.length;
-			var data = [];
-			for (var i = 0; i < filterLength; i++ ) {
-				data.push(i);
+			if (i == 0) {
+				data.day = 'Today';
+				data.date = (newDay).toISOString().slice(0,10).replace(/-/g,"");
+				dates.push(data);
+			} else {
+				data.day = days[newDay.getDay()];
+				data.date = (newDay).toISOString().slice(0,10).replace(/-/g,"");
+				dates.push(data);
 			}
-			return data
-		} else {
-			return filters
 		}
-		
+		return dates
+	},
+	badges:function(){
+		var currentUser = Meteor.userId();
+		var userAccount = Meteor.users.findOne(currentUser) && Meteor.users.findOne(currentUser).profile && Meteor.users.findOne(currentUser).profile.assigned;
+		var thisDate = this.date;
+		var recipeCounter = 0;
+		_.each(userAccount, function(entry){
+			if (entry.day === thisDate){
+				_.each(entry.recipes, function(recipe){
+					recipeCounter++
+				});
+			}
+		});
+
+		return recipeCounter
 	}
 });
 

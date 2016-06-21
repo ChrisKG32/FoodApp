@@ -6,38 +6,40 @@
 @import '../../../stylesheets/_variables';
 
 
+body {
+	overflow-x: hidden;
+}
+
 .prep-sidebar {
 	@extend %absolute;
 	z-index: 98;
-	overflow: visible;
 	width: 90%;
 	padding-right: 7.5%;
-	height: calc(100% - (#{$navbar-height} + #{$mini-nav-height}));
-	transform: translate(-95%);
+	height: calc(90% - (#{$navbar-height} + #{$mini-nav-height}));
+	bottom: 0;
+	transform: translate(-94%);
+
 	
 	.wrapper {
 		background-color: $dark-background;
 		color: $default-font-color;
 		height: 100%;
 		box-shadow: 5px 0px 20px black;
-		
-	}
-	.filter-item {
-		border-top: 1px solid $default-border-color;
-		padding: 5px;
+		border-top-right-radius: 5px;
 
-		&:hover {
-			h5 {
-				color: white;
+		ul.list-group {
+			
+			li.list-group-item {
+				background:$dark-background;
+				@include linear-gradient(mix($dark-background, gray, 90%), $dark-background);
+				border-color: mix($dark-background, black, 90%);
+				border-bottom-width: 2px;
+				padding: 15px;
+
+				box-shadow: 3px 3px 5px mix($dark-background, black, 80%);
+				text-transform: uppercase;
+				font-weight: bold;
 			}
-		}
-
-		ul.filter-list {
-			display: none;
-			padding-left: 5px;
-		}
-		&:last-child {
-			border-bottom: 1px solid $default-border-color;
 		}
 	}
 }

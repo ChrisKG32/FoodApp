@@ -19,4 +19,7 @@
 		border-bottom-color: $default-border-color;
 		@include linear-gradient(to right, #333333, #1a1a1a);
 	}
+	.active {
+		color: white !important;
+	}
 }

@@ -65,17 +65,29 @@ Template.YourRecipes.helpers({
 	},
 
 	yourRecipes:function(){
+
+		//Gets list Name (eg: Breakfast, Entree, Dessert, etc);
 		var sectionPage = this.name;
+
+		//If this hasn't already run, creates the Session variable;
 		if (Session.get(sectionPage) == null) {
+			//Session variable is used for determining how many pages min and max 
+			//this section has
 			Session.set(sectionPage, {page: 0, finalPage: 0});
 		}
 		
+
 		var currentUser = Meteor.userId();
 		var userProfile = Meteor.users.findOne({_id: currentUser}) && Meteor.users.findOne({_id: currentUser}).profile;
 		var userRecipes = userProfile && userProfile.favorites;
 		var recipeLookup = [];
 		var finalData = [];
+
+		//Category name same as sectionPage
 		var category = this.name;
+
+		//Loops through User Favorited recipe list and pushes each recipe 
+		//to the variable "recipeLookup" as an object
 		_.each(userRecipes, function(recipeId){
 			if (recipeId != undefined) {
 				recipeResult = Recipes.findOne({_id: recipeId, category: category});
@@ -84,6 +96,9 @@ Template.YourRecipes.helpers({
 				}
 			}
 		});
+		//If this section has more than 4 results in its category, creates 
+		//page numbers based on the results of recipeLookup (4 results per page)
+		//
 		if (recipeLookup.length > 4) {
 			var pages = Math.ceil(recipeLookup.length/4);
 			var pageNumber = 0;
@@ -91,25 +106,33 @@ Template.YourRecipes.helpers({
 			var currentPage = currentSession && currentSession.page;
 			Session.set(sectionPage, {page: currentPage, finalPage: pages - 1});
 
+			//Loops through the recipeLookup variable to start adding recipes
+			//to their respective pages in the finalData variable
 			for (var i = 0; i < recipeLookup.length; i++){
+				//Makes the first page of finalData an array
 				if (i == 0) {
 					finalData[0] = [];
 				}
 
+				//Pushes 4 recipes at a time to a page
 				finalData[pageNumber].push(recipeLookup[i]);
 
+				//Every 4 recipes adds one to the page number
 				if (((i + 1) % 4) == 0 ) {
 					pageNumber++;
 					finalData[pageNumber] = [];
 				}
 			}
+		} else {
+			finalData[0] = recipeLookup;
 		}
 
 		var currentPage = Session.get(this.name) && Session.get(this.name).page;
-
+		
 		if (recipeLookup.length < 1) {
 			return false
 		} else {
+
 			return finalData[currentPage]
 		}
 		

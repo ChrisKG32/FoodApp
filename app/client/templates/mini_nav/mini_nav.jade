@@ -5,25 +5,12 @@ template(name='MiniNav')
 				i.glyphicon.glyphicon-chevron-left
 			.dropdown-container.col-xs-8
 				.section-select
-					if planPage 'Search Recipes'
-						| All Recipes 
-					if planPage 'Meal Plan'
-						| Meal Plan
-					if planPage 'Your Recipes'
-						| Your  Recipes
+					!{headers}
 					span.caret
 				ul.mini-nav-dropdown.col-xs-10.col-xs-offset-1
-					unless planPage 'Search Recipes'
-						li.search-recipes-button
+					each dropdowns
+						li(class="!{this.class}")
 							a(href="#")
-								| All Recipes
-					unless planPage 'Your Recipes'
-						li.your-recipes-button
-							a(href="#")
-								| Your Recipes
-					unless planPage 'Meal Plan'
-						li.meal-plan-button
-							a(href="#")
-								| Meal Plan
+								| !{this.name}
 			.col-xs-2.text-center.navigate-right.pull-right
 				i.glyphicon.glyphicon-chevron-right

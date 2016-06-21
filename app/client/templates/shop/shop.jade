@@ -1,7 +1,24 @@
 template(name='Shop')
 	.shop.transitions-content
 		+MiniNav
-		.grocery-list
-			ul
-				li
-					| Something
+		if smartList
+			.smart-list.container
+				table.table
+					each smartList
+						thead
+							tr
+								th
+									img(src="!{this.icon}")
+									| !{this.name}
+						tbody
+							tr
+								td
+									| Ingredient Name
+							tr
+								td
+									| Ingredient Name
+							tr
+								td
+									| Ingredient Name
+
+							

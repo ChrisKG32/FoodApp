@@ -2,18 +2,12 @@ template(name='PrepSidebar')
 	.prep-sidebar(id="prep-sidebar")
 		.col-xs-12.wrapper
 			h4.text-center
-				span.fa.fa-filter
-				| Filter Results
-			each filterItems
-				.filter-item
-					h5
-						| !{this.name}
-						span.pull-right.fa.fa-caret-down
-					ul.filter-list
-						each this.array
-							li.checkbox
-								label
-									input(type="checkbox" value="")
-									| !{this.name}
-								span.pull-right
-									| (!{this.amount})
+				span.fa.fa-calendar
+				| Your Week
+			ul.list-group
+				each dayCheck
+					li.list-group-item.day.col-xs-10.col-xs-offset-1(id="!{this.date}")
+						span(aria-hidden="true")
+							| !{this.day}
+						span.badge(aria-hidden="true")
+							| !{badges}

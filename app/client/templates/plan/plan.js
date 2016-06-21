@@ -114,7 +114,7 @@ Template.Plan.onRendered(function () {
 							var calendarWidth = calendar.width();
 							var twoColumns = (calendarWidth*(2/3)) + 15;
 
-							badges.toggle();
+							//badges.toggle();
 							calendar[0].style.transform = 'translate(' + twoColumns + 'px)';
 						}
 					} else if (newPositionValue < (sidebarWidth/2) && newPositionValue < positionValue) {
@@ -126,8 +126,8 @@ Template.Plan.onRendered(function () {
 							var dayHeader = $('.day-header');
 							var badges = dayHeader.find('.badge');
 							var calendar = $('.calendar-wrapper');
-
-							badges.fadeOut();
+							
+							//badges.fadeOut();
 							calendar[0].style.transform = 'translate(0px)';
 						}
 					}

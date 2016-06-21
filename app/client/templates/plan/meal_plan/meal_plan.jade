@@ -12,7 +12,8 @@ template(name='MealPlan')
 						| {{badges}} Recipes
 						i.fa.fa-plus-square.pull-right.add-recipe(aria-hidden='true')
 					each recipesList
-						li.assigned-recipe.col-xs-12
+						.dropdown-recipes
+							+RecipeItem
+					//
+						li.assigned-recipe.col-xs-6
 							| !{this.name}
-
-
