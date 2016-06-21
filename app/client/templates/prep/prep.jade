@@ -1,17 +1,24 @@
 template(name='Prep')
-	.prep
+	.prep.transitions-content
 		+MiniNav
-		.meals-header.col-xs-12.text-center
-			a.day-text
-				h2
-					| !{dayText}'s Meals
 		.meals.col-xs-12.text-center
-			each renderMeals
-				.recipe-prep-item(id="!{this._id}" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('!{this.img}'); background-position: center; background-size: cover;").col-xs-12
-					h4.text-center
-						| !{this.name}
-						br
-					small
-						| Prep Time: 30 mins
+			.meals-header.col-xs-12.text-center
+				a.day-text
+					h2
+						| !{dayText}'s Meals
+			if renderMeals
+				each renderMeals
+					.recipe-prep-item.prep-it(id="!{this._id}" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('!{this.img}'); background-position: center; background-size: cover;").col-xs-12
+						h4.text-center
+							| !{this.name}
+							br
+						small
+							| Prep Time: 30 mins
+			else
+				h3.warning
+					| Your Meal Plan is empty!
+					br
+					br
+					| Add recipes to your Meal Plan to continue.
 		+PrepSidebar
 

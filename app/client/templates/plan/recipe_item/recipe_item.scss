@@ -22,7 +22,7 @@
 				right: 0;
 				bottom: 0;
 				left: 0;
-				@include linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7));
+				@include linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.6));
 		}
 
 		.recipe-name {
@@ -32,6 +32,7 @@
 			top: auto;
 			color: white;
 			padding-right: 25px;
+			text-shadow: 2px 2px 5px black;
 		}
 
 		.recipe-info {

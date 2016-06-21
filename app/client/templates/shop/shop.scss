@@ -10,10 +10,13 @@
 .shop {
 	background-color: $dark-background;
 	@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
-	height: calc(100% - #{$navbar-height});
+	//height: calc(100% - #{$navbar-height}) !important;
+	height: 100%;
 
 	.smart-list {
 		@extend %no-gutter;
+		height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+		overflow-y: scroll;
 
 		table {
 			border: none;

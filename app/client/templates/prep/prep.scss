@@ -13,7 +13,8 @@ body, html {
 .prep {
 	background-color: $dark-background;
 	@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
-	height: calc(100% - #{$navbar-height});
+	//height: calc(100% - #{$navbar-height});
+	height: 100%;
 	overflow-x: hidden;
 
 	.meals-header {
@@ -29,6 +30,11 @@ body, html {
 		}
 	}
 	.meals {
+		height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+		overflow-y: scroll;
+		.warning {
+				margin-top: 100px;
+			}
 
 		.recipe-prep-item {
 			position: relative;
@@ -58,6 +64,8 @@ body, html {
 					@include linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5));
 					border-radius: 8px;
 			}*/
+
+
 
 			h4 {
 				position: absolute;

@@ -67,3 +67,9 @@ Router.route('/upload', {
 	template: 'Upload',
 	where: 'client'
 });
+
+Router.route('/details', {
+	name: 'details',
+	template: 'Details',
+	where: 'client'
+});

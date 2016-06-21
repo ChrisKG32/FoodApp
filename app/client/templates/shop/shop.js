@@ -40,6 +40,11 @@ Template.Shop.onCreated(function () {
 
 Template.Shop.onRendered(function () {
 	Session.set('shopPage', 'Smart List');
+	//Meteor.defer(function(){
+		Session.set('planPage', false);
+		Session.set('prepPage', false);
+	//}, 2000);
+	
 });
 
 Template.Shop.onDestroyed(function () {

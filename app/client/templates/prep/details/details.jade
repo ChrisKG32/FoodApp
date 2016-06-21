@@ -1,0 +1,32 @@
+template(name='Details')
+	.details
+		with currentRecipe
+			.recipe-image(style="background-image: url('!{this.img}');")
+				.recipe-title
+					h4
+						| {{name}}
+			.recipe-banner.col-xs-12.text-center
+				.col-xs-4
+					h5
+						| Ingredients
+					| 8
+				.col-xs-4
+					h5
+						| Difficulty
+					| Easy
+				.col-xs-4
+					h5
+						| Time
+					| 15 Minutes
+			.recipe-banner2.col-xs-12.text-center
+				.col-xs-6.ingredient-tab.dropdown-tab
+					h4
+						| Ingredients
+				.col-xs-6.instruction-tab.dropdown-tab
+					h4
+						| Instructions
+			unless currentTab
+				+IngredientList
+			if currentTab
+				+Instructions
+

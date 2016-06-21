@@ -49,22 +49,46 @@ Template.Prep.helpers({
 		var currentUser = Meteor.userId();
 		var userProfile = Meteor.users.findOne(currentUser) && Meteor.users.findOne(currentUser).profile;
 		var userMealPlan = userProfile && userProfile.assigned;
-		var dayId = Session.get('prepDay');
-		var dayCheck = function(){
-			for (var i = 0; i < userMealPlan.length; i++){
-				if (userMealPlan[i].day === dayId) {
-					return i
-					break
+
+		//if (Session.get('prepPage') == 'Week'){
+		//}
+
+
+		if (Session.get('prepDay')){
+			var dayId = Session.get('prepDay');
+		} else {
+			var getDayId = function(){
+				var today = new Date();
+				var year = 2 + '' + today.getYear() - 100;
+				var month = today.getMonth() + 1;
+				if (month[0] != 0) {
+					month = 0 + '' + month;
+				}
+				var day = today.getDate();
+				return year+month+day;
+			}
+			var dayId = getDayId();
+		}
+			var dayCheck = function(){
+				for (var i = 0; i < userMealPlan.length; i++){
+					if (userMealPlan[i].day === dayId) {
+						return i
+						break
+					}
 				}
 			}
-		}
-		var returnVariable = userMealPlan && userMealPlan[dayCheck()] && userMealPlan[dayCheck()].recipes;
-		var data = [];
-		_.each(returnVariable, function(entry){
-			var recipeResult = Recipes.findOne({_id: entry});
-			data.push(recipeResult);
-		});
-		return data
+			var returnVariable = userMealPlan && userMealPlan[dayCheck()] && userMealPlan[dayCheck()].recipes;
+			var data = [];
+			_.each(returnVariable, function(entry){
+				var recipeResult = Recipes.findOne({_id: entry});
+				data.push(recipeResult);
+			});
+			if (data) {
+				return data
+			} else {
+				return false
+			}
+			
 	},
 	dayText:function(){
 		var dayId = Session.get('prepDay');
@@ -88,8 +112,13 @@ Template.Prep.onCreated(function () {
 });
 
 Template.Prep.onRendered(function () {
-
 	Session.set('prepPage', 'Single Day');
+	//Meteor.defer(function(){
+		Session.set('planPage', false);
+		Session.set('shopPage', false);
+	//}, 2000);
+	
+		
 	//Set page identifier
 			//Changes sidebar position from % to pixels so swipe will work
 				var filterSidebar = $('.prep-sidebar') && $('.prep-sidebar').position() && $('.prep-sidebar').position().left;

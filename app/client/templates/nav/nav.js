@@ -15,6 +15,7 @@ Template.Nav.events({
 	'click a.navbar-brand':function(e){
 		var target = $(e.target);
 		var currentTarget = $(e.currentTarget);
+		/*
 
 		if (currentTarget.hasClass('nav-prep')){
 			Session.set('planPage', false);
@@ -29,6 +30,7 @@ Template.Nav.events({
 			Session.set('shopPage', 'Smart List');
 			Session.set('prepPage', false);
 		}
+		*/
 	}
 
 });

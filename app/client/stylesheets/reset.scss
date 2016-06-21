@@ -1,0 +1,16 @@
+/*****************************************************************************/
+/* reset: Style */
+/*****************************************************************************/
+
+$dark-background: #222;
+$default-border-color: #333;
+$default-font-color: #9d9d9d;
+
+$navbar-height: 52px;
+$mini-nav-height: 50px;
+
+.transitions-container {
+	height: calc(100% - #{$navbar-height} !important);
+}
+
+

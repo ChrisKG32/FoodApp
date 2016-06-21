@@ -27,6 +27,13 @@ Template.Plan.onCreated(function () {
 Template.Plan.onRendered(function () {
 	Session.set('planPage', 'Search Recipes');
 
+	//Meteor.defer(function(){
+		Session.set('shopPage', false);
+		Session.set('prepPage', false);
+	//}, 2000);
+	
+	
+
 	//Set page identifier
 			//Changes sidebar position from % to pixels so swipe will work
 				var filterSidebar = $('.plan-sidebar') && $('.plan-sidebar').position() && $('.plan-sidebar').position().left;
