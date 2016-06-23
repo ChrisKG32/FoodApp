@@ -1,24 +1,19 @@
 template(name='Shop')
 	.shop.transitions-content
 		+MiniNav
-		if smartList
+		if aisles
 			.smart-list.container
 				table.table
-					each smartList
+					each aisles
 						thead
 							tr
 								th
 									img(src="!{this.icon}")
 									| !{this.name}
 						tbody
-							tr
-								td
-									| Ingredient Name
-							tr
-								td
-									| Ingredient Name
-							tr
-								td
-									| Ingredient Name
+							each generateList
+								tr
+									td
+										| !{this.amount} !{this.measurement} !{this.name}
 
 							

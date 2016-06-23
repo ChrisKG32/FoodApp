@@ -8,7 +8,7 @@ Template.Shop.events({
 /* Shop: Helpers */
 /*****************************************************************************/
 Template.Shop.helpers({
-	smartList:function(param1){
+	aisles:function(param1){
 		var shopPage = Session.get('shopPage');
 		if (shopPage === 'Smart List') {
 			var aisles = [
@@ -29,6 +29,100 @@ Template.Shop.helpers({
 		} else {
 			return false
 		}
+	},
+	generateList:function(){
+		var thisAisle = this.name;
+		var currentUser = Meteor.userId();
+		var userProfile = Meteor.users.findOne(currentUser) && 
+			Meteor.users.findOne(currentUser).profile && 
+			Meteor.users.findOne(currentUser).profile.assigned;
+
+		var getWeekIds = function(){
+			var today = new Date();
+			var year = 2 + '' + today.getYear() - 100;
+			var month = today.getMonth() + 1;
+			if (month[0] != 0) {
+				month = 0 + '' + month;
+			}
+			var day = today.getDate();
+			var todayId = year+month+day;
+			var data = [
+				(year+month+day),
+				(year+month+(day+1)),
+				(year+month+(day+2)),
+				(year+month+(day+3)),
+				(year+month+(day+4)),
+				(year+month+(day+5)),
+				(year+month+(day+6))
+			]
+			return data
+		}
+
+		var assignedRecipes = function(){
+			ingredientList = [];
+			_.each(userProfile, function(entry){
+				_.each(getWeekIds(), function(dayId){
+					if (entry.day === dayId) {
+						_.each(entry.recipes, function(recipeId){
+							var recipeIngredients = Recipes.findOne(recipeId).ingredients;
+							ingredientList = ingredientList.concat(recipeIngredients);
+						});
+					}
+				})				
+			});
+
+			var fixStrings = function (ingredient){
+				if (~ingredient.name.indexOf(',')) {
+					ingredient.name = ingredient.name.substr(0, ingredient.name.indexOf(',')).toLowerCase();
+				} else {
+					ingredient.name = ingredient.name.toLowerCase();
+				}
+				ingredient.measurement = ingredient.measurement.toLowerCase();
+				return ingredient
+			}
+
+			return ingredientList.map(fixStrings);
+		}
+
+		var seen = {};
+		var mergedIngredients = assignedRecipes().filter(function(entry) {
+		    var previous;
+
+		    // Have we seen this name/measurement before?
+		    if (seen.hasOwnProperty(entry.name + entry.measurement)) {
+		        // Yes, grab it and add this data to it
+		        previous = seen[entry.name + entry.measurement];
+		        previous.amount.push(entry.amount);
+
+		        // Don't keep this entry, we've merged it into the previous one
+		        return false;
+		    }
+
+		    // entry.amount probably isn't an array; make it one for consistency
+		    if (!Array.isArray(entry.amount)) {
+		        entry.amount = [entry.amount];
+		    }
+
+		    // Remember that we've seen it
+		    seen[entry.name + entry.measurement] = entry;
+
+		    // Keep this one, we'll merge any others that match into it
+		    return true;
+		});
+
+		var addAmounts = function(ingredient){
+			var sum = ingredient.amount.reduce(add, 0);
+			function add(a, b) {
+				return a + b
+			}
+
+			ingredient.amount = sum
+
+			return ingredient
+		}
+
+		return mergedIngredients.map(addAmounts)
+
 	}
 });
 
