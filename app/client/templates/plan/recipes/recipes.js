@@ -103,9 +103,39 @@ Template.Recipes.onRendered(function () {
 			sidebarEl.css('width', newSidebarSize + 'px');
 			var newWidth = $('.plan-sidebar').width();
 			var sbPosition = ('.plan-sidebar') && $('.plan-sidebar')[0] && $('.plan-sidebar')[0].style;
-			sbPosition.transform = 'translate(-' + (newWidth + 10) + 'px)';
+			sbPosition.transform = 'translate(-' + (newWidth + 5) + 'px)';
 		}
 
+
+		tapStage = document.getElementById('recipes-wrapper');
+
+		//Initialize
+		tapHammertime = new Hammer.Manager(tapStage);
+
+		//Create Pan Event Listener
+		Tap = new Hammer.Tap();
+
+		//Activate event listener
+		tapHammertime.add(Tap);
+		
+		//Below are the 3 "pan" event listeners.
+			//One for "Start", one for "Pan" and one for "End"
+
+			//Panstart gets information for the initial location of swiping elements 
+			// so that it can know how far to move them based off of swipe data
+		tapHammertime.on('tap', function(e){		
+			var target = $(e.target);
+			if (target.hasClass('recipe-item')) {
+
+				var recipeId = target.attr('recipe-id');
+				var currentRecipe = Recipes.findOne({_id: recipeId});
+				Session.set('currentRecipe', recipeId);
+				Router.go('details');
+
+			}
+			
+			
+		});
 		
 });
 

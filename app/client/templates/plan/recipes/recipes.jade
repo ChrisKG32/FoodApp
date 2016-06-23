@@ -1,9 +1,9 @@
 template(name='Recipes')
-	.recipes
+	.recipes(id='recipes-wrapper')
 		.col-xs-12.recipes-inner
 			if filterItems
 				each filterItems
 					span
 					| !{this.name}
-			each displayRecipes 'Your Recipes' 'Search Recipes'
+			each displayRecipes 'Your Recipes' 'Recipes'
 				+RecipeItem

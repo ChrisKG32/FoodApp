@@ -30,7 +30,7 @@ Template.Prep.events({
 		var recipeId = currentTarget.attr('id');
 		var currentRecipe = Recipes.findOne({_id: recipeId});
 		Session.set('currentRecipe', recipeId);
-		if (target.hasClass('prep-it')) {
+		if (currentTarget.hasClass('prep-it')) {
 			Router.go('details');
 		}
 	}

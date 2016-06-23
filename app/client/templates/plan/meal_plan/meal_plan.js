@@ -13,6 +13,7 @@ Template.MealPlan.events({
 		var liParent = $('[day-id=' + dayId + ']').parent();
 		var hiddenRecipes = liParent.find('.assigned-recipe');
 		var dropdownRecipes = liParent.find('.dropdown-recipes');
+		var dropdownPlus = liParent.find('.fa');
 		if (hiddenRecipes) {
 			_.each(hiddenRecipes, function(entry){
 				if ($(entry).is(':visible')){
@@ -33,6 +34,14 @@ Template.MealPlan.events({
 			});
 			*/
 			dropdownRecipes.toggle();
+			if (dropdownPlus.hasClass('fa-plus-square')) {
+				dropdownPlus.removeClass('fa-plus-square');
+				dropdownPlus.addClass('fa-minus-square');
+			} else if (dropdownPlus.hasClass('fa-minus-square')) {
+				dropdownPlus.removeClass('fa-minus-square');
+				dropdownPlus.addClass('fa-plus-square');
+			}
+
 		}
 	}
 });
@@ -51,12 +60,12 @@ Template.MealPlan.helpers({
 		for (var i = 0; i < 7; i++){
 			var data = {};
 			var today = new Date();
-			var newDate = new Date(today);
+			//var newDate = new Date(today);
 			var newDay = new Date(today);
 
 			var dayValue = newDay.getDate() + i;
-			var dateValue = newDate.getDate() - 1 + i;
-			newDate.setDate(dateValue);
+			//var dateValue = newDate.getDate() - 1 + i;
+			//newDate.setDate(dateValue);
 			newDay.setDate(dayValue);
 
 
@@ -72,11 +81,11 @@ Template.MealPlan.helpers({
 
 			if (i == 0) {
 				data.day = 'Today';
-				data.date = (newDate).toISOString().slice(0,10).replace(/-/g,"");
+				data.date = (newDay).toISOString().slice(0,10).replace(/-/g,"");
 				dates.push(data);
 			} else {
 				data.day = days[newDay.getDay()];
-				data.date = (newDate).toISOString().slice(0,10).replace(/-/g,"");
+				data.date = (newDay).toISOString().slice(0,10).replace(/-/g,"");
 				dates.push(data);
 			}
 		}
@@ -105,7 +114,6 @@ Template.MealPlan.helpers({
 			Meteor.users.findOne(currentUser).profile && 
 			Meteor.users.findOne(currentUser).profile.assigned;
 		var thisDate = this.date;
-		console.log(thisDate);
 		var recipeList = [];
 		_.each(userAccount, function(entry){
 			if (entry.day === thisDate){

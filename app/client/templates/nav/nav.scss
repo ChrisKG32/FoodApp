@@ -10,9 +10,22 @@
 .nav {
 	z-index: 99;
 	.wrapper {
-		margin-left: 20%;
-		margin-right: 20%;
-		overflow: auto;		
+		//margin-left: 20%;
+		//margin-right: 20%;
+		//overflow: auto;
+
+		//All below and a tag can be removed (better code) 
+		  // and above code will restore it to regular functionality
+		overflow: hidden;
+		position: absolute;
+		text-align: center;	
+		padding-top: 15px;
+		a { 
+			float: none !important;
+			padding-left: 3vw;//calc(100vw * 0.025);
+			padding-right: 3vw;//calc(100vw * 0.025);
+		}
+
 	}
 	.navbar-inverse {
 		margin-bottom: 0px;
@@ -22,4 +35,21 @@
 	.active {
 		color: white !important;
 	}
+
+	.back-button {
+		margin-left: 17px;
+		margin-right: 0;
+		margin-top: 7px;
+		margin-bottom: 0px;
+		color: white;
+		font-size: 155%;
+		padding: 0px 8px 0px 8px;
+		border-color: mix($default-border-color, white, 85%);
+
+		span {
+			line-height: 32px;
+
+		}
+	}
+
 }

@@ -42,8 +42,11 @@ $li-background-color: white;
 				i {
 					@extend %absolute;
 					right: 5px;
-					top: 13%;
+					top: 20%;
 					padding: 5px;
+				}
+				.badge {
+					display: none;
 				}
 			}
 

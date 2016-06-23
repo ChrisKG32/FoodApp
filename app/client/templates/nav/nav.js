@@ -9,7 +9,7 @@ Template.Nav.events({
 		var currentTarget = $(e.currentTarget);
 
 		if (currentTarget.hasClass('nav-plan')){
-			Session.set('planPage', 'Search Recipes');
+			Session.set('planPage', 'Recipes');
 		}
 	},
 	'click a.navbar-brand':function(e){

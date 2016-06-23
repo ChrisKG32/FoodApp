@@ -7,7 +7,9 @@ template(name='Nav')
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
-					.wrapper
+					button.navbar-toggle.back-button.pull-left(type='button')
+						span.glyphicon.glyphicon-menu-left
+					.wrapper.col-xs-8.col-xs-offset-2
 						a.navbar-brand.nav-plan(class="{{pageCheck 'plan'}}" href="{{pathFor route='plan'}}" data-transition-out="slideRightOut" data-transition-in="slideRightIn")
 							| Plan
 						a.navbar-brand.nav-shop(class="{{pageCheck 'shop'}}" href="{{pathFor route='shop'}}" data-transition-out="slideLeftOut" data-transition-in="slideLeftIn")

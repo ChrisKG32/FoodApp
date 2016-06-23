@@ -25,7 +25,7 @@ Template.Plan.onCreated(function () {
 });
 
 Template.Plan.onRendered(function () {
-	Session.set('planPage', 'Search Recipes');
+	Session.set('planPage', 'Recipes');
 
 	//Meteor.defer(function(){
 		Session.set('shopPage', false);
@@ -117,24 +117,33 @@ Template.Plan.onRendered(function () {
 						if (Session.get('planPage') == 'Meal Plan') {
 							var calendar = $('.calendar-wrapper');
 							var dayHeader = $('.day-header');
+							var dayText = dayHeader.find('.day-text');
 							var badges = dayHeader.find('.badge');
+							dayText.fadeOut(function(){
+								badges.fadeIn();
+								dayText.fadeIn();
+							});	
+							$('.dropdown-recipes').hide();
 							var calendarWidth = calendar.width();
 							var twoColumns = (calendarWidth*(2/3)) + 15;
 
-							//badges.toggle();
 							calendar[0].style.transform = 'translate(' + twoColumns + 'px)';
 						}
 					} else if (newPositionValue < (sidebarWidth/2) && newPositionValue < positionValue) {
 						var viewportWidth = $(window).width();
 						var viewportPx = viewportWidth * 0.85;
 						sidebar[0].style.transition = 'transform 0.5s ease';
-						sidebar[0].style.transform = 'translate(-' + (sidebarWidth + 10) + 'px)';
+						sidebar[0].style.transform = 'translate(-' + (sidebarWidth + 5) + 'px)';
 						if (Session.get('planPage') == 'Meal Plan') {
 							var dayHeader = $('.day-header');
 							var badges = dayHeader.find('.badge');
 							var calendar = $('.calendar-wrapper');
+							var dayText = dayHeader.find('.day-text');
+							dayText.fadeOut();
+							badges.fadeOut(function(){
+								dayText.fadeIn();
+							})
 							
-							//badges.fadeOut();
 							calendar[0].style.transform = 'translate(0px)';
 						}
 					}

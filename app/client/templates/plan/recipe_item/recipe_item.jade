@@ -1,12 +1,12 @@
 template(name='RecipeItem')
 	.col-xs-6.item-wrapper
 		.recipe-item.col-sm-4(style="background-image: url('!{this.img}');" recipe-id="!{this._id}")
-			if planPage 'Search Recipes' 'Your Recipes'
+			if planPage 'Recipes' 'Your Recipes'
 				.recipe-info
 					i.fa.fa-leaf
 			.recipe-name
 				span
 					| !{this.name}
-			if planPage 'Search Recipes' 'Your Recipes'
+			if planPage 'Recipes' 'Your Recipes'
 				.recipe-share
 					i.fa.fa-share
