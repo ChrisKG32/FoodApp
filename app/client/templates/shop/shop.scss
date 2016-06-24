@@ -15,7 +15,8 @@
 
 	.smart-list {
 		@extend %no-gutter;
-		height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+		//height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+		height: calc(100% - #{$mini-nav-height});
 		overflow-y: scroll;
 
 		table {

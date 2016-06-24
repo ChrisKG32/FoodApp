@@ -19,10 +19,10 @@
 
 
 
-$vp-height: calc(100vh - #{$navbar-height});
+//$vp-height: calc(100vh - #{$navbar-height});
 
 .profile {
-	height: calc(100% - #{$navbar-height});
+	height: 100%;
 	overflow: auto;
 	@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
 

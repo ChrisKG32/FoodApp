@@ -6,7 +6,8 @@
 @import '../../../stylesheets/_variables';
 
 .recipes {
-	height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+	//height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+	height: calc(100% - (#{$navbar-height}));
 	overflow-y: scroll;
 	.recipes-inner {
 		@extend %no-gutter;

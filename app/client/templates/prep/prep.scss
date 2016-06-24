@@ -14,6 +14,7 @@ body, html {
 	background-color: $dark-background;
 	@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
 	//height: calc(100% - #{$navbar-height});
+	//height: calc(100% - #{$navbar-height});
 	height: 100%;
 	overflow-x: hidden;
 
@@ -30,7 +31,8 @@ body, html {
 		}
 	}
 	.meals {
-		height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+		//height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+		height: calc(100% - #{$mini-nav-height});
 		overflow-y: scroll;
 		.warning {
 				margin-top: 100px;

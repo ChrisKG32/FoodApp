@@ -11,6 +11,6 @@
 	overflow: visible;
 	width: 90%;
 	padding-right: 8%;
-	height: calc(100% - (#{$navbar-height}));
+	height: calc(100% - (#{$mini-nav-height}));
 	transform: translate(-95%);
 }

@@ -12,7 +12,8 @@ $li-background-color: white;
 
 .meal-plan {
 	padding-top: 15%;
-	height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+	//height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
+	height: calc(100% - #{$mini-nav-height});
 	overflow: auto;
 
 	.calendar-wrapper {

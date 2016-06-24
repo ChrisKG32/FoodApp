@@ -87,8 +87,8 @@ Template.Plan.onRendered(function () {
 
 						//Swipe SIDEBAR code
 							//Prevents sidebar from swiping past left-of-viewport (Sticks to left side)
-							if (positionValue + e.deltaX > 0) {
-								sidebar[0].style.transform = "translate(0px)";
+							if (positionValue + e.deltaX > - 10) {
+								sidebar[0].style.transform = "translate(-10px)";
 							//Prevents sidebar from swiping too far off-screen on left side
 							} else if ((positionValue + e.deltaX) < -(sidebarWidth)) {
 								sidebar[0].style.transform = "translate(-" + sidebarWidth + "px)";
