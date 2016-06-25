@@ -14,10 +14,10 @@ body {
 	@extend %absolute;
 	z-index: 98;
 	width: 90%;
-	padding-right: 7.5%;
+	padding-left: 7.5%;
 	height: calc(90% - (#{$navbar-height}));
 	bottom: 0;
-	transform: translate(-94%);
+	transform: translate(0px);
 
 	
 	.wrapper {

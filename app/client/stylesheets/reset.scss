@@ -12,6 +12,12 @@ $mini-nav-height: 50px;
 .transitions-container {
 	//height: calc(100% - #{$navbar-height} !important);
 	height: calc(100% - #{$navbar-height}) !important;
+    //min-width: 1005px; /* your desired width */
+    //max-width: 100%;
+    //position: relative;
+    //overflow-x: hidden;
+    //overflow-y: hidden;
+
 }
 
 //* {

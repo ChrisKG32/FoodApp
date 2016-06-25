@@ -121,9 +121,11 @@ Template.Prep.onRendered(function () {
 		
 	//Set page identifier
 			//Changes sidebar position from % to pixels so swipe will work
-				var filterSidebar = $('.prep-sidebar') && $('.prep-sidebar').position() && $('.prep-sidebar').position().left;
+				//var filterSidebar = $('.prep-sidebar') && $('.prep-sidebar').position() && $('.prep-sidebar').position().left;
 				var transform = $('.prep-sidebar') && $('.prep-sidebar')[0] && $('.prep-sidebar')[0].style; 
-				transform.transform = 'translate(' + filterSidebar + 'px)';
+				var viewportWidth = $(window).width();
+				var sidebarPadding = parseInt($('.prep-sidebar').css('padding-left'));
+				transform.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
 
 
 			//Swipe integration with HammerJS.
@@ -169,24 +171,29 @@ Template.Prep.onRendered(function () {
 						var viewportWidth = $(window).width();
 						var viewportPx = viewportWidth * 0.85;
 						var sidebarWidth = $('.prep-sidebar').width();
+						var sidebarPadding = parseInt($('.prep-sidebar').css('padding-left'));
 
 						//Swipe SIDEBAR code
 							//Prevents sidebar from swiping past left-of-viewport (Sticks to left side)
-							if (positionValue + e.deltaX > 0) {
-								sidebar[0].style.transform = "translate(0px)";
+							if (positionValue + e.deltaX < (viewportWidth - sidebarWidth)) {
+								sidebar[0].style.transform = "translate(" + (viewportWidth - sidebarWidth) + "px)";
 							//Prevents sidebar from swiping too far off-screen on left side
-							} else if ((positionValue + e.deltaX) < -(sidebarWidth)) {
-								sidebar[0].style.transform = "translate(-" + sidebarWidth + "px)";
+							} else if ((positionValue + e.deltaX) > (viewportWidth - sidebarPadding)) {
+								sidebar[0].style.transform = "translate(-" + (viewportWidth - sidebarPadding) + "px)";
 							//Regular swipe calculation (Original Position + Mouse distance from initial click)
 							} else {
 								sidebar[0].style.transform = "translate(" + (positionValue + e.deltaX) + "px)";
 							}
+
+
+						//if (positionValue + e.deltaX < (viewportWidth))
 				});
 
 				hammertime.on('panend', function(e){
 					//Get sidebar Width
 					var sidebarWidth = $('.prep-sidebar').width();
 					var mealPlanPage = $('.meal-plan');
+					var sidebarPadding = parseInt($('.prep-sidebar').css('padding-left'));
 
 					//Get final SIDEBAR position
 					newPosition = sidebar[0].style.transform;
@@ -194,34 +201,33 @@ Template.Prep.onRendered(function () {
 					
 					//Once button and sidebar are released, transitions them to their final
 					// resting place (insert death joke here)
-					if ((newPositionValue + sidebarWidth) >= (sidebarWidth/4) && newPositionValue > positionValue ) {
+					/*
+					if ((newPositionValue > (viewportWidth - (sidebarWidth - sidebarPadding))/2) && newPositionValue > positionValue ) {
 						var viewportWidth = $(window).width();
-						var viewportPx = viewportWidth * 0.85;
+						//var viewportPx = viewportWidth * 0.85;
 						sidebar[0].style.transition = 'transform 0.5s ease';
-						sidebar[0].style.transform = 'translate(0px)';
-						if (Session.get('planPage') == 'Meal Plan') {
-							var calendar = $('.calendar-wrapper');
-							var dayHeader = $('.day-header');
-							var badges = dayHeader.find('.badge');
-							var calendarWidth = calendar.width();
-							var twoColumns = (calendarWidth*(2/3)) + 15;
-
-							//badges.toggle();
-							calendar[0].style.transform = 'translate(' + twoColumns + 'px)';
-						}
+						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + '0px)';
+						
 					} else if (newPositionValue < (sidebarWidth/2) && newPositionValue < positionValue) {
 						var viewportWidth = $(window).width();
-						var viewportPx = viewportWidth * 0.85;
+						//var viewportPx = viewportWidth * 0.85;
 						sidebar[0].style.transition = 'transform 0.5s ease';
-						sidebar[0].style.transform = 'translate(-' + (sidebarWidth + 10) + 'px)';
-						if (Session.get('planPage') == 'Meal Plan') {
-							var dayHeader = $('.day-header');
-							var badges = dayHeader.find('.badge');
-							var calendar = $('.calendar-wrapper');
-							
-							//badges.fadeOut();
-							calendar[0].style.transform = 'translate(0px)';
-						}
+						sidebar[0].style.transform = 'translate(-' + (viewportWidth - sidebarWidth) + 'px)';
+					}*/
+
+
+					if (newPositionValue <= (viewportWidth - (sidebarWidth/2)) && newPositionValue < positionValue) {
+						sidebar[0].style.transition = 'transform 0.5s ease';
+						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarWidth - sidebarPadding) + 'px)';
+					} else if (newPositionValue > (viewportWidth - (sidebarWidth/2)) && newPositionValue > positionValue) {
+						sidebar[0].style.transition = 'transform 0.5s ease';
+						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
+					} else if (newPositionValue > positionValue) {
+						sidebar[0].style.transition = 'transform 0.5s ease';
+						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
+					} else {
+						sidebar[0].style.transition = 'transform 0.5s ease';
+						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarWidth ) + 'px)';
 					}
 				});
 
