@@ -69,6 +69,9 @@ Template.Plan.onRendered(function () {
 					sidebar = $('.plan-sidebar');
 					position = sidebar[0].style.transform;
 					positionValue = Number((position.substr(0, position.indexOf('p'))).slice(10));
+					$('.plan-sidebar').children(1).addClass('hide-tab');
+					//$('.recipe-filter').addClass('hide-tab');
+					//$('.your-recipes').addClass('hide-tab');
 
 
 					//Removes transition that was applied on "PanEnd"
@@ -114,6 +117,8 @@ Template.Plan.onRendered(function () {
 						var viewportPx = viewportWidth * 0.85;
 						sidebar[0].style.transition = 'transform 0.5s ease';
 						sidebar[0].style.transform = 'translate(0px)';
+						
+
 						if (Session.get('planPage') == 'Meal Plan') {
 							var calendar = $('.calendar-wrapper');
 							var dayHeader = $('.day-header');
@@ -134,6 +139,9 @@ Template.Plan.onRendered(function () {
 						var viewportPx = viewportWidth * 0.85;
 						sidebar[0].style.transition = 'transform 0.5s ease';
 						sidebar[0].style.transform = 'translate(-' + (sidebarWidth + 5) + 'px)';
+						$('.plan-sidebar').children(1).removeClass('hide-tab');
+						//$('.recipe-filter').removeClass('hide-tab');
+						//$('.your-recipes').removeClass('hide-tab');
 						if (Session.get('planPage') == 'Meal Plan') {
 							var dayHeader = $('.day-header');
 							var badges = dayHeader.find('.badge');
@@ -143,6 +151,7 @@ Template.Plan.onRendered(function () {
 							badges.fadeOut(function(){
 								dayText.fadeIn();
 							})
+							
 							
 							calendar[0].style.transform = 'translate(0px)';
 						}

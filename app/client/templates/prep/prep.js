@@ -16,10 +16,12 @@ Template.Prep.events({
 			var dayId = currentTarget.attr('id');
 			Session.set('prepDay', dayId);
 		}
-		sidebar = $('.prep-sidebar');
-		sidebarWidth = sidebar.width();
+		var sidebar = $('.prep-sidebar');
+		var sidebarPadding = parseInt(sidebar.css('padding-left'));
+		var viewportWidth = $(window).width();
 		sidebar[0].style.transition = 'transform 0.5s ease';
-		sidebar[0].style.transform = 'translate(-' + (sidebarWidth + 10) + 'px)';
+		sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
+		$('.prep-sidebar .wrapper').removeClass('hide-tab');
 
 
 	},
@@ -156,6 +158,7 @@ Template.Prep.onRendered(function () {
 					sidebar = $('.prep-sidebar');
 					position = sidebar[0].style.transform;
 					positionValue = Number((position.substr(0, position.indexOf('p'))).slice(10));
+					$('.prep-sidebar .wrapper').addClass('hide-tab');
 
 
 					//Removes transition that was applied on "PanEnd"
@@ -179,7 +182,7 @@ Template.Prep.onRendered(function () {
 								sidebar[0].style.transform = "translate(" + (viewportWidth - sidebarWidth) + "px)";
 							//Prevents sidebar from swiping too far off-screen on left side
 							} else if ((positionValue + e.deltaX) > (viewportWidth - sidebarPadding)) {
-								sidebar[0].style.transform = "translate(-" + (viewportWidth - sidebarPadding) + "px)";
+								sidebar[0].style.transform = "translate(" + (viewportWidth - sidebarPadding) + "px)";
 							//Regular swipe calculation (Original Position + Mouse distance from initial click)
 							} else {
 								sidebar[0].style.transform = "translate(" + (positionValue + e.deltaX) + "px)";
@@ -222,12 +225,15 @@ Template.Prep.onRendered(function () {
 					} else if (newPositionValue > (viewportWidth - (sidebarWidth/2)) && newPositionValue > positionValue) {
 						sidebar[0].style.transition = 'transform 0.5s ease';
 						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
+						$('.prep-sidebar .wrapper').removeClass('hide-tab');
 					} else if (newPositionValue > positionValue) {
 						sidebar[0].style.transition = 'transform 0.5s ease';
 						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
+						$('.prep-sidebar .wrapper').removeClass('hide-tab');
 					} else {
 						sidebar[0].style.transition = 'transform 0.5s ease';
 						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarWidth ) + 'px)';
+
 					}
 				});
 
