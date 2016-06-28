@@ -13,7 +13,7 @@ template(name='RecipeFilter')
 						each this.array
 							li.checkbox
 								label
-									input(type="checkbox" value="")
+									input.filter-box(type="checkbox" value="")
 									| !{this.name}
 								span.pull-right
-									| (!{this.amount})
+									| (!{numberRecipes})

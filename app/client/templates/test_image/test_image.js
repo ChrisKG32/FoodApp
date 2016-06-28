@@ -2,6 +2,7 @@
 /* TestImage: Event Handlers */
 /*****************************************************************************/
 Template.TestImage.events({
+
 });
 
 /*****************************************************************************/
@@ -34,10 +35,17 @@ Template.TestImage.onRendered(function () {
 				console.log('Recipe ID ' + target.attr('id'));
 				recipeId = target.attr('id');
 				target.css('opacity', '0.3');
+				Session.set('draggable', true);
+				console.log('start');
 			},
 			stop: function(e, ui) {
 				var target = $(e.target);
 				target.css('opacity', '1');
+				Meteor.defer(function(){
+					Session.set('draggable', false);
+				}, 100);
+				
+				console.log('stop');
 			}
 		});		
 		mealPlanCalendar.droppable({
@@ -69,7 +77,6 @@ Template.TestImage.onRendered(function () {
 				//data.recipes.push(recipeId);
 
 				Meteor.call('addMeal', data, currentUser);
-
 
 			}
 		});

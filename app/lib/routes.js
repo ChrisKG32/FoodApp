@@ -16,7 +16,7 @@ Router.route('/plan', {
 	template: 'Plan',
 	where: 'client',
 	waitOn:function(){
-		var planPage = Session.get('planPage');
+		Recipes.find().fetch();
 	}
 });
 
@@ -71,5 +71,11 @@ Router.route('/upload', {
 Router.route('/details', {
 	name: 'details',
 	template: 'Details',
+	where: 'client'
+});
+
+Router.route('/active-filters', {
+	name: 'active-filters',
+	template: 'ActiveFilters',
 	where: 'client'
 });

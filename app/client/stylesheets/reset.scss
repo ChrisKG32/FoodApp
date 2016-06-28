@@ -20,13 +20,15 @@ $mini-nav-height: 50px;
 
 }
 
-//* {
-	//box-shadow: none !important;
+* {
+	box-shadow: none !important;
 	//-webkit-backface-visibility: hidden !important;
-//}
+}
+
+
 
 .recipes, .plan-sidebar, .prep-sidebar  {
-	//-webkit-transform: translateZ(0) !important;
+	//-webkit-transform: translatez(0) !important;
 	-webkit-backface-visibility: hidden !important;
 	//-webkit-transform: translatez(0);
     //-moz-transform: translatez(0);

@@ -130,10 +130,10 @@ Template.Prep.onRendered(function () {
 				transform.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
 
 
-			//Swipe integration with HammerJS.
-				//Uses PAN eventlistener to stick sidebar to touch until release
-				// then the sidebar will animate to the final position depending on
-				// 2 factors: where the user dropped it, and how far it was moved.
+		//Swipe integration with HammerJS.
+			//Uses PAN eventlistener to stick sidebar to touch until release
+			// then the sidebar will animate to the final position depending on
+			// 2 factors: where the user dropped it, and how far it was moved.
 
 			//Swipe element
 			stage = document.getElementById('prep-sidebar');
@@ -237,7 +237,29 @@ Template.Prep.onRendered(function () {
 					}
 				});
 
+	//SWIPE ROUTES
+		var swipePrep = document.getElementById('prep-wrapper');
+		
 
+		//Initialize
+		var swipePrepHammertime = new Hammer.Manager(swipePrep);
+		
+
+		//Create Pan Event Listener
+		var Swipe = new Hammer.Swipe();
+
+		//Activate event listener
+		swipePrepHammertime.add(Swipe);
+		
+		
+		//Below are the 3 "pan" event listeners.
+			//One for "Start", one for "Pan" and one for "End"
+
+			//Panstart gets information for the initial location of swiping elements 
+			// so that it can know how far to move them based off of swipe data
+		swipePrepHammertime.on('swiperight', function(e){		
+			Router.go('shop');			
+		});
 
 });
 

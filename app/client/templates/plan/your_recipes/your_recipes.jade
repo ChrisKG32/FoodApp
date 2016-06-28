@@ -3,11 +3,11 @@ template(name='YourRecipes')
 		.col-xs-12.wrapper
 			h4.text-center
 				span.fa.fa-star
-				| Your Recipes
+				| Favorites
 			each yourLists
-				.filter-item(section-name="!{this.name}").col-xs-12
+				.filter-item(section-name="!{this.visible}").col-xs-12
 					h5.header
-						| !{this.name}
+						| !{this.visible}
 						span.pull-right.fa.fa-caret-down.dropdown
 					//
 						if sectionEmpty

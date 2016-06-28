@@ -142,14 +142,38 @@ Template.MealPlan.onRendered(function () {
 				var viewportPx = $(window).width();
 
 				//Sets sidebar width (different for Recipes page and Meal Plan page)
-				var newSidebarSize = viewportPx * 0.75;
+				var newSidebarSize = viewportPx * 0.77;
 
 				//Sets width and moves sidebar out of view
 				sidebarEl.css('width', newSidebarSize + 'px');
 				var newWidth = $('.plan-sidebar').width();
 				var sbPosition = ('.plan-sidebar') && $('.plan-sidebar')[0] && $('.plan-sidebar')[0].style;
-				sbPosition.transform = 'translate(-' + (newWidth + 10) + 'px)';
+				sbPosition.transform = 'translate(-' + (newWidth) + 'px)';
 			}
+
+		//SWIPE ROUTES
+			var swipeMealplan = document.getElementById('meal-plan-wrapper');
+			
+
+			//Initialize
+			var swipeMealplanHammertime = new Hammer.Manager(swipeMealplan);
+			
+
+			//Create Pan Event Listener
+			var Swipe = new Hammer.Swipe();
+
+			//Activate event listener
+			swipeMealplanHammertime.add(Swipe);
+			
+			
+			//Below are the 3 "pan" event listeners.
+				//One for "Start", one for "Pan" and one for "End"
+
+				//Panstart gets information for the initial location of swiping elements 
+				// so that it can know how far to move them based off of swipe data
+			swipeMealplanHammertime.on('swipeleft', function(e){		
+				Router.go('shop');			
+			});
 
 });
 

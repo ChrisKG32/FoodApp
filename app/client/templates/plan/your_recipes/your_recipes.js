@@ -49,16 +49,36 @@ Template.YourRecipes.helpers({
 	yourLists:function(param1){
 		var listItems = [
 			{
-				name: 'Breakfast'
+				name: 'main course',
+				visible: 'Main Course'
 			},
 			{
-				name: 'Entrée'
+				name: 'breakfast',
+				visible: 'Breakfast'
 			},
 			{
-				name: 'Dessert'
+				name: 'dessert',
+				visible: 'Dessert'
 			},
 			{
-				name: 'Side'
+				name: 'side',
+				visible: 'Side'
+			},
+			{
+				name: 'soup/salad',
+				visible: 'Soup/Salad'
+			},
+			{
+				name: 'snack',
+				visible: 'Snack'
+			},
+			{
+				name: 'appetizer',
+				visible: 'Appetizer'
+			},
+			{
+				name: 'sauce/dressing',
+				visible: 'Sauce/Dressing'
 			}
 		]
 		return listItems		

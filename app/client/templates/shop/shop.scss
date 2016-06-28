@@ -42,6 +42,14 @@
 			tr {
 				td {
 					border: 0;
+
+					.checkbox {
+						display: inline;
+					}
+
+					span.fa {
+						margin-top: 3px;
+					}
 				}
 				
 			}

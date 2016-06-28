@@ -139,6 +139,33 @@ Template.Shop.onRendered(function () {
 		Session.set('prepPage', false);
 	//}, 2000);
 	
+
+
+	//Swipe Functionality
+		var swipeShop = document.getElementById('shopping');
+		
+		//Initialize
+		var swipeShopHammertime = new Hammer.Manager(swipeShop);
+		
+
+		//Create Pan Event Listener
+		var SwipeShop = new Hammer.Swipe();
+
+		//Activate event listener
+		swipeShopHammertime.add(SwipeShop);
+		
+		
+		//Below are the 3 "pan" event listeners.
+			//One for "Start", one for "Pan" and one for "End"
+
+			//Panstart gets information for the initial location of swiping elements 
+			// so that it can know how far to move them based off of swipe data
+		swipeShopHammertime.on('swipeleft', function(e){		
+			Router.go('prep');			
+		});
+		swipeShopHammertime.on('swiperight', function(e){		
+			Router.go('plan');			
+		});
 });
 
 Template.Shop.onDestroyed(function () {

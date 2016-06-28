@@ -1,12 +1,14 @@
 template(name='RecipeItem')
 	.col-xs-6.item-wrapper
-		.recipe-item.col-sm-4(style="background-image: url('!{this.img}');" recipe-id="!{this._id}")
-			if planPage 'Recipes' 'Your Recipes'
+		.recipe-item.col-sm-4(class="{{favorited}}" style="background-image: url('!{this.img}');" recipe-id="!{this._id}")
+			.favorited.hidden
+				| You just favorited!
+			if planPage 'Recipes'
 				.recipe-info
 					i.fa.fa-leaf
 			.recipe-name
 				span
 					| !{this.name}
-			if planPage 'Recipes' 'Your Recipes'
+			if planPage 'Recipes'
 				.recipe-share
 					i.fa.fa-share

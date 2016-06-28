@@ -1,5 +1,5 @@
 template(name='Shop')
-	.shop.transitions-content
+	.shop.transitions-content(id="shopping")
 		+MiniNav
 		if aisles
 			.smart-list.container
@@ -14,6 +14,8 @@ template(name='Shop')
 							each generateList
 								tr
 									td
-										| !{this.amount} !{this.measurement} !{this.name}
-
-							
+										.checkbox
+											label
+												input(type="checkbox" value="")
+												| !{this.amount} !{this.measurement} !{this.name}
+										span.fa.fa-plus.pull-right

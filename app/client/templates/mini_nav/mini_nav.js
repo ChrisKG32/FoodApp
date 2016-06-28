@@ -14,7 +14,7 @@ Template.MiniNav.events({
 		if (currentTarget.hasClass('meal-plan-button')){
 			Session.set('planPage', 'Meal Plan');
 		} else if (currentTarget.hasClass('your-recipes-button')) {
-			Session.set('planPage', 'Your Recipes');
+			Session.set('planPage', 'Favorites');
 		} else if (currentTarget.hasClass('search-recipes-button')) {
 			Session.set('planPage', 'Recipes');
 		} else if (currentTarget.hasClass('single-day-prep')){
@@ -81,7 +81,7 @@ Template.MiniNav.helpers({
 		if (routeName === 'plan') {
 			var planDropdown = [
 				{name: 'Recipes', class: 'search-recipes-button'},
-				{name: 'Your Recipes', class: 'your-recipes-button'},
+				{name: 'Favorites', class: 'your-recipes-button'},
 				{name: 'Meal Plan', class: 'meal-plan-button'}
 			]
 
