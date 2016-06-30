@@ -1,21 +1,20 @@
 template(name='Shop')
 	.shop.transitions-content(id="shopping")
 		+MiniNav
-		if aisles
-			.smart-list.container
-				table.table
-					each aisles
-						thead
+		.smart-list.container
+			table.table
+				each generateList
+					thead(aisle="!{this.name}")
+						tr
+							th
+								img(src="!{this.name}.png")
+								| !{this.display}
+					tbody(aisle-list="!{this.name}")
+						each this.ingredient
 							tr
-								th
-									img(src="!{this.icon}")
-									| !{this.name}
-						tbody
-							each generateList
-								tr
-									td
-										.checkbox
-											label
-												input(type="checkbox" value="")
-												| !{this.amount} !{this.measurement} !{this.name}
-										span.fa.fa-plus.pull-right
+								td
+									.checkbox
+										label
+											input(type="checkbox" value="")
+											| !{this.amount} !{this.scale} !{this.name} !{splitAisles}
+									span.fa.fa-plus.pull-right

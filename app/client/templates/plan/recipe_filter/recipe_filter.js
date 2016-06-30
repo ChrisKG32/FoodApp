@@ -262,7 +262,9 @@ Template.RecipeFilter.helpers({
 		var key = this.key;
 		var value = this.value;
 		var filterObj = {};
-		filterObj[key] = value;
+		if (key && value) {
+			filterObj[key] = value;
+		}
 
 		if (currentFilter) {
 			currentFilter[key].push(filterObj);
@@ -275,13 +277,13 @@ Template.RecipeFilter.helpers({
 
 			if (currentFilter){
 
-				if (currentFilter.diets.length < 1) {
+				if (currentFilter.diets && currentFilter.diets.length < 1) {
 					delete currentFilter['diets']
 				} 
-				if (currentFilter.category.length < 1) {
+				if (currentFilter.category && currentFilter.category.length < 1) {
 					delete currentFilter['category']
 				} 
-				if (currentFilter.difficulty.length < 1 ) {
+				if (currentFilter.difficulty && currentFilter.difficulty.length < 1 ) {
 					delete currentFilter['difficulty']
 				}
 
@@ -318,6 +320,7 @@ Template.RecipeFilter.helpers({
 			})
 			.count();
 			*/
+			
 	}
 });
 

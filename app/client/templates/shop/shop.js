@@ -8,30 +8,8 @@ Template.Shop.events({
 /* Shop: Helpers */
 /*****************************************************************************/
 Template.Shop.helpers({
-	aisles:function(param1){
-		var shopPage = Session.get('shopPage');
-		if (shopPage === 'Smart List') {
-			var aisles = [
-				{name:'Bakery', icon: 'bakery.png'},
-				{name:'Canned', icon: 'canned.png'},
-				{name:'Condiments', icon: 'condiments.png'},
-				{name:'Dairy', icon: 'dairy.png'},
-				{name:'Frozen', icon: 'frozen.png'},
-				{name:'Fruits and Juices', icon: 'fruit.png'},
-				{name:'Meats', icon: 'meat.png'},
-				{name:'Other', icon: 'other.png'},
-				{name:'Seafoods', icon: 'seafood.png'},
-				{name:'Spices, Fats, Oils', icon: 'spices.png'},
-				{name:'Vegetables', icon: 'vegetable.png'}
-			]
-
-			return aisles
-		} else {
-			return false
-		}
-	},
 	generateList:function(){
-		var thisAisle = this.name;
+		
 		var currentUser = Meteor.userId();
 		var userProfile = Meteor.users.findOne(currentUser) && 
 			Meteor.users.findOne(currentUser).profile && 
@@ -58,13 +36,19 @@ Template.Shop.helpers({
 			return data
 		}
 
+
 		var assignedRecipes = function(){
 			ingredientList = [];
+			//Loop through user Favorites Meals assigned to a Day
 			_.each(userProfile, function(entry){
+				//Finds all ASSIGNED meals and identifies days within 7 days from TODAY
 				_.each(getWeekIds(), function(dayId){
+					//If the assigned meal is within 7 days, add it to the shopping list
 					if (entry.day === dayId) {
 						_.each(entry.recipes, function(recipeId){
 							var recipeIngredients = Recipes.findOne(recipeId).ingredients;
+							//Adds array of recipes to existing array of recipes
+							// (basically a loop, but with a reactive variable)
 							ingredientList = ingredientList.concat(recipeIngredients);
 						});
 					}
@@ -77,10 +61,21 @@ Template.Shop.helpers({
 				} else {
 					ingredient.name = ingredient.name.toLowerCase();
 				}
-				ingredient.measurement = ingredient.measurement.toLowerCase();
-				return ingredient
-			}
+				ingredient.scale = ingredient.measurement.toLowerCase();
 
+				var dbResult = Ingredients.findOne({name: ingredient.name});
+				if (dbResult) {
+					ingredient.name = dbResult.name + '*';
+					ingredient.aisle = dbResult.aisle;
+
+					if (dbResult.measurement == 'ea' || ingredient.scale == 'ea'){
+						ingredient.scale = '';
+					}
+				}
+				return ingredient
+				
+			}
+			
 			return ingredientList.map(fixStrings);
 		}
 
@@ -89,9 +84,9 @@ Template.Shop.helpers({
 		    var previous;
 
 		    // Have we seen this name/measurement before?
-		    if (seen.hasOwnProperty(entry.name + entry.measurement)) {
+		    if (seen.hasOwnProperty(entry.name + entry.scale)) {
 		        // Yes, grab it and add this data to it
-		        previous = seen[entry.name + entry.measurement];
+		        previous = seen[entry.name + entry.scale];
 		        previous.amount.push(entry.amount);
 
 		        // Don't keep this entry, we've merged it into the previous one
@@ -104,35 +99,79 @@ Template.Shop.helpers({
 		    }
 
 		    // Remember that we've seen it
-		    seen[entry.name + entry.measurement] = entry;
+		    seen[entry.name + entry.scale] = entry;
 
 		    // Keep this one, we'll merge any others that match into it
-		    return true;
+
+		    	return true
+		    
+		    
 		});
 
+
 		var addAmounts = function(ingredient){
+
 			var sum = ingredient.amount.reduce(add, 0);
+
 			function add(a, b) {
 				return a + b
 			}
 
-			ingredient.amount = sum
+			ingredient.amount = sum;
 
 			return ingredient
 		}
 
-		return mergedIngredients.map(addAmounts)
+
+		var finalList =  mergedIngredients.map(addAmounts);
+
+
+		var aisleArray = [];
+
+		_.each(finalList, function(entry){
+			var conflict = false;
+			for(var i = 0; i < aisleArray.length; i++) {
+				if (entry.aisle === aisleArray[i].name) {
+					conflict = true;
+				}
+			}
+			if (conflict === false) {
+				var data = {
+					name: entry.aisle,
+					display: (entry.aisle)[0].toUpperCase() + entry.aisle.substr(1)
+				}
+				aisleArray.push(data)
+			}
+			_.each(aisleArray, function(entry2){
+				if (entry2.name === entry.aisle) {
+					if (entry2.ingredient) {
+						entry2.ingredient.push(entry);
+					} else {
+						entry2.ingredient = [];
+						entry2.ingredient.push(entry);
+					}
+				}
+			});
+		});
+
+		return aisleArray
 
 	}
+
 });
 
 /*****************************************************************************/
 /* Shop: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Shop.onCreated(function () {
+
+
 });
 
 Template.Shop.onRendered(function () {
+	
+
+
 	Session.set('shopPage', 'Smart List');
 	//Meteor.defer(function(){
 		Session.set('planPage', false);

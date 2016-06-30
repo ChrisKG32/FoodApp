@@ -13,5 +13,5 @@
 	padding-right: 8%;
 	height: calc(100% - (#{$mini-nav-height}));
 	transform: translate(-95%);
-	max-height: calc(100% - (#{$mini-nav-height} + #{$navbar-height}));
+	max-height: calc(100% - (#{$mini-nav-height}));
 }
