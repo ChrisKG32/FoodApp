@@ -11,10 +11,35 @@ template(name='Shop')
 								| !{this.display}
 					tbody(aisle-list="!{this.name}")
 						each this.ingredient
+							tr.ingredient-header
+								td
+									.checkbox
+										label
+											input.ingredient-checkbox(ingredients="!{this.name}" type="checkbox" value="")
+											| !{this.amount} 
+											| !{this.scale} 
+											| !{this.name}
+									span.fa.fa-plus.pull-right.expand-ingredient
+							each this.ingredients
+								tr.contained-ingredients(ingredients="!{this.name}")
+									td
+										span.left-indent
+										| !{this.amount}
+										| !{this.scale}
+										| for
+										| !{recipeName}
+				if gotIt
+					thead(aisle="bakery")
+						tr
+							th
+								img(src="bakery.png")
+								| Got it!
+					tbody(aisle-list="bakery")
+						each completedItems
 							tr
 								td
 									.checkbox
 										label
-											input(type="checkbox" value="")
-											| !{this.amount} !{this.scale} !{this.name} !{splitAisles}
+											input.got-it-checkbox(type="checkbox" value="")
+											| !{this.amount} !{this.scale} !{this.name}
 									span.fa.fa-plus.pull-right

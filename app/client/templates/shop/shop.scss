@@ -21,6 +21,7 @@
 
 		table {
 			border: none;
+			margin-bottom: 0;
 
 			th {
 				background-color: mix($dark-background, white, 70%);
@@ -33,25 +34,50 @@
 				}
 			}
 
-			tr:nth-child(odd) {
+			tr {
 				background-color: rgb(240,240,240);
 			}
-			tr:nth-child(even) {
+			//tr:nth-child(even) {
 				background-color: rgb(230,230,230);
-			}
+			//}
 			tr {
 				td {
 					border: 0;
 
 					.checkbox {
 						display: inline;
+
+						label {
+							//@extend %no-gutter;
+
+							input, span {
+								@extend %no-gutter;
+							}
+						}
 					}
 
 					span.fa {
-						margin-top: 3px;
+						margin:0;
+						right: 15px;
+						padding-left: 9px;
+						padding-right: 5px;
+						padding-top: 3px;
 					}
+
+					//span.left-indent {
+					//	margin-left: 25px;
+					//}
 				}
 				
+			}
+			tr.contained-ingredients {
+				display: none;
+				span.left-indent {
+					margin-left: 25px;
+				}
+				td {
+					
+				}
 			}
 		}
 	}

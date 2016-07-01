@@ -2,6 +2,57 @@
 /* Shop: Event Handlers */
 /*****************************************************************************/
 Template.Shop.events({
+	'click .ingredient-checkbox':function(e){
+		console.log(this);
+		var currentTarget = $(e.currentTarget);
+
+		var completedItems = Session.get('gotIt');
+		if (completedItems) {
+			completedItems.push(this);
+			currentTarget.parent().css('text-decoration', 'line-through');
+			currentTarget.parent().fadeOut('slow')
+			setTimeout(function(){
+				Session.set('gotIt', completedItems);
+				$('.ingredient-checkbox').parent().css('text-decoration', 'none').show();
+				$('.ingredient-checkbox').prop('checked', false)
+			}, 650);
+			
+
+		} else {
+			var data = [];
+			data.push(this);
+			currentTarget.parent().css('text-decoration', 'line-through');
+			currentTarget.parent().fadeOut('slow')
+			setTimeout(function(){
+				Session.set('gotIt', data);
+				$('.ingredient-checkbox').parent().css('text-decoration', 'none').prop('checked', false).show();
+				$('.ingredient-checkbox').prop('checked', false)
+			}, 650);
+			
+			
+		}
+	},
+	'click .expand-ingredient':function(e){
+
+		var currentTarget = $(e.currentTarget);
+
+		var parent = currentTarget.parent().parent()
+		var ingredient = currentTarget.prev().find('input').attr('ingredients');
+		var dropdown = $('tr[ingredients="' + ingredient + '"]');
+
+		if (currentTarget.hasClass('fa-plus')) {
+			currentTarget.removeClass('fa-plus').addClass('fa-minus');
+			parent.css('border-bottom', '1px solid rgb(220,220,220)');
+			dropdown.show();
+		} else {
+			currentTarget.removeClass('fa-minus').addClass('fa-plus');
+			parent.css('border-bottom', 'none');
+			dropdown.hide();
+		}
+
+		//var ingredient = currentTarget.prev().find('input').attr('ingredients');
+		//var dropdown = $('tr[ingredients="' + ingredient + '"]');
+	}
 });
 
 /*****************************************************************************/
@@ -47,6 +98,10 @@ Template.Shop.helpers({
 					if (entry.day === dayId) {
 						_.each(entry.recipes, function(recipeId){
 							var recipeIngredients = Recipes.findOne(recipeId).ingredients;
+
+							_.each(recipeIngredients, function(ingredient){
+								ingredient.recipe = recipeId;
+							});
 							//Adds array of recipes to existing array of recipes
 							// (basically a loop, but with a reactive variable)
 							ingredientList = ingredientList.concat(recipeIngredients);
@@ -54,6 +109,7 @@ Template.Shop.helpers({
 					}
 				})				
 			});
+
 
 			var fixStrings = function (ingredient){
 				if (~ingredient.name.indexOf(',')) {
@@ -79,6 +135,8 @@ Template.Shop.helpers({
 			return ingredientList.map(fixStrings);
 		}
 
+		//console.log(assignedRecipes());
+
 		var seen = {};
 		var mergedIngredients = assignedRecipes().filter(function(entry) {
 		    var previous;
@@ -87,15 +145,17 @@ Template.Shop.helpers({
 		    if (seen.hasOwnProperty(entry.name + entry.scale)) {
 		        // Yes, grab it and add this data to it
 		        previous = seen[entry.name + entry.scale];
+		        
 		        previous.amount.push(entry.amount);
 
 		        // Don't keep this entry, we've merged it into the previous one
-		        return false;
+		        return false
 		    }
 
 		    // entry.amount probably isn't an array; make it one for consistency
 		    if (!Array.isArray(entry.amount)) {
 		        entry.amount = [entry.amount];
+		        
 		    }
 
 		    // Remember that we've seen it
@@ -104,9 +164,12 @@ Template.Shop.helpers({
 		    // Keep this one, we'll merge any others that match into it
 
 		    	return true
+
+		    //console.log(assignedRecipes());
 		    
 		    
 		});
+		
 
 
 		var addAmounts = function(ingredient){
@@ -123,12 +186,59 @@ Template.Shop.helpers({
 		}
 
 
+
 		var finalList =  mergedIngredients.map(addAmounts);
 
 
+		var something = finalList.filter(function(merged){
+			merged.ingredients = [];
+			_.each(assignedRecipes(), function(assigned){
+				var assignedId = assigned.aisle + assigned.measurement + assigned.name;
+				var mergedId = merged.aisle + merged.measurement + merged.name;
+				if (assignedId == mergedId) {
+					merged.ingredients.push(assigned);
+				}
+			});
+			return merged
+		});
+
+		//console.log(something);
+
+		
+
+
+
+		
+		var completedItems = Session.get('gotIt');
+
+		if (completedItems && completedItems.length > 0) {
+
+			var updatedList = something.filter(function(object){
+				var match = false;
+
+				_.each(completedItems, function(entry){
+					var entryId = entry.name + entry.aisle + entry.amount + entry.measurement;
+					var objectId = object.name + object.aisle + object.amount + object.measurement;
+					if (entryId === objectId) {
+						match = true;
+					}
+				});
+
+				if (match === false) {
+					return object
+				}
+			});
+		}
+
+		
+		var usableList = updatedList || something;
+		usableList = usableList.sort(function(item1, item2){
+		    return item1.aisle.localeCompare(item2.aisle);
+		})
+
 		var aisleArray = [];
 
-		_.each(finalList, function(entry){
+		_.each(usableList, function(entry){
 			var conflict = false;
 			for(var i = 0; i < aisleArray.length; i++) {
 				if (entry.aisle === aisleArray[i].name) {
@@ -154,8 +264,32 @@ Template.Shop.helpers({
 			});
 		});
 
-		return aisleArray
+		console.log(aisleArray);
 
+		return aisleArray
+	},
+	gotIt:function(){
+		var completedItems = Session.get('gotIt');
+
+		if (completedItems && completedItems.length > 0) {
+			return true
+		} else {
+			return false
+		}
+	},
+	completedItems:function(){
+		var completedItems = Session.get('gotIt');
+
+		if (completedItems && completedItems.length > 0) {
+			return completedItems
+		} else {
+			return false
+		}
+	},
+	recipeName:function(){
+		var recipeId = this.recipe;
+		var recipe = Recipes.findOne(recipeId);
+		return recipe && recipe.name
 	}
 
 });
