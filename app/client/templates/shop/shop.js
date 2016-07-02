@@ -3,7 +3,6 @@
 /*****************************************************************************/
 Template.Shop.events({
 	'click .ingredient-checkbox':function(e){
-		console.log(this);
 		var currentTarget = $(e.currentTarget);
 
 		var completedItems = Session.get('gotIt');
@@ -52,6 +51,21 @@ Template.Shop.events({
 
 		//var ingredient = currentTarget.prev().find('input').attr('ingredients');
 		//var dropdown = $('tr[ingredients="' + ingredient + '"]');
+	},
+	'click thead':function(e){
+		var currentTarget = $(e.currentTarget);
+		var span = currentTarget.find('span');
+
+		if (span.hasClass('glyphicon-triangle-bottom')) {
+			var aisle = currentTarget.attr('aisle');
+			$('tbody[aisle-list=' + aisle + ']').hide();
+			span.removeClass('glyphicon-triangle-bottom').addClass('glyphicon-triangle-top');
+		} else if (span.hasClass('glyphicon-triangle-top')) {
+			var aisle = currentTarget.attr('aisle');
+			$('tbody[aisle-list=' + aisle + ']').show();
+			span.removeClass('glyphicon-triangle-top').addClass('glyphicon-triangle-bottom');
+
+		}
 	}
 });
 
@@ -68,21 +82,38 @@ Template.Shop.helpers({
 
 		var getWeekIds = function(){
 			var today = new Date();
+			var todayMod = new Date();
 			var year = 2 + '' + today.getYear() - 100;
 			var month = today.getMonth() + 1;
 			if (month[0] != 0) {
 				month = 0 + '' + month;
 			}
-			var day = today.getDate();
+			var day = function(){
+				var number = today.getDate();
+				if ((number + '').length < 2) {
+					number = '0' + number;
+				}
+				return number
+			}
+			var dayString = function(date) { 
+			    date.setDate(date.getDate() + 1)
+			    var number = date.getDate() + '';
+			    if (number.length < 2) {
+			        number = '0' + number;
+			    }
+			        
+			    return number
+			}
+
 			var todayId = year+month+day;
 			var data = [
-				(year+month+day),
-				(year+month+(day+1)),
-				(year+month+(day+2)),
-				(year+month+(day+3)),
-				(year+month+(day+4)),
-				(year+month+(day+5)),
-				(year+month+(day+6))
+				(year+month+day()),
+				(year+month+(dayString(todayMod))),
+				(year+month+(dayString(todayMod))),
+				(year+month+(dayString(todayMod))),
+				(year+month+(dayString(todayMod))),
+				(year+month+(dayString(todayMod))),
+				(year+month+(dayString(todayMod)))
 			]
 			return data
 		}
@@ -135,21 +166,41 @@ Template.Shop.helpers({
 			return ingredientList.map(fixStrings);
 		}
 
-		//console.log(assignedRecipes());
 
 		var seen = {};
 		var mergedIngredients = assignedRecipes().filter(function(entry) {
 		    var previous;
+		    var ingredients;
 
 		    // Have we seen this name/measurement before?
 		    if (seen.hasOwnProperty(entry.name + entry.scale)) {
 		        // Yes, grab it and add this data to it
 		        previous = seen[entry.name + entry.scale];
-		        
+		        ingredients = seen[entry.name + entry.scale];
+		        var obj = {
+		        	aisle: entry.aisle,
+		        	amount: entry.amount,
+		        	measurement: entry.measurement,
+		        	name: entry.name,
+		        	recipe: entry.recipe,
+		        	scale: entry.scale
+		        }
+		        ingredients.ingredients.push(obj);
 		        previous.amount.push(entry.amount);
 
 		        // Don't keep this entry, we've merged it into the previous one
 		        return false
+		    }
+		    if (!entry.ingredients){
+		    	var obj = {
+		        	aisle: entry.aisle,
+		        	amount: entry.amount,
+		        	measurement: entry.measurement,
+		        	name: entry.name,
+		        	recipe: entry.recipe,
+		        	scale: entry.scale
+		        }
+		    	entry.ingredients = [obj];
 		    }
 
 		    // entry.amount probably isn't an array; make it one for consistency
@@ -157,21 +208,18 @@ Template.Shop.helpers({
 		        entry.amount = [entry.amount];
 		        
 		    }
+		    
 
 		    // Remember that we've seen it
 		    seen[entry.name + entry.scale] = entry;
 
 		    // Keep this one, we'll merge any others that match into it
 
-		    	return true
-
-		    //console.log(assignedRecipes());
-		    
+		    	return true		    
 		    
 		});
+
 		
-
-
 		var addAmounts = function(ingredient){
 
 			var sum = ingredient.amount.reduce(add, 0);
@@ -185,35 +233,13 @@ Template.Shop.helpers({
 			return ingredient
 		}
 
-
-
 		var finalList =  mergedIngredients.map(addAmounts);
 
-
-		var something = finalList.filter(function(merged){
-			merged.ingredients = [];
-			_.each(assignedRecipes(), function(assigned){
-				var assignedId = assigned.aisle + assigned.measurement + assigned.name;
-				var mergedId = merged.aisle + merged.measurement + merged.name;
-				if (assignedId == mergedId) {
-					merged.ingredients.push(assigned);
-				}
-			});
-			return merged
-		});
-
-		//console.log(something);
-
-		
-
-
-
-		
 		var completedItems = Session.get('gotIt');
 
 		if (completedItems && completedItems.length > 0) {
 
-			var updatedList = something.filter(function(object){
+			var updatedList = finalList.filter(function(object){
 				var match = false;
 
 				_.each(completedItems, function(entry){
@@ -231,7 +257,7 @@ Template.Shop.helpers({
 		}
 
 		
-		var usableList = updatedList || something;
+		var usableList = updatedList || finalList;
 		usableList = usableList.sort(function(item1, item2){
 		    return item1.aisle.localeCompare(item2.aisle);
 		})
@@ -264,9 +290,9 @@ Template.Shop.helpers({
 			});
 		});
 
-		console.log(aisleArray);
 
 		return aisleArray
+		
 	},
 	gotIt:function(){
 		var completedItems = Session.get('gotIt');

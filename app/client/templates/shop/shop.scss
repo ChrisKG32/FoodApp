@@ -32,10 +32,15 @@
 					height: 25px;
 					width: 25px;
 				}
+				span.glyphicon {
+					margin-top: 5px;
+					padding-right: 3px;
+				}
 			}
 
 			tr {
 				background-color: rgb(240,240,240);
+				border-bottom: 1px solid rgb(230,230,230);
 			}
 			//tr:nth-child(even) {
 				background-color: rgb(230,230,230);
@@ -72,10 +77,17 @@
 			}
 			tr.contained-ingredients {
 				display: none;
+				
 				span.left-indent {
 					margin-left: 25px;
 				}
 				td {
+					
+				}
+			}
+			.got-it {
+
+				.got-it-list {
 					
 				}
 			}

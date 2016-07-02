@@ -4,11 +4,12 @@ template(name='Shop')
 		.smart-list.container
 			table.table
 				each generateList
-					thead(aisle="!{this.name}")
+					thead.aisle-header(aisle="!{this.name}")
 						tr
 							th
 								img(src="!{this.name}.png")
 								| !{this.display}
+								span.pull-right.glyphicon.glyphicon-triangle-bottom
 					tbody(aisle-list="!{this.name}")
 						each this.ingredient
 							tr.ingredient-header
@@ -29,12 +30,13 @@ template(name='Shop')
 										| for
 										| !{recipeName}
 				if gotIt
-					thead(aisle="bakery")
+					thead.got-it(aisle="bakery")
 						tr
 							th
 								img(src="bakery.png")
 								| Got it!
-					tbody(aisle-list="bakery")
+								span.pull-right.glyphicon.glyphicon-triangle-top
+					tbody.got-it-list(aisle-list="bakery" style="display: none;")
 						each completedItems
 							tr
 								td
