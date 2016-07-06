@@ -2,6 +2,36 @@
 /* ActiveFilters: Event Handlers */
 /*****************************************************************************/
 Template.ActiveFilters.events({
+	'click .active-filter-item':function(e){
+		var currentTarget = $(e.currentTarget);
+		var target = $(e.target);
+		var currentFilter = Session.get('currentFilter');
+		var section;
+
+		if (this['diets']) {
+			section = 'diets';
+		} else if (this['category']) {
+			section = 'category';
+		} else if (this['difficulty']) {
+			section = 'difficulty';
+		}
+		var clickedElement = this[section];
+
+		currentFilter[section] = currentFilter[section].filter(function(entry){
+			if (entry[section] == clickedElement) {
+				return false
+			} else {
+				return true
+			}
+		});
+
+		Session.set('currentFilter', currentFilter);
+
+
+
+
+
+	}
 });
 
 /*****************************************************************************/
@@ -11,13 +41,13 @@ Template.ActiveFilters.helpers({
 	activeFilters:function(){
 		var currentFilter = Session.get('currentFilter');
 		var filterList = [];
-		if (currentFilter && currentFilter.diets && currentFilter.diets.length > 1) {
+		if (currentFilter && currentFilter.diets && currentFilter.diets.length > 0) {
 			filterList = filterList.concat(currentFilter.diets)
 		}
-		if (currentFilter && currentFilter.category && currentFilter.category.length > 1) {
+		if (currentFilter && currentFilter.category && currentFilter.category.length > 0) {
 			filterList = filterList.concat(currentFilter.category)
 		}
-		if (currentFilter && currentFilter.difficulty && currentFilter.difficulty.length > 1) {
+		if (currentFilter && currentFilter.difficulty && currentFilter.difficulty.length > 0) {
 			filterList = filterList.concat(currentFilter.difficulty)
 		}
 

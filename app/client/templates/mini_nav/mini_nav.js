@@ -18,9 +18,9 @@ Template.MiniNav.events({
 		} else if (currentTarget.hasClass('search-recipes-button')) {
 			Session.set('planPage', 'Recipes');
 		} else if (currentTarget.hasClass('single-day-prep')){
-			Session.set('prepPage', 'Single Day');
-		} else if (currentTarget.hasClass('week-prep')) {
-			Session.set('prepPage', 'Week');
+			Session.set('prepPage', 'Prepare');
+		} else if (currentTarget.hasClass('cook-prep')) {
+			Session.set('prepPage', 'Cook');
 		}
 	}
 });
@@ -43,7 +43,7 @@ Template.MiniNav.helpers({
 
 		if (routeName === 'prep' && param1 == prepPage){
 			return true
-		} else if (param1 == 'Single Day' && param2 == 'Week') {
+		} else if (param1 == 'Prepare' && param2 == 'Cook') {
 			return true
 		} else {
 			return false
@@ -111,8 +111,8 @@ Template.MiniNav.helpers({
 
 		} else if (routeName === 'prep') {
 			var prepDropdown = [
-				{name: 'Single Day', class:'single-day-prep'},
-				{name: 'Week', class: 'week-prep'}
+				{name: 'Prepare', class:'single-day-prep'},
+				{name: 'Cook', class: 'cook-prep'}
 			]
 
 			for (var i = 0; i < prepDropdown.length; i++){

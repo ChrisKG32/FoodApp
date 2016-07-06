@@ -2,6 +2,7 @@ template(name='ActiveFilters')
 	.active-filters
 		ul.list-inline
 			each activeFilters
-				li
+				li.active-filter-item
 					| !{getName}
+					span.glyphicon.glyphicon-remove
 		

@@ -321,6 +321,30 @@ Template.RecipeFilter.helpers({
 			.count();
 			*/
 			
+	},
+	checkFilter:function(){
+		var currentFilter = Session.get('currentFilter');
+		var filterName = this.value;
+		var keyName = this.key;
+
+		var checked = false;
+		if (currentFilter && currentFilter[keyName].length > 0){
+			currentFilter[keyName].map(function(entry){
+
+				if (filterName === entry[keyName]) {
+					checked = true;
+				}
+			});
+
+			if (checked === true) {
+
+				return 'checked'
+			} else {
+				return ''
+			}
+		}
+		
+
 	}
 });
 

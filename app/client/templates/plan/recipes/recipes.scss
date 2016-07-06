@@ -9,6 +9,8 @@
 	//height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
 	height: calc(100% - (#{$navbar-height}));
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	padding-bottom: 250px;
 	.recipes-inner {
 		@extend %no-gutter;
 
@@ -33,6 +35,17 @@
 			    rgba(0,0,0,0.5)
 			);
 		    z-index: 97;
+		}
+
+		.category-header {
+			background-color: mix($dark-background, white, 70%);
+			@include linear-gradient(to bottom, rgb(130,130,130), rgb(100,100,100));
+			color: rgb(230,230,230);
+			font-weight: normal;
+			border-bottom: 1px solid $default-font-color;
+		}
+
+		.section-wrapper {
 		}
 	}
 }

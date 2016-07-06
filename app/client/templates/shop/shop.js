@@ -45,7 +45,7 @@ Template.Shop.events({
 			dropdown.show();
 		} else {
 			currentTarget.removeClass('fa-minus').addClass('fa-plus');
-			parent.css('border-bottom', 'none');
+			parent.css('border-bottom', '1px solid rgb(230,230,230)');
 			dropdown.hide();
 		}
 

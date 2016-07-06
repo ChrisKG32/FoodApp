@@ -7,6 +7,10 @@
 
 .item-wrapper {
 	@extend %no-gutter;
+	overflow: hidden;
+	background-color: $default-border-color;
+	background: url('nutrition.png');
+	background-size: 100% 100%;
 
 	.recipe-item {
 		position: relative;
@@ -84,6 +88,6 @@
 		}
 	}
 	.yes .recipe-share {
-		color: red !important;
+		color: #33cc33 !important;
 	}
 }

@@ -114,7 +114,7 @@ Template.Prep.onCreated(function () {
 });
 
 Template.Prep.onRendered(function () {
-	Session.set('prepPage', 'Single Day');
+	Session.set('prepPage', 'Prepare');
 	//Meteor.defer(function(){
 		Session.set('planPage', false);
 		Session.set('shopPage', false);

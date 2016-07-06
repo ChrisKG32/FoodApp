@@ -8,7 +8,7 @@ Template.YourRecipes.events({
 		var dropdown = currentTarget.find('.filter-list');
 		var caret = currentTarget.find('.dropdown');
 
-		if (target.hasClass('header')) {
+		if (target.hasClass('header') || target.hasClass('pull-right')) {
 
 			if (caret.hasClass('fa-caret-down')) {
 				$('.filter-item h5 span').removeClass('fa-caret-up').addClass('fa-caret-down');

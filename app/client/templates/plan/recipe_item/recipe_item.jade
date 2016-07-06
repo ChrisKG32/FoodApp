@@ -7,8 +7,8 @@ template(name='RecipeItem')
 				.recipe-info
 					i.fa.fa-leaf
 			.recipe-name
-				span
+				span.recipe-title
 					| !{this.name}
 			if planPage 'Recipes'
 				.recipe-share
-					i.fa.fa-share
+					i.fa.fa-heart

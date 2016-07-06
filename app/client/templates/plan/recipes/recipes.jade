@@ -7,3 +7,12 @@ template(name='Recipes')
 					| !{this.name}
 			each displayRecipes 'Favorites' 'Recipes'
 				+RecipeItem
+			if planPage 'Favorites'
+				each favoritesPage 'categories'
+					.category-header.col-xs-12(recipe-category="!{this.name}")
+						h4.text-center
+							| !{this.name}
+							span.glyphicon.glyphicon-triangle-bottom.pull-right
+					.section-wrapper(recipe-category="!{this.name}")
+						each favoritesPage 'recipes'
+							+RecipeItem

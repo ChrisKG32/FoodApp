@@ -41,19 +41,19 @@ Template.Plan.onRendered(function () {
 				transform.transform = 'translate(' + filterSidebar + 'px)';
 
 
-			//Swipe integration with HammerJS.
-				//Uses PAN eventlistener to stick sidebar to touch until release
-				// then the sidebar will animate to the final position depending on
-				// 2 factors: where the user dropped it, and how far it was moved.
+		//Swipe integration with HammerJS.
+			//Uses PAN eventlistener to stick sidebar to touch until release
+			// then the sidebar will animate to the final position depending on
+			// 2 factors: where the user dropped it, and how far it was moved.
 
 			//Swipe element
-			stage = document.getElementById('filter');
+			var stage = document.getElementById('filter');
 
 			//Initialize
-			hammertime = new Hammer.Manager(stage);
+			var hammertime = new Hammer.Manager(stage);
 
 			//Create Pan Event Listener
-			Pan = new Hammer.Pan();
+			var Pan = new Hammer.Pan();
 
 			//Activate event listener
 			hammertime.add(Pan);
@@ -163,7 +163,51 @@ Template.Plan.onRendered(function () {
 				});
 
 
+		//Press integration with HammerJS
+			new Hammer($('#plan')[0], {
+				domEvents: true
+			});
 
+			$('#plan').on('press', function(e){
+				var target = $(e.target);
+
+				if (target.hasClass('recipe-item') || target.hasClass('recipe-name') || target.hasClass('recipe-title')) {
+					var touchEvent = e.originalEvent.gesture.pointers[0];
+					var clientX = touchEvent.clientX;
+					var clientY = touchEvent.clientY;
+					var planOffset = $('.plan').offset().top;
+					var planWidth = $('.plan').width();
+					var contextWidth = $('.context-menu').width();
+					var contextHeight = $('.context-menu').height();
+					var viewportHeight = $(window).height();
+					if ((contextHeight > (viewportHeight - clientY)) && ((planWidth - clientX) < contextWidth)) {
+						$('.context-menu')
+						.css('transform', 'translate(' + (clientX - contextWidth) + 'px, ' + (clientY - planOffset - contextHeight) + 'px)')
+						.show();
+					} else if ((planWidth - clientX) < contextWidth) {
+						$('.context-menu')
+						.css('transform', 'translate(' + (clientX - contextWidth) + 'px, ' + (clientY - planOffset) + 'px)')
+						.show();
+					} else if (contextHeight > (viewportHeight - clientY)) {
+						$('.context-menu')
+						.css('transform', 'translate(' + (clientX) + 'px, ' + (clientY - planOffset - contextHeight) + 'px)')
+						.show();
+					} else {
+						$('.context-menu')
+						.css('transform', 'translate(' + (clientX) + 'px, ' + (clientY - planOffset) + 'px)')
+						.show();
+					}
+
+
+					
+
+
+
+
+					//$('.context-menu').css()
+					//$('.context-menu').show();
+				}
+			});
 });
 
 Template.Plan.onDestroyed(function () {
