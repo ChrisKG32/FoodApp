@@ -20,7 +20,7 @@ Template.AddRecipe.events({
 		var target = $(e.target);
 		var currentTarget = $(e.target);
 		var numIngredients = Session.get('numIngredients');
-		if (numIngredients > 0) {
+		if (numIngredients > 1) {
 			numIngredients--
 			Session.set('numIngredients', numIngredients);
 		}
@@ -29,7 +29,7 @@ Template.AddRecipe.events({
 	'click .cancel-recipe':function(e){
 		e.preventDefault();
 	},
-	'submit form':function(e){
+	'click .submit-recipe-btn':function(e){
 		e.preventDefault();
 
 		var recipeName = $('#recipe-name').val();
@@ -45,7 +45,7 @@ Template.AddRecipe.events({
 
 
 		_.each(allIngredients, function(entry){
-			var ingredientAmt = $(entry).find('.amt').val();
+			var ingredientAmt = Number($(entry).find('.amt').val());
 			var ingredientUnit = $(entry).find('.unit').val();
 			var ingredientName = $(entry).find('.name').val();
 
@@ -89,15 +89,41 @@ Template.AddRecipe.events({
 		} else if (ingredientName.length <= 2) {
 			Session.set('autocomplete', []);
 		}
+		Session.set('everyKey', ingredientName);
 	},
-	'click .ingredient-item .autocomplete li':function(e){
+	'click .existing-ingredient':function(e){
 		//parent parent before input.name
 		var target = $(e.target);
 		var currentTarget = $(e.currentTarget);
+		console.log(currentTarget);
 		var inputValue = currentTarget.parent().parent().prev().find('input.name');
+		var inputIdText = inputValue.attr('id');
+		var inputId = inputIdText.substr(inputIdText.lastIndexOf('-') + 1);
+		var ingredientNumber = 'ingredient' + inputId;
+
+		var recipeIngredients = Session.get('recipeIngredients');
+		var selectedIngredient = this;
+		if (recipeIngredients) {
+			recipeIngredients[ingredientNumber] = selectedIngredient;			
+			Session.set('recipeIngredients', recipeIngredients);
+		} else {
+			var data = {};
+			data[ingredientNumber] = selectedIngredient;
+			Session.set('recipeIngredients', data);
+		}
+
 		var autocomplete = currentTarget.parent().parent();
 		inputValue.val(currentTarget.text());
 		autocomplete.hide();
+	},
+	'click .add-new-ingredient':function(e){
+		var currentTarget = $(e.currentTarget);
+		var inputObj = currentTarget.parent().parent().prev().find('input.name');
+		var inputIdText = inputObj.attr('id');
+		var inputId = inputIdText.substr(inputIdText.lastIndexOf('-') + 1);
+		var inputVal = inputObj.val();
+		Session.set('newIngredientInput', inputId);
+		$('.autocomplete').hide();
 
 	}
 });
@@ -110,21 +136,173 @@ Template.AddRecipe.helpers({
 		var numIngredients = Session.get('numIngredients');
 		var randomArray = [];
 		for (var i = 0; i < numIngredients; i++){
-			randomArray.push('something');
+			randomArray.push({number: i + 1});
 		}
 		return randomArray
+
+
 	},
-	autocomplete:function(){
-		var autocompleteResults = Session.get('autocomplete');
-		if (autocompleteResults) {
-			if (autocompleteResults.length > 0) {
-				return autocompleteResults
-			} else {
-				return []
+	attributes:function(){
+		var attributes = {
+			diets: {
+				name: 'Lifestyles',
+				value: 'diets',
+				array: [
+					{
+						name: 'Paleo',
+						value: 'paleo',
+						key: 'diets',
+						amount: 29
+					},
+					{
+						name: 'Primal',
+						value: 'primal',
+						key: 'diets',
+						amount: 23
+					},
+					{
+						name: 'Keto',
+						value: 'keto',
+						key: 'diets',
+						amount: 12
+					},
+					{
+						name: 'Whole 30',
+						value: 'whole30',
+						key: 'diets',
+						amount: 32
+					},
+					{
+						name: 'Vegan',
+						value: 'vegan',
+						key: 'diets',
+						amount: 32
+					},
+					{
+						name: 'Vegetarian',
+						value: 'vegetarian',
+						key: 'diets',
+						amount: 32
+					},
+					{
+						name: "Wahl's Protocol",
+						value: 'wahls protocol',
+						key: 'diets',
+						amount: 32
+					},
+					{
+						name: 'Under 6 Ingredients',
+						value: '<6',
+						key: 'diets',
+						amount: 32
+					},
+					{
+						name: 'Crockpot',
+						value: 'crockpot',
+						key: 'diets',
+						amount: 32
+					},
+					{
+						name: 'Under 400 Calories',
+						value: '<400 calories',
+						key: 'diets',
+						amount: 32
+					},
+					{
+						name: 'Gluten-Free',
+						value: 'gluten-free',
+						key: 'diets',
+						amount: 32
+					},
+					{
+						name: 'Dairy-Free',
+						value: 'dairy-free',
+						key: 'diets',
+						amount: 42
+					}
+				]
+			},
+			category: {
+				name: 'Categories',
+				value: 'category',
+				array: [
+					{
+						name: 'Main Course',
+						value: 'main-course',
+						key: 'category',
+						amount: 51
+					},
+					{
+						name: 'Breakfast',
+						value: 'breakfast',
+						key: 'category',
+						amount: 34
+					},
+					{
+						name: 'Side',
+						value: 'side',
+						key: 'category',
+						amount: 31
+					},
+					{
+						name: 'Soup/Salad',
+						value: 'soup/salad',
+						key: 'category',
+						amount: 34
+					},
+					{
+						name: 'Snack',
+						value: 'snack',
+						key: 'category',
+						amount: 12
+					},
+					{
+						name: 'Appetizer',
+						value: 'appetizer',
+						key: 'category',
+						amount: 43
+					},
+					{
+						name: 'Dessert',
+						value: 'dessert',
+						key: 'category',
+						amount: 12
+					},
+					{
+						name: 'Sauce/Dressing',
+						value: 'sauce/dressing',
+						key: 'category',
+						amount: 43
+					}
+				]
+			},
+			difficulty: {
+				name: 'Difficulties',
+				value: 'difficulty',
+				array: [
+					{
+						name: 'Beginner',
+						value: 'beginner',
+						key: 'difficulty',
+						amount: 12
+					},
+					{
+						name: 'Intermediate',
+						value: 'intermediate',
+						key: 'difficulty',
+						amount: 32
+					},
+					{
+						name: 'Advanced',
+						value: 'advanced',
+						key: 'difficulty',
+						amount: 12
+					}
+				]
 			}
-		} else {
-			return []
 		}
+
+		return attributes
 	}
 });
 
@@ -135,8 +313,9 @@ Template.AddRecipe.onCreated(function () {
 });
 
 Template.AddRecipe.onRendered(function () {
-	Session.set('numIngredients', 0);
+	Session.set('numIngredients', 1);
 	Session.set('something', 1);
+	Session.set('newIngredientInput', false);
 });
 
 Template.AddRecipe.onDestroyed(function () {

@@ -3,6 +3,10 @@
 /*****************************************************************************/
 $line-color: #333;
 
+@import '../../../stylesheets/_mixins';
+@import '../../../stylesheets/_placeholders';
+@import '../../../stylesheets/_variables';
+
 .details {
 	height: 100%;
 	.recipe-image {
@@ -66,5 +70,46 @@ $line-color: #333;
 	.bold-underline {
 		text-decoration: none;
 		border-bottom: 4px solid rgb(70,70,70);
+	}
+	.ingredients-wrapper {
+		@extend %no-gutter;
+
+		.ingredients-list {
+			padding: 0;
+			list-style: none;
+			li.ingredient-item {
+				padding-top: 10px;
+				padding-bottom: 10px;
+
+
+				.ingredient-amt {
+					@extend %no-gutter;
+					text-align: center;
+				}
+				.ingredient-measurement {
+					@extend %no-gutter;
+					text-align: center;
+				}
+				.ingredient-name {
+					@extend %no-gutter;
+
+				}
+			}
+			li.ingredient-item:nth-child(odd){
+				background-color: rgb(230,230,230);
+			}
+			li.ingredient-item:nth-child(even){
+				background-color: rgb(238,238,238);
+			}
+		}
+	}
+	.instructions-wrapper {
+		@extend %no-gutter;
+		.instructions-header {
+			text-align: center;
+			padding: 1px;
+			background-color: $dark-background;
+			color: $default-font-color;
+		}
 	}
 }

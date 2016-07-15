@@ -61,5 +61,8 @@ Meteor.methods({
                 console.warn('Rejected. This item already exists.');
             }
         }
+    },
+    'newIngredient':function(data){
+    	Ingredients.insert(data);
     }
 });

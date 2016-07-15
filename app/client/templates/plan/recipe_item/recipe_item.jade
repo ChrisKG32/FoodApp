@@ -6,8 +6,8 @@ template(name='RecipeItem')
 			if planPage 'Recipes'
 				.recipe-info
 					i.fa.fa-leaf
-			.recipe-name
-				span.recipe-title
+			.recipe-name(recipe-id="!{this._id}")
+				span.recipe-title(recipe-id="!{this._id}")
 					| !{this.name}
 			if planPage 'Recipes'
 				.recipe-share

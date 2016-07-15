@@ -43,7 +43,7 @@
 
 			tr {
 				background-color: rgb(240,240,240);
-				border-bottom: 1px solid rgb(230,230,230);
+				border-bottom: 1px solid rgb(245,245,245);
 			}
 			//tr:nth-child(even) {
 				//background-color: rgb(230,230,230);
@@ -90,6 +90,12 @@
 				}
 				
 			}
+			tr.contained-ingredients {
+				background-color: rgb(230,230,230);
+			}
+			//tr.contained-ingredients:nth-child(even){
+			//	background-color: rgb(230,230,230);
+			//}
 			tr.contained-ingredients {
 				display: none;
 				

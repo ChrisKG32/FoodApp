@@ -228,7 +228,14 @@ Template.Shop.helpers({
 				return a + b
 			}
 
-			ingredient.amount = sum;
+			sum = sum.toString();
+
+			if (sum.substr(sum.indexOf('.') + 1).length > 2) {
+				ingredient.amount = Number(sum).toFixed(2);
+			} else {
+				ingredient.amount = Number(sum);
+			}
+
 
 			return ingredient
 		}

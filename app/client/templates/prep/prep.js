@@ -66,7 +66,10 @@ Template.Prep.helpers({
 				if (month[0] != 0) {
 					month = 0 + '' + month;
 				}
-				var day = today.getDate();
+				var day = '' + today.getDate();
+				if (day.length < 2) {
+					day = 0 + day;
+				}
 				return year+month+day;
 			}
 			var dayId = getDayId();

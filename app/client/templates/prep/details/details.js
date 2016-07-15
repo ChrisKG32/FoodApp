@@ -28,6 +28,9 @@ Template.Details.helpers({
 	currentRecipe:function(){
 		var recipeId = Session.get('currentRecipe');
 		var currentRecipe = Recipes.findOne({_id: recipeId});
+		if (currentRecipe) {
+			currentRecipe.difficulty = currentRecipe.difficulty[0].toUpperCase() + currentRecipe.difficulty.substr(1);
+		}
 		return currentRecipe
 	}
 });

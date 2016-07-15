@@ -10,12 +10,14 @@
 .nav {
 	z-index: 99;
 	.wrapper {
+		position: relative;
 		//margin-left: 20%;
 		//margin-right: 20%;
 		//overflow: auto;
 
 		//All below and a tag can be removed (better code) 
 		  // and above code will restore it to regular functionality
+
 
 
 	}
@@ -44,4 +46,9 @@
 		}
 	}
 
+}
+
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
 }

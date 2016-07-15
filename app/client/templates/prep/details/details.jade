@@ -4,16 +4,16 @@ template(name='Details')
 			.recipe-image(style="background-image: url('!{this.img}');")
 				.recipe-title
 					h4
-						| {{name}}
+						| !{name}
 			.recipe-banner.col-xs-12.text-center
 				.col-xs-4
 					h5
 						| Ingredients
-					| 8
+					| !{ingredients.length}
 				.col-xs-4
 					h5
 						| Difficulty
-					| Easy
+					| !{difficulty}
 				.col-xs-4
 					h5
 						| Time
@@ -25,8 +25,20 @@ template(name='Details')
 				.col-xs-6.instruction-tab.dropdown-tab
 					h4
 						| Instructions
-			unless currentTab
-				+IngredientList
-			if currentTab
-				+Instructions
+			.ingredients-wrapper.col-xs-12
+				ul.ingredients-list
+					each currentRecipe.ingredients
+						li.ingredient-item.col-xs-12
+							span.ingredient-amt.col-xs-1
+								| !{this.amount} 
+							span.ingredient-measurement.col-xs-3
+								| !{this.measurement} 
+							span.ingredient-name.col-xs-8
+								| !{this.name}
+			.instructions-wrapper.col-xs-12
+				.instructions-header
+					h4
+						| Instructions
+				p
+					| Fusce sit amet justo nec nibh porttitor pharetra vel vitae erat. Phasellus porta blandit elit, sed vulputate neque pretium sit amet. Vestibulum sit amet faucibus nibh, ornare ultrices arcu. Morbi eget nibh pretium, volutpat nisi vitae, volutpat turpis. Vestibulum sed diam quam. Etiam ipsum libero, molestie eu diam eget, viverra lobortis ex. Pellentesque a nisi est. Integer consequat ornare purus eleifend sollicitudin. Vivamus odio massa, pellentesque a enim fermentum, bibendum suscipit tellus. Nullam accumsan velit lorem, id aliquam neque sagittis ac. Nulla non venenatis tortor, a tempor erat. Proin orci justo, vulputate eget congue in, varius eu dolor. Duis id nisl ac orci ultricies finibus.
 

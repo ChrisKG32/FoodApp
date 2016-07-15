@@ -1,20 +1,53 @@
 template(name='IngredientItem')
-	li.ingredient-item(class="ingredient-item-{{itemNumber}}")
+	li.ingredient-item(class="ingredient-item-!{this.number}")
 		.col-xs-2
 			.form-group.text-center
-				input.form-control.amt(type="number")
+				input.form-control.amt(id="ingredient-amt-!{this.number}" type="number")
 		.col-xs-2
 			.form-group.text-center
-				input.form-control.unit(type="text")
+				input.form-control.unit(id="ingredient-unit-!{this.number}" type="text")
 		.col-xs-8.name-field
 			.form-group.text-center
-				input.form-control.name(type="text")
+				input.form-control.name(id="ingredient-name-!{this.number}" type="text" number="!{this.number}")
 			if autocomplete
 				.autocomplete
 					ul
 						each autocomplete
-							li
-								| {{name}}
-						li
+							li.existing-ingredient
+								span
+									| {{name}}
+									i.fa.fa-check(aria-hidden="true")
+						li.add-new-ingredient
 							span.glyphicon.glyphicon-edit
-							| Add Ingredient
+							| Add New Ingredient
+			else if newIngredient
+				.autocomplete
+					ul
+						li.add-new-ingredient
+							span.glyphicon.glyphicon-edit
+							| Add New Ingredient
+		if newIngredientInput
+			.new-db-ingredient.col-xs-12
+				h4.text-center
+					| New Database Ingredient
+				.form-group
+					input.form-control(id="new-db-name-!{this.number}" placeholder="name" type="text")
+				.form-group
+					input.form-control(id="new-db-aisle-!{this.number}" placeholder="aisle" type="text")
+				.form-group
+					input.form-control(id="new-db-measurement-!{this.number}" placeholder="measurement" type="text")
+				.checkbox
+					label
+						input(id="new-db-cb-recipe-!{this.number}" type="checkbox" value="")
+						| Recipe
+				.checkbox
+					label
+						input(id="new-db-cb-video-!{this.number}" type="checkbox" value="")
+						| Video
+				.col-xs-4.col-xs-offset-2
+					button.btn.btn-defaul.cancel-new-db(class="cancel-new-db-!{this.number}")
+						| Cancel
+				.col-xs-4.col-xs-offset-1
+					button.btn.btn-primary.submit-new-db(class="submit-new-db-!{this.number}")
+						| Add Ingredient
+				

@@ -170,8 +170,12 @@ Template.Plan.onRendered(function () {
 
 			$('#plan').on('press', function(e){
 				var target = $(e.target);
+				console.log(target)
 
 				if (target.hasClass('recipe-item') || target.hasClass('recipe-name') || target.hasClass('recipe-title')) {
+					var recipeId = target.attr('recipe-id');
+					Session.set('currentRecipe', recipeId);
+
 					var touchEvent = e.originalEvent.gesture.pointers[0];
 					var clientX = touchEvent.clientX;
 					var clientY = touchEvent.clientY;

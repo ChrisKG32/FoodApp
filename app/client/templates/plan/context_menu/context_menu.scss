@@ -7,7 +7,29 @@
 	z-index: 99999;
 	top: 0;
 
-	ul {
-		margin-bottom: 0;
+	.exit {
+		position: absolute;
+		top: 2px;
+		right: 2px;
+		z-index: 1001;
+		font-size: 120%;
 	}
+
+	ul.options {
+		margin-bottom: 0;
+		li:last-child {
+			display: inline-block;
+			width: 100%;
+		}	
+		
+	}
+
+}
+ul.meal-planner {
+	padding: 0;
+	min-width: 0;
+	position: absolute;
+	top:0;
+	left: 0;
+	display: none;
 }

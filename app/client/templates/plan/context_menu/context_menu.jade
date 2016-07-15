@@ -1,7 +1,20 @@
 template(name='ContextMenu')
 	.context-menu
-		ul.list-group
-			li.list-group-item
-				| Item 1
-			li.list-group-item
-				| Item 2
+		span.glyphicon.glyphicon-remove.exit
+		ul.list-group.options
+			li.list-group-item.favorite
+				i.fa.fa-heart(aria-hidden="true")
+				| &nbsp;Add to Favorites
+			li.list-group-item.cart
+				i.fa.fa-shopping-cart(aria-hidden="true")
+				| &nbsp;Add to Cart
+			li.list-group-item.meal-plan-dropdown
+				i.fa.fa-calendar(aria-hidden="true")
+				| &nbsp;Add to Meal Plan &nbsp;
+				i.fa.fa-caret-right(aria-hidden="true")
+	ul.meal-planner.list-group
+		each dayCheck
+			li.list-group-item.mp-day(date-id="!{this.date}")
+				| !{this.day} &nbsp;
+				span.badge.pull-right
+					| {{badges}}
