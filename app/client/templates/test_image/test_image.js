@@ -18,6 +18,7 @@ Template.TestImage.onCreated(function () {
 });
 
 Template.TestImage.onRendered(function () {
+	pressStarted = false;
 
 	var sessionDatas = Session.get('Breakfast') && 
 			Session.get('Entrée') && 
@@ -32,20 +33,27 @@ Template.TestImage.onRendered(function () {
 			revertDuration: 0,
 			start: function(e, ui){
 				var target = $(e.target);
-				console.log('Recipe ID ' + target.attr('id'));
+
+				var hoverId = target.attr('id');
+				Session.set('hoverId', hoverId);
+
+
 				recipeId = target.attr('id');
 				target.css('opacity', '0.3');
 				Session.set('draggable', true);
-				console.log('start');
+				target.removeClass('shake');
 			},
 			stop: function(e, ui) {
+				Session.set('hoverId', false);
+
+
 				var target = $(e.target);
 				target.css('opacity', '1');
 				Meteor.defer(function(){
 					Session.set('draggable', false);
 				}, 100);
 				
-				console.log('stop');
+				pressStarted = false;
 			}
 		});		
 		mealPlanCalendar.droppable({
@@ -53,7 +61,6 @@ Template.TestImage.onRendered(function () {
 			drop: function(e, ui){
 				var currentUser = Meteor.userId();
 				var target = $(e.target);
-				console.log('Day ID ' + target.attr('id'));
 				var dayId = target.attr('id');
 
 				var userProfile = Meteor.users.findOne(currentUser) && Meteor.users.findOne(currentUser).profile;
@@ -80,6 +87,47 @@ Template.TestImage.onRendered(function () {
 
 			}
 		});
+
+
+		//Press integration with HammerJS
+			new Hammer($('#filter')[0], {
+				domEvents: true
+			});
+
+			$('#filter').on('press', function(e){
+				var target = $(e.target);
+
+				if (!pressStarted){
+					if (target.hasClass('ui-draggable')) {
+						dragItem = target;
+					} else if (target.parent().hasClass('ui-draggable')) {
+						dragItem = target.parent();
+					}
+					if (dragItem) {
+						dragItem.addClass('shake');
+					}
+					
+				}
+
+				pressStarted = true;
+
+				var hoverId = dragItem.attr('id');
+				Session.set('hoverId', hoverId);
+				
+			});
+
+			$('#filter').on('pressup', function(e){
+				var target = $(e.target);
+
+					if (dragItem.hasClass('shake')) {
+						dragItem.removeClass('shake');
+					}
+				pressStarted = false;
+
+				Session.set('hoverId', false);
+							
+			});
+
 });
 
 Template.TestImage.onDestroyed(function () {

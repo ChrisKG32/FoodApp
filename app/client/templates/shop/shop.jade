@@ -9,7 +9,7 @@ template(name='Shop')
 							th
 								img(src="!{this.name}.png")
 								| !{this.display}
-								span.pull-right.glyphicon.glyphicon-triangle-bottom
+								span.pull-right.glyphicon.glyphicon-triangle-top
 					tbody(aisle-list="!{this.name}")
 						each this.ingredient
 							tr.ingredient-header
@@ -38,7 +38,7 @@ template(name='Shop')
 							th
 								img(src="bakery.png")
 								| Got it!
-								span.pull-right.glyphicon.glyphicon-triangle-top
+								span.pull-right.glyphicon.glyphicon-triangle-bottom
 					tbody.got-it-list(aisle-list="bakery" style="display: none;")
 						each completedItems
 							tr

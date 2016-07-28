@@ -125,6 +125,37 @@ Template.MealPlan.helpers({
 		});
 
 		return recipeList
+	},
+	hoverId:function(){
+		hoverId = Session.get('hoverId');
+
+		if (hoverId) {
+
+			var currentUser = Meteor.userId();
+			var userAccount = Meteor.users.findOne(currentUser) && 
+				Meteor.users.findOne(currentUser).profile && 
+				Meteor.users.findOne(currentUser).profile.assigned;
+			var thisDate = this.date;
+			var recipeExists = false;
+
+			_.each(userAccount, function(entry){
+				if (entry.day === thisDate){
+					_.each(entry.recipes, function(recipe){
+						if (recipe === hoverId) {
+							recipeExists = true;
+						}
+					});
+				}
+			});
+
+			if (recipeExists === true) {
+				return 'assigned'
+			} else {
+				return ''
+			}
+		} else {
+			return ''
+		}
 	}
 });
 

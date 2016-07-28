@@ -1,8 +1,8 @@
-Ingredients = new Mongo.Collection('ingredients');
-/*
+Measurements = new Mongo.Collection('measurements');
 
+/*
 if (Meteor.isServer) {
-  Ingredients.allow({
+  Measurements.allow({
     insert: function (userId, doc) {
       return false;
     },
@@ -16,7 +16,7 @@ if (Meteor.isServer) {
     }
   });
 
-  Ingredients.deny({
+  Measurements.deny({
     insert: function (userId, doc) {
       return true;
     },

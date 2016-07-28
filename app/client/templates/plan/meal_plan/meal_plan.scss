@@ -55,6 +55,12 @@ $li-background-color: white;
 				background: white;
 				@include linear-gradient(white, rgb(175,175,175));
 			}
+
+			.day-header.assigned {
+				background: rgb(200,200,200);
+				@include linear-gradient(rgb(175,175,175), rgb(175,175,175));
+			}
+
 			.assigned-recipe {
 				background-color: white;
 				border-radius: 5px;

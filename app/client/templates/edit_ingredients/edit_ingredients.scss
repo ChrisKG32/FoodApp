@@ -1,0 +1,30 @@
+/*****************************************************************************/
+/* EditIngredients: Style */
+/*****************************************************************************/
+.edit-ingredients {
+	.search-item {
+		display: inline-block;
+		background-color: rgb(240,240,240);
+		border: 1px solid gray;
+		padding: 3px;
+		margin: 2px 5px;
+		border-radius: 4px;
+	}
+	.edit-selection {
+		margin-top: 50px;
+		padding-left: 15px;
+		padding-right: 15px;
+
+		.checkbox {
+
+			h5 {
+				margin-left: 20px;
+				margin-bottom: 3px;
+			}
+
+			input[type="checkbox"] {
+				margin-top: 10px;
+			}
+		}
+	}
+}

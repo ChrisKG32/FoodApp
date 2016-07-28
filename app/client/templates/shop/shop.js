@@ -56,14 +56,14 @@ Template.Shop.events({
 		var currentTarget = $(e.currentTarget);
 		var span = currentTarget.find('span');
 
-		if (span.hasClass('glyphicon-triangle-bottom')) {
+		if (span.hasClass('glyphicon-triangle-top')) {
 			var aisle = currentTarget.attr('aisle');
 			$('tbody[aisle-list=' + aisle + ']').hide();
-			span.removeClass('glyphicon-triangle-bottom').addClass('glyphicon-triangle-top');
-		} else if (span.hasClass('glyphicon-triangle-top')) {
+			span.removeClass('glyphicon-triangle-top').addClass('glyphicon-triangle-bottom');
+		} else if (span.hasClass('glyphicon-triangle-bottom')) {
 			var aisle = currentTarget.attr('aisle');
 			$('tbody[aisle-list=' + aisle + ']').show();
-			span.removeClass('glyphicon-triangle-top').addClass('glyphicon-triangle-bottom');
+			span.removeClass('glyphicon-triangle-bottom').addClass('glyphicon-triangle-top');
 
 		}
 	}
@@ -296,7 +296,6 @@ Template.Shop.helpers({
 				}
 			});
 		});
-
 
 		return aisleArray
 		

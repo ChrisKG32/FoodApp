@@ -16,5 +16,5 @@ template(name='YourRecipes')
 							if limitPages 'prev'
 								i.fa.fa-chevron-left.page-left(data-id="!{this.name}")
 							each yourRecipes
-								.recipe-item.col-xs-6(id="!{this._id}")
+								.recipe-item.in-filter.col-xs-6(id="!{this._id}")
 									+TestImage

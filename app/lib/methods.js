@@ -64,5 +64,38 @@ Meteor.methods({
     },
     'newIngredient':function(data){
     	Ingredients.insert(data);
+    },
+    'updateIngredient':function(data){
+    	if (data) {
+    		var result = Ingredients.findOne(data._id);
+    		Ingredients.update({_id: result._id}, 
+    			{$set: 
+    				{
+    					name: data.name, 
+    					aisle: data.aisle, 
+    					measurement: data.measurement
+    				}
+    			}
+    		);
+    	}
+    },
+    'updateRecipe':function(data){
+    	if (data) {
+    		var result = Recipes.findOne(data._id);
+    		Recipes.update({_id: result._id}, 
+    			{$set: 
+    				{
+    					name: data.name, 
+    					category: data.category, 
+    					difficulty: data.difficulty,
+    					attributes: data.attributes,
+    					img: data.img
+    				}
+    			}
+    		);
+    	}
+    },
+    'addNewRecipe':function(data){
+    	Recipes.insert(data);
     }
 });

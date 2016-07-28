@@ -1,0 +1,73 @@
+template(name='EditRecipe')
+	.edit-recipe
+		if editPage
+			with editPage
+				.edit-selection
+					h4.text-center
+						| Edit Recipe
+					.checkbox
+						h5
+							| Name
+						label
+							input.check.check-name(type="checkbox")
+							input.form-control.recipe-name(type="text" value="!{this.name}" disabled)
+					.checkbox
+						h5
+							| Image
+						label
+							input.check.check-name(type="checkbox")
+							if editPage.img
+								input.form-control.image-name(type="text" value="!{this.img}" disabled)
+							else
+								input.form-control.image-name(type="file" disabled)
+					.checkbox
+						h5
+							| Category
+						label
+							input.check.check-category(type="checkbox")
+							select.form-control.recipe-category(type="text" disabled)
+								each attributes.category.array
+									option
+										| !{this.value}
+					.checkbox
+						h5
+							| Difficulty
+						label
+							input.check.check-difficulty(type="checkbox")
+							select.form-control.recipe-difficulty(type="text" disabled)
+								each attributes.difficulty.array
+									option
+										| !{this.value}
+					.well.col-xs-12
+						.col-xs-12
+							each attributes.attributes.array
+								.checkbox.diets
+									label.cb-label
+										<input id="cb-{{this.value}}" type="checkbox" value="" {{checked}}>
+										| !{this.name}
+					each editPage.ingredients
+						.checkbox.derp
+							label
+								input.check.check-name(type="checkbox")
+								input.form-control.ingredient-item(id="ingredient" type="text" value="!{this.name}" disabled)
+					.form-group
+						textarea.form-control.recipe-instructions(id="instructions" placeholder="Instructions")
+
+				button.btn.btn-default.cancel-changes
+					| Cancel
+				button.btn.btn-primary.pull-right.submit-changes
+					| Submit Changes
+		else
+			.search-ingredients
+				h4.text-center
+					| Edit Recipe
+				.form-group
+					input.form-control(type="text" id="recipe-name" placeholder="Recipe name")
+				.search-results
+					each searchResults
+						.search-item
+							| name: !{this.name} 
+							br
+							| category: !{this.category}
+							br
+							| difficulty: !{this.difficulty}

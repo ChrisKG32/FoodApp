@@ -8,8 +8,8 @@ Template.ActiveFilters.events({
 		var currentFilter = Session.get('currentFilter');
 		var section;
 
-		if (this['diets']) {
-			section = 'diets';
+		if (this['attributes']) {
+			section = 'attributes';
 		} else if (this['category']) {
 			section = 'category';
 		} else if (this['difficulty']) {
@@ -41,8 +41,8 @@ Template.ActiveFilters.helpers({
 	activeFilters:function(){
 		var currentFilter = Session.get('currentFilter');
 		var filterList = [];
-		if (currentFilter && currentFilter.diets && currentFilter.diets.length > 0) {
-			filterList = filterList.concat(currentFilter.diets)
+		if (currentFilter && currentFilter.attributes && currentFilter.attributes.length > 0) {
+			filterList = filterList.concat(currentFilter.attributes)
 		}
 		if (currentFilter && currentFilter.category && currentFilter.category.length > 0) {
 			filterList = filterList.concat(currentFilter.category)

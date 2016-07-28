@@ -8,47 +8,112 @@
 
 
 .nav {
-	z-index: 99;
-	.wrapper {
-		position: relative;
-		//margin-left: 20%;
-		//margin-right: 20%;
-		//overflow: auto;
+	
+	.main-navbar {
 
-		//All below and a tag can be removed (better code) 
-		  // and above code will restore it to regular functionality
-
-
-
-	}
-	.navbar-inverse {
-		margin-bottom: 0px;
-		border-bottom-color: $default-border-color;
+		@extend %no-gutter;
 		@include linear-gradient(to right, #333333, #1a1a1a);
-	}
-	.active {
-		color: white !important;
-	}
+		color: $default-font-color;
+		width: 100%;
+		z-index: 99;
 
-	.back-button {
-		margin-left: 17px;
-		margin-right: 0;
-		margin-top: 7px;
-		margin-bottom: 0px;
-		color: white;
-		font-size: 155%;
-		padding: 0px 8px 0px 8px;
-		border-color: mix($default-border-color, white, 85%);
+		.nav-wrapper {
+			height: 50px;
 
-		span {
-			line-height: 32px;
+			.back-button {
+				@extend %no-gutter;
 
+				height: 100%;
+				font-size: 18px;
+
+				span {
+					display: none;
+					font-size: 185%;
+					padding-left: 13px;
+					padding-right: 15px;
+					margin-top: 8px;
+					margin-bottom: 8px;
+					border-radius: 4px;
+					border: 1px solid #444;
+					color: white;
+
+					&:hover {
+						background-color: #444;
+					}
+				}
+
+
+			}
+
+			.navigation {
+				@extend %no-gutter;
+
+
+				height: 100%;
+				font-size: 18px;
+
+				a {
+					text-decoration: none;
+					color: inherit;
+					@extend %no-gutter;
+					display: inline-block;
+					transform: translateY(50%);
+				}
+
+			}
+
+			.menu-button {
+				@extend %no-gutter;
+				height: 100%;
+				font-size: 18px;
+
+				button {
+
+					border: 1px solid #333;
+
+					.icon-bar {
+						background-color: #fff;
+					}
+
+					&:focus {
+						background-color: $default-border-color;
+					}
+				}
+
+			}
+
+			.nav-dropdown {
+				border-top: 1px solid $default-border-color;
+				@extend %no-gutter;
+				
+
+
+				ul {
+					list-style: none;
+					padding: 0;
+					margin-top: 10px;
+					margin-bottom: 10px;
+
+					li {
+						padding: 10px 15px;
+						
+						a {
+							text-decoration: none;
+							color: $default-font-color;
+
+							&:hover {
+								color: white;
+							}
+
+						}
+					}
+				}
+			}
+		}
+		.active {
+			color: white !important;
 		}
 	}
 
 }
 
-.collapsing {
-    -webkit-transition: none;
-    transition: none;
-}

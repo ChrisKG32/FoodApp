@@ -59,7 +59,7 @@ Template.Recipes.events({
 			parseInt(image.width())
 		;
 
-		$(image).animate(
+		$(image).velocity(
 			{left: - imageWidth}
 		);
 	},
@@ -67,14 +67,14 @@ Template.Recipes.events({
 		var currentTarget = $(e.currentTarget);
 		var span = currentTarget.find('span');
 
-		if (span.hasClass('glyphicon-triangle-bottom')) {
+		if (span.hasClass('glyphicon-triangle-top')) {
 			var category = currentTarget.attr('recipe-category');
 			$('.section-wrapper[recipe-category="' + category + '"]').hide();
-			span.removeClass('glyphicon-triangle-bottom').addClass('glyphicon-triangle-top');
-		} else if (span.hasClass('glyphicon-triangle-top')) {
+			span.removeClass('glyphicon-triangle-top').addClass('glyphicon-triangle-bottom');
+		} else if (span.hasClass('glyphicon-triangle-bottom')) {
 			var category = currentTarget.attr('recipe-category');
 			$('.section-wrapper[recipe-category="' + category + '"]').show();
-			span.removeClass('glyphicon-triangle-top').addClass('glyphicon-triangle-bottom');
+			span.removeClass('glyphicon-triangle-bottom').addClass('glyphicon-triangle-top');
 		}
 	}
 });
@@ -95,15 +95,15 @@ Template.Recipes.helpers({
 
 			if (currentFilter) {
 				
-				var diets = {$and: currentFilter.diets};
+				var attributes = {$and: currentFilter.attributes};
 				var category = {$or: currentFilter.category};
 				var difficulty = {$or: currentFilter.difficulty};
 				var queryArray = [];
 
 			
 
-				if (currentFilter.diets.length < 1) {
-					delete currentFilter['diets']
+				if (currentFilter.attributes.length < 1) {
+					delete currentFilter['attributes']
 				} 
 				if (currentFilter.category.length < 1) {
 					delete currentFilter['category']
@@ -118,8 +118,8 @@ Template.Recipes.helpers({
 					return recipeResults
 
 				} else {
-					if (currentFilter.diets && currentFilter.diets.length > 0) {
-						queryArray.push(diets);
+					if (currentFilter.attributes && currentFilter.attributes.length > 0) {
+						queryArray.push(attributes);
 					}
 					if (currentFilter.category && currentFilter.category.length > 0) {
 						queryArray.push(category);
@@ -165,11 +165,21 @@ Template.Recipes.helpers({
 			categories: [],
 			recipes: []
 		};
+
+		var replaceIndex = function(str, index, replacement){
+			var before = str.substr(0, index);
+			var after = str.substr(index + 1, str.length);
+
+			return before + replacement + after
+		}
+
 		if (param1 === 'categories') {
 			_.each(userRecipes, function(recipeId){
 				if (recipeId != undefined) {
 					var currentRecipe = Recipes.findOne({_id: recipeId});
-					data.recipes.push(currentRecipe);
+					if (currentRecipe != null) {
+						data.recipes.push(currentRecipe);
+					}
 					var existingCategory = false;
 					_.each(data.categories, function(category){
 						if (category.name === currentRecipe.category) {
@@ -178,7 +188,23 @@ Template.Recipes.helpers({
 					});
 
 					if (existingCategory == false) {
-						data.categories.push({name: currentRecipe.category});
+						var valueData = currentRecipe.category;
+						if (~valueData.indexOf(' ')) {
+							var newString = replaceIndex(valueData, valueData.indexOf(' ') + 1, valueData[valueData.indexOf(' ') + 1].toUpperCase())
+							
+						}
+						if (~valueData.indexOf('/')) {
+							var newString = replaceIndex(valueData, valueData.indexOf('/') + 1, valueData[valueData.indexOf('/') + 1].toUpperCase())
+							
+						}
+						if (newString) {
+							var newString = replaceIndex(newString, 0, newString[0].toUpperCase());
+						} else {
+							var newString = replaceIndex(valueData, 0, valueData[0].toUpperCase());
+						}
+						
+
+						data.categories.push({name: currentRecipe.category, value: newString});
 					}
 					
 				}
@@ -186,15 +212,15 @@ Template.Recipes.helpers({
 			var currentFilter = Session.get('currentFilter');
 			if (currentFilter) {
 				
-				var diets = {$and: currentFilter.diets};
+				var attributes = {$and: currentFilter.attributes};
 				var category = {$or: currentFilter.category};
 				var difficulty = {$or: currentFilter.difficulty};
 				var queryArray = [];
 
 			
 
-				if (currentFilter.diets.length < 1) {
-					delete currentFilter['diets']
+				if (currentFilter.attributes.length < 1) {
+					delete currentFilter['attributes']
 				} 
 				if (currentFilter.category.length < 1) {
 					delete currentFilter['category']
@@ -208,8 +234,8 @@ Template.Recipes.helpers({
 					return data.categories
 
 				} else {
-					if (currentFilter.diets && currentFilter.diets.length > 0) {
-						queryArray.push(diets);
+					if (currentFilter.attributes && currentFilter.attributes.length > 0) {
+						queryArray.push(attributes);
 					}
 					if (currentFilter.category && currentFilter.category.length > 0) {
 						queryArray.push(category);
@@ -240,9 +266,11 @@ Template.Recipes.helpers({
 						}
 					});
 
+
 					return data.categories
 				}
 			} else {
+
 				return data.categories
 			}
 
@@ -261,15 +289,15 @@ Template.Recipes.helpers({
 			var currentFilter = Session.get('currentFilter');
 			if (currentFilter) {
 				
-				var diets = {$and: currentFilter.diets};
+				var attributes = {$and: currentFilter.attributes};
 				var category = {$or: currentFilter.category};
 				var difficulty = {$or: currentFilter.difficulty};
 				var queryArray = [];
 
 			
 
-				if (currentFilter.diets.length < 1) {
-					delete currentFilter['diets']
+				if (currentFilter.attributes.length < 1) {
+					delete currentFilter['attributes']
 				} 
 				if (currentFilter.category.length < 1) {
 					delete currentFilter['category']
@@ -283,8 +311,8 @@ Template.Recipes.helpers({
 					return data.recipes
 
 				} else {
-					if (currentFilter.diets && currentFilter.diets.length > 0) {
-						queryArray.push(diets);
+					if (currentFilter.attributes && currentFilter.attributes.length > 0) {
+						queryArray.push(attributes);
 					}
 					if (currentFilter.category && currentFilter.category.length > 0) {
 						queryArray.push(category);
@@ -329,7 +357,7 @@ Template.Recipes.onRendered(function () {
 
 
 	var currentFilter = {
-		diets: [],
+		attributes: [],
 		category: [],
 		difficulty: []
 	}

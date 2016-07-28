@@ -5,14 +5,14 @@ Template.Nav.events({
 	'click .btn-logout':function(e){
 		Meteor.logout();
 	},
-	'click .navbar-brand':function(e){
+	'click .nav-button':function(e){
 		var currentTarget = $(e.currentTarget);
 
-		if (currentTarget.hasClass('nav-plan')){
+		if (currentTarget.hasClass('nav-plan-button')){
 			Session.set('planPage', 'Recipes');
 		}
 	},
-	'click a.navbar-brand':function(e){
+	'click a.nav-button':function(e){
 		var target = $(e.target);
 		var currentTarget = $(e.currentTarget);
 		/*
@@ -31,6 +31,15 @@ Template.Nav.events({
 			Session.set('prepPage', false);
 		}
 		*/
+	},
+	'click .navbar-toggle':function(e){
+		var currentTarget = $(e.currentTarget);
+		var dropdown = $('.nav-dropdown');
+		if (dropdown.hasClass('hidden')) {
+			dropdown.removeClass('hidden');
+		} else {
+			dropdown.addClass('hidden');
+		}
 	}
 
 });

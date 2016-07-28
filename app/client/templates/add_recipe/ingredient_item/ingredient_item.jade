@@ -3,16 +3,33 @@ template(name='IngredientItem')
 		.col-xs-2
 			.form-group.text-center
 				input.form-control.amt(id="ingredient-amt-!{this.number}" type="number")
-		.col-xs-2
+		.col-xs-2.unit-field
 			.form-group.text-center
 				input.form-control.unit(id="ingredient-unit-!{this.number}" type="text")
+			if autocompleteMeasurement
+				.autocomplete
+					ul
+						each autocompleteMeasurement
+							li.existing-ingredient
+								span
+									| {{name}}
+									i.fa.fa-check(aria-hidden="true")
+						li.add-new-unit
+							span.glyphicon.glyphicon-edit
+							| New
+			else if newUnit
+				.autocomplete
+					ul
+						li.add-new-unit
+							span.glyphicon.glyphicon-edit
+							| New
 		.col-xs-8.name-field
 			.form-group.text-center
 				input.form-control.name(id="ingredient-name-!{this.number}" type="text" number="!{this.number}")
-			if autocomplete
+			if autocompleteName
 				.autocomplete
 					ul
-						each autocomplete
+						each autocompleteName
 							li.existing-ingredient
 								span
 									| {{name}}
@@ -35,7 +52,13 @@ template(name='IngredientItem')
 				.form-group
 					input.form-control(id="new-db-aisle-!{this.number}" placeholder="aisle" type="text")
 				.form-group
-					input.form-control(id="new-db-measurement-!{this.number}" placeholder="measurement" type="text")
+					select.form-control(id="new-db-measurement-!{this.number}" placeholder="measurement" type="text")
+						option
+							| Weight
+						option
+							| Volume
+						option
+							| Each
 				.checkbox
 					label
 						input(id="new-db-cb-recipe-!{this.number}" type="checkbox" value="")
@@ -50,4 +73,23 @@ template(name='IngredientItem')
 				.col-xs-4.col-xs-offset-1
 					button.btn.btn-primary.submit-new-db(class="submit-new-db-!{this.number}")
 						| Add Ingredient
-				
+		if newUnitInput
+			.new-db-unit.col-xs-12
+				h4.text-center
+					| New Database Unit
+				.form-group
+					input.form-control(id="new-db-name-!{this.number}" placeholder="name" type="text")
+				.form-group
+					select.form-control(id="new-db-measurement-!{this.number}" placeholder="measurement" type="text")
+						option
+							| Weight
+						option
+							| Volume
+						option
+							| Each
+				.col-xs-4.col-xs-offset-2
+					button.btn.btn-defaul.cancel-new-db(class="cancel-new-db-!{this.number}")
+						| Cancel
+				.col-xs-4.col-xs-offset-1
+					button.btn.btn-primary.submit-new-db-unit(class="submit-new-db-!{this.number}")
+						| Add Unit

@@ -63,66 +63,66 @@ Template.RecipeFilter.helpers({
 		var filters = [
 			{
 				name: 'Lifestyles',
-				value: 'diets',
+				value: 'attributes',
 				array: [
 					{
 						name: 'Paleo',
 						value: 'paleo',
-						key: 'diets',
+						key: 'attributes',
 						amount: 29
 					},
 					{
 						name: 'Primal',
 						value: 'primal',
-						key: 'diets',
+						key: 'attributes',
 						amount: 23
 					},
 					{
 						name: 'Keto',
 						value: 'keto',
-						key: 'diets',
+						key: 'attributes',
 						amount: 12
 					},
 					{
 						name: 'Whole 30',
 						value: 'whole30',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Vegan',
 						value: 'vegan',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Vegetarian',
 						value: 'vegetarian',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: "Wahl's Protocol",
-						value: 'wahls protocol',
-						key: 'diets',
+						value: 'wahl\'sprotocol',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Under 6 Ingredients',
 						value: '<6',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Crockpot',
 						value: 'crockpot',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Under 400 Calories',
 						value: '<400 calories',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					}
 				]
@@ -130,18 +130,18 @@ Template.RecipeFilter.helpers({
 
 			{
 				name: 'Allergens',
-				value: 'diets',
+				value: 'attributes',
 				array: [
 					{
 						name: 'Gluten-Free',
 						value: 'gluten-free',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Dairy-Free',
 						value: 'dairy-free',
-						key: 'diets',
+						key: 'attributes',
 						amount: 42
 					}
 				]
@@ -270,50 +270,50 @@ Template.RecipeFilter.helpers({
 			currentFilter[key].push(filterObj);
 
 
-			var diets = {$and: currentFilter.diets};
+			var attributes = {$and: currentFilter.attributes};
 			var category = {$or: currentFilter.category};
 			var difficulty = {$or: currentFilter.difficulty};
 			var queryArray = [];
 
-			if (currentFilter){
 
-				if (currentFilter.diets && currentFilter.diets.length < 1) {
-					delete currentFilter['diets']
-				} 
-				if (currentFilter.category && currentFilter.category.length < 1) {
-					delete currentFilter['category']
-				} 
-				if (currentFilter.difficulty && currentFilter.difficulty.length < 1 ) {
-					delete currentFilter['difficulty']
-				}
 
-				if (_.isEmpty(currentFilter)) {
-					var recipeResults = Recipes.find().count();
-
-					return recipeResults
-
-				} else {
-					if (currentFilter.diets && currentFilter.diets.length > 0) {
-						queryArray.push(diets);
-					}
-					if (currentFilter.category && currentFilter.category.length > 0) {
-						queryArray.push(category);
-					}
-					if (currentFilter.difficulty && currentFilter.difficulty.length > 0) {
-						queryArray.push(difficulty);
-					}
-
-					var recipeResults = Recipes.find({$and: queryArray}).count();
-
-					return recipeResults
-				}
+			if (currentFilter.attributes && currentFilter.attributes.length < 1) {
+				delete currentFilter['attributes']
+			} 
+			if (currentFilter.category && currentFilter.category.length < 1) {
+				delete currentFilter['category']
+			} 
+			if (currentFilter.difficulty && currentFilter.difficulty.length < 1 ) {
+				delete currentFilter['difficulty']
 			}
+
+			if (_.isEmpty(currentFilter)) {
+				var recipeResults = Recipes.find().count();
+
+				return recipeResults
+
+			} else {
+				if (currentFilter.attributes && currentFilter.attributes.length > 0) {
+					queryArray.push(attributes);
+				}
+				if (currentFilter.category && currentFilter.category.length > 0) {
+					queryArray.push(category);
+				}
+				if (currentFilter.difficulty && currentFilter.difficulty.length > 0) {
+					queryArray.push(difficulty);
+				}
+
+				var recipeResults = Recipes.find({$and: queryArray}).count();
+
+				return recipeResults
+			}
+
 		}
 		//Format for the filter MongoDB Query
 			/*
 			Recipes.find({
 				$and: [
-					{$and: currentFilter.diets }, 
+					{$and: currentFilter.attributes }, 
 					{$or: currentFilter.category },
 					{$or: currentFilter.difficulty }
 				]

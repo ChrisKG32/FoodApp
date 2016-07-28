@@ -32,57 +32,71 @@ Template.AddRecipe.events({
 	'click .submit-recipe-btn':function(e){
 		e.preventDefault();
 
-		var recipeName = $('#recipe-name').val();
-		var recipeCategory = $('#recipe-category').val();
-		var recipeYield = $('#recipe-yield').val();
-		var recipeDifficulty = $('#recipe-difficulty').val();
+		var autocomplete = $('.autocomplete').is(':visible');
+		if (!autocomplete){
+			var recipeName = $('#recipe-name').val();
+			var recipeCategory = $('#recipe-category').val();
+			var recipeYield = $('#recipe-yield').val();
+			var recipeDifficulty = $('#recipe-difficulty').val();
 
-		var checkboxes = $('input[type="checkbox"]');
-		var allIngredients = $('.ingredient-item');
+			var checkboxes = $('input[type="checkbox"]');
+			var allIngredients = $('.ingredient-item');
+			var imagePath = $('[type="file"]').val();
+			var newImageFile = imagePath.substr(imagePath.lastIndexOf('\\') + 1, imagePath.length);
+			var instructions = $('textarea#instructions').val();
 
-		var attributes = [];
-		var ingredients = [];
+			var attributes = [];
+			var ingredients = [];
 
+			_.each(allIngredients, function(entry){
+				var ingredientAmt = Number($(entry).find('.amt').val());
+				var ingredientUnit = $(entry).find('.unit').val();
+				var ingredientName = $(entry).find('.name').val();
 
-		_.each(allIngredients, function(entry){
-			var ingredientAmt = Number($(entry).find('.amt').val());
-			var ingredientUnit = $(entry).find('.unit').val();
-			var ingredientName = $(entry).find('.name').val();
+				var data = {
+					name: ingredientName,
+					measurement: ingredientUnit,
+					amount: ingredientAmt
+				}
+
+				ingredients.push(data);
+
+			});		
+
+			_.each(checkboxes, function(entry){
+				if ($(entry).hasClass('checked')){
+					var boxValue = $(entry).parent().text().replace(/\s+/g, '').toLowerCase();
+					attributes.push(boxValue);
+				}
+			});
 
 			var data = {
-				name: ingredientName,
-				unit: ingredientUnit,
-				amt: ingredientAmt
+				name: recipeName,
+				category: recipeCategory.toLowerCase(),
+				yield: recipeYield,
+				difficulty: recipeDifficulty.toLowerCase(),
+				attributes: attributes,
+				ingredients: ingredients,
+				img: newImageFile,
+				instructions: instructions
 			}
 
-			ingredients.push(data);
-
-		});		
-
-		_.each(checkboxes, function(entry){
-			if ($(entry).hasClass('checked')){
-				var boxValue = $(entry).parent().text().replace(/\s+/g, '');
-				attributes.push(boxValue);
+			if (data.name && data.category) {
+				Meteor.call('addNewRecipe', data, function(){
+					console.log('successfully added recipe');
+				});
+			} else {
+				console.log('Verify all fields are filled');
 			}
-		});
-
-
-		var data = {
-			name: recipeName,
-			category: recipeCategory,
-			yield: recipeYield,
-			difficulty: recipeDifficulty,
-			attributes: attributes,
-			ingredients: ingredients
+		} else {
+			console.log('Either select existing ingredient/measurement or create a new and valid one');
 		}
-
-		console.log(data);
 	},
 	'keyup .ingredient-item input.name':function(e){
 		var target = $(e.target);
 		var currentTarget = $(e.currentTarget);
 		var ingredientName = $('input.name:focus').val();
-		if ((ingredientName.length) > 2) {
+		if ((ingredientName.length) > 2 && !~ingredientName.indexOf(',')) {
 			var dbResults = Ingredients.find({name: {$regex: '^' + ingredientName + '.*'}}, {limit: 3}).fetch();
 
 			Session.set('autocomplete', dbResults);
@@ -91,15 +105,38 @@ Template.AddRecipe.events({
 		}
 		Session.set('everyKey', ingredientName);
 	},
-	'click .existing-ingredient':function(e){
+	'keyup .ingredient-item input.unit':function(e){
+		var target = $(e.target);
+		var currentTarget = $(e.currentTarget);
+		var ingredientUnit = $('input.unit:focus').val();
+		if ((ingredientUnit.length) > 1 && !~ingredientUnit.indexOf(',')) {
+			var dbResults = Measurements.find({name: {$regex: '^' + ingredientUnit + '.*'}}, {limit: 3}).fetch();
+
+			Session.set('autocompleteMeasurement', dbResults);
+		} else if (ingredientUnit.length <= 1) {
+			Session.set('autocompleteMeasurement', []);
+		}
+		Session.set('everyKey', ingredientUnit);
+	},
+	'click .existing-ingredient span':function(e){
+
 		//parent parent before input.name
 		var target = $(e.target);
 		var currentTarget = $(e.currentTarget);
+
+		var fieldName = currentTarget.parent();
+
 		console.log(currentTarget);
-		var inputValue = currentTarget.parent().parent().prev().find('input.name');
+
+		var inputValue = currentTarget.parent().parent().parent().prev().find('input');
 		var inputIdText = inputValue.attr('id');
 		var inputId = inputIdText.substr(inputIdText.lastIndexOf('-') + 1);
-		var ingredientNumber = 'ingredient' + inputId;
+
+		if (fieldName.hasClass('name-field')) {
+			var ingredientNumber = 'ingredient' + inputId;
+		} else if (fieldName.hasClass('unit-field')){
+			var ingredientNumber = 'unit' + inputId;
+		}
 
 		var recipeIngredients = Session.get('recipeIngredients');
 		var selectedIngredient = this;
@@ -112,7 +149,7 @@ Template.AddRecipe.events({
 			Session.set('recipeIngredients', data);
 		}
 
-		var autocomplete = currentTarget.parent().parent();
+		var autocomplete = currentTarget.parent().parent().parent();
 		inputValue.val(currentTarget.text());
 		autocomplete.hide();
 	},
@@ -125,6 +162,25 @@ Template.AddRecipe.events({
 		Session.set('newIngredientInput', inputId);
 		$('.autocomplete').hide();
 
+	},
+	'click .add-new-unit':function(e){
+		var currentTarget = $(e.currentTarget);
+		var inputObj = currentTarget.parent().parent().prev().find('input.unit');
+		var inputIdText = inputObj.attr('id');
+		var inputId = inputIdText.substr(inputIdText.lastIndexOf('-') + 1);
+		var inputVal = inputObj.val();
+		Session.set('newUnitInput', inputId);
+		$('.autocomplete').hide();
+	},
+	'change .btn-success[type="file"]':function(e){
+		var currentTarget = $(e.currentTarget);
+		var imagePath = currentTarget.val();
+		var newImageFile = imagePath.substr(imagePath.lastIndexOf('\\') + 1, imagePath.length);
+		$('.image-file').attr('src', newImageFile);
+
+	},
+	'input textarea':function(e){
+		$(this).outerHeight(38).outerHeight(this.scrollHeight);
 	}
 });
 
@@ -144,80 +200,80 @@ Template.AddRecipe.helpers({
 	},
 	attributes:function(){
 		var attributes = {
-			diets: {
+			attributes: {
 				name: 'Lifestyles',
-				value: 'diets',
+				value: 'attributes',
 				array: [
 					{
 						name: 'Paleo',
 						value: 'paleo',
-						key: 'diets',
+						key: 'attributes',
 						amount: 29
 					},
 					{
 						name: 'Primal',
 						value: 'primal',
-						key: 'diets',
+						key: 'attributes',
 						amount: 23
 					},
 					{
 						name: 'Keto',
 						value: 'keto',
-						key: 'diets',
+						key: 'attributes',
 						amount: 12
 					},
 					{
 						name: 'Whole 30',
 						value: 'whole30',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Vegan',
 						value: 'vegan',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Vegetarian',
 						value: 'vegetarian',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: "Wahl's Protocol",
-						value: 'wahls protocol',
-						key: 'diets',
+						value: 'wahl\'sprotocol',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Under 6 Ingredients',
 						value: '<6',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Crockpot',
 						value: 'crockpot',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Under 400 Calories',
 						value: '<400 calories',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Gluten-Free',
 						value: 'gluten-free',
-						key: 'diets',
+						key: 'attributes',
 						amount: 32
 					},
 					{
 						name: 'Dairy-Free',
 						value: 'dairy-free',
-						key: 'diets',
+						key: 'attributes',
 						amount: 42
 					}
 				]
@@ -316,6 +372,7 @@ Template.AddRecipe.onRendered(function () {
 	Session.set('numIngredients', 1);
 	Session.set('something', 1);
 	Session.set('newIngredientInput', false);
+
 });
 
 Template.AddRecipe.onDestroyed(function () {

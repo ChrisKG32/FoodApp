@@ -79,3 +79,15 @@ Router.route('/active-filters', {
 	template: 'ActiveFilters',
 	where: 'client'
 });
+
+Router.route('/edit-recipe', {
+	name: 'edit-recipe',
+	template: 'EditRecipe',
+	where: 'client'
+});
+
+Router.route('/edit-ingredients', {
+	name: 'edit-ingredients',
+	template: 'EditIngredients',
+	where: 'client'
+});

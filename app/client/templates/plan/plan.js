@@ -31,6 +31,8 @@ Template.Plan.onRendered(function () {
 		Session.set('shopPage', false);
 		Session.set('prepPage', false);
 	//}, 2000);
+
+	openClose = 'closed';
 	
 	
 
@@ -114,51 +116,124 @@ Template.Plan.onRendered(function () {
 					newPositionValue = Number((newPosition.substr(0, newPosition.indexOf('p'))).slice(10));
 					
 					if (!Session.get('draggable')) {
-						//Once button and sidebar are released, transitions them to their final
-						// resting place (insert death joke here)
-						if ((newPositionValue + sidebarWidth) >= (sidebarWidth/2) && newPositionValue > positionValue ) {
-							var viewportWidth = $(window).width();
-							var viewportPx = viewportWidth * 0.85;
-							sidebar[0].style.transition = 'transform 0.5s ease';
-							sidebar[0].style.transform = 'translate(0px)';
+						/*
+						//OLD SWIPE
+							
+							
+							//Once button and sidebar are released, transitions them to their final
+							// resting place (insert death joke here)
+							if ((newPositionValue + sidebarWidth) >= (sidebarWidth/2) && newPositionValue > positionValue ) {
+								var viewportWidth = $(window).width();
+								var viewportPx = viewportWidth * 0.85;
+								sidebar[0].style.transition = 'transform 0.5s ease';
+								sidebar[0].style.transform = 'translate(0px)';
 
-							if (Session.get('planPage') == 'Meal Plan') {
-								var calendar = $('.calendar-wrapper');
-								var dayHeader = $('.day-header');
-								var dayText = dayHeader.find('.day-text');
-								var badges = dayHeader.find('.badge');
-								dayText.fadeOut(function(){
-									badges.fadeIn();
-									dayText.fadeIn();
-								});	
-								$('.dropdown-recipes').hide();
-								var calendarWidth = calendar.width();
-								var twoColumns = (calendarWidth*(2/3)) + 15;
+								if (Session.get('planPage') == 'Meal Plan') {
+									var calendar = $('.calendar-wrapper');
+									var dayHeader = $('.day-header');
+									var dayText = dayHeader.find('.day-text');
+									var badges = dayHeader.find('.badge');
+									dayText.fadeOut(function(){
+										badges.fadeIn();
+										dayText.fadeIn();
+									});	
+									$('.dropdown-recipes').hide();
+									var calendarWidth = calendar.width();
+									var twoColumns = (calendarWidth*(2/3)) + 15;
 
-								calendar[0].style.transform = 'translate(' + twoColumns + 'px)';
+									calendar[0].style.transform = 'translate(' + twoColumns + 'px)';
+								}
+							} else if (newPositionValue < (sidebarWidth/2) && newPositionValue < positionValue) {
+								var viewportWidth = $(window).width();
+								var viewportPx = viewportWidth * 0.85;
+								sidebar[0].style.transition = 'transform 0.5s ease';
+								sidebar[0].style.transform = 'translate(-' + (sidebarWidth) + 'px)';
+								$('.plan-sidebar').children(1).removeClass('hide-tab');
+								//$('.recipe-filter').removeClass('hide-tab');
+								//$('.your-recipes').removeClass('hide-tab');
+								if (Session.get('planPage') == 'Meal Plan') {
+									var dayHeader = $('.day-header');
+									var badges = dayHeader.find('.badge');
+									var calendar = $('.calendar-wrapper');
+									var dayText = dayHeader.find('.day-text');
+									dayText.fadeOut();
+									badges.fadeOut(function(){
+										dayText.fadeIn();
+									})
+									
+									
+									calendar[0].style.transform = 'translate(0px)';
+								}
 							}
-						} else if (newPositionValue < (sidebarWidth/2) && newPositionValue < positionValue) {
-							var viewportWidth = $(window).width();
-							var viewportPx = viewportWidth * 0.85;
-							sidebar[0].style.transition = 'transform 0.5s ease';
-							sidebar[0].style.transform = 'translate(-' + (sidebarWidth) + 'px)';
-							$('.plan-sidebar').children(1).removeClass('hide-tab');
-							//$('.recipe-filter').removeClass('hide-tab');
-							//$('.your-recipes').removeClass('hide-tab');
-							if (Session.get('planPage') == 'Meal Plan') {
-								var dayHeader = $('.day-header');
-								var badges = dayHeader.find('.badge');
-								var calendar = $('.calendar-wrapper');
-								var dayText = dayHeader.find('.day-text');
-								dayText.fadeOut();
-								badges.fadeOut(function(){
-									dayText.fadeIn();
-								})
-								
-								
-								calendar[0].style.transform = 'translate(0px)';
+							*/
+							
+						//NEW SWIPE CODE
+							var distance = e.distance;
+							var direction = (e.direction === 2) ? 'left' : (e.direction === 4) ? 'right' : 'none';
+							var flick = (e.velocityX > 0.50 || e.velocityX < -0.50);
+							var delta = e.deltaX;
+
+							if (openClose === 'closed') {
+
+								if (((distance > (sidebarWidth/4)) && (direction === 'right' || direction === 'none')) || (direction === 'right' || direction === 'none') && flick) {
+									sidebar[0].style.transition = 'transform 0.5s ease';
+									sidebar[0].style.transform = 'translate(0px)';
+
+									openClose = 'open';
+
+									if (Session.get('planPage') == 'Meal Plan') {
+										var calendar = $('.calendar-wrapper');
+										var dayHeader = $('.day-header');
+										var dayText = dayHeader.find('.day-text');
+										var badges = dayHeader.find('.badge');
+										dayText.fadeOut(function(){
+											badges.fadeIn();
+											dayText.fadeIn();
+										});	
+										$('.dropdown-recipes').hide();
+										var calendarWidth = calendar.width();
+										var twoColumns = (calendarWidth*(2/3)) + 15;
+
+										calendar[0].style.transform = 'translate(' + twoColumns + 'px)';
+									}
+
+								} else {
+									sidebar[0].style.transition = 'transform 0.5s ease';
+									sidebar[0].style.transform = 'translate(-' + (sidebarWidth) + 'px)';
+
+									openClose = 'closed';
+								}
+							} else if (openClose === 'open') {
+
+								if (((distance > (sidebarWidth/4)) && (direction === 'left' || direction === 'none')) || (direction === 'left' || direction === 'none') && flick) {
+									$('.plan-sidebar').children(1).removeClass('hide-tab');
+
+									sidebar[0].style.transition = 'transform 0.5s ease';
+									sidebar[0].style.transform = 'translate(-' + (sidebarWidth) + 'px)';
+
+									openClose = 'closed';
+
+									if (Session.get('planPage') == 'Meal Plan') {
+										var dayHeader = $('.day-header');
+										var badges = dayHeader.find('.badge');
+										var calendar = $('.calendar-wrapper');
+										var dayText = dayHeader.find('.day-text');
+										dayText.fadeOut();
+										badges.fadeOut(function(){
+											dayText.fadeIn();
+										})
+										
+										
+										calendar[0].style.transform = 'translate(0px)';
+									}
+								} else {
+									sidebar[0].style.transition = 'transform 0.5s ease';
+									sidebar[0].style.transform = 'translate(0px)';
+
+									openClose = 'open';
+								}
 							}
-						}
+							
 					}
 				});
 
@@ -170,9 +245,8 @@ Template.Plan.onRendered(function () {
 
 			$('#plan').on('press', function(e){
 				var target = $(e.target);
-				console.log(target)
 
-				if (target.hasClass('recipe-item') || target.hasClass('recipe-name') || target.hasClass('recipe-title')) {
+				if (!target.hasClass('in-filter') && (target.hasClass('recipe-item') || target.hasClass('recipe-name') || target.hasClass('recipe-title'))) {
 					var recipeId = target.attr('recipe-id');
 					Session.set('currentRecipe', recipeId);
 

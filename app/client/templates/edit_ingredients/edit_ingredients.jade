@@ -1,0 +1,40 @@
+template(name='EditIngredients')
+	.edit-ingredients
+		if editPage
+			with editPage
+				.edit-selection
+					.checkbox
+						h5
+							| Name
+						label
+							input.check.check-name(type="checkbox")
+							input.form-control.ingredient-name(type="text" value="!{this.name}" disabled)
+					.checkbox
+						h5
+							| Aisle
+						label
+							input.check.check-aisle(type="checkbox")
+							input.form-control.ingredient-aisle(type="text" value="!{this.aisle}" disabled)
+					.checkbox
+						h5
+							| Measurement
+						label
+							input.check.check-measurement(type="checkbox")
+							input.form-control.ingredient-measurement(type="text" value="!{this.measurement}" disabled)
+				button.btn.btn-default.cancel-changes
+					| Cancel
+				button.btn.btn-primary.pull-right.submit-changes
+					| Submit Changes
+		else
+			.search-ingredients
+				h4.text-center
+					| Edit Ingredients
+				.form-group
+					input.form-control(type="text" id="ingredient-name" placeholder="Ingredient name")
+				.search-results
+					each searchResults
+						.search-item
+							| name: !{this.name} 
+							br
+							| measurement: !{this.measurement}
+		

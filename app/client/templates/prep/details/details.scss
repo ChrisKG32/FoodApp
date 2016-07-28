@@ -9,6 +9,7 @@ $line-color: #333;
 
 .details {
 	height: 100%;
+	overflow-y: scroll;
 	.recipe-image {
 		position: relative;
 		width: 100%;

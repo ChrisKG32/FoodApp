@@ -1,25 +1,26 @@
 template(name='Nav')
 	.nav
-		nav.navbar.navbar-inverse
-			.container-fluid
-				.navbar-header
-					button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNavbar')
+		.main-navbar.col-xs-12
+			.nav-wrapper
+				.back-button.text-center.col-xs-3
+					span.fa.fa-angle-left
+				.navigation.text-center.col-xs-6
+					a.col-xs-4.nav-button.nav-plan-button(class="{{pageCheck 'plan'}}" href="{{pathFor route='plan'}}")
+						| Plan
+					a.col-xs-4.nav-button.nav-shop-button(class="{{pageCheck 'shop'}}" href="{{pathFor route='shop'}}")
+						| Shop
+					a.col-xs-4.nav-button.nav-prep-button(class="{{pageCheck 'prep'}}" href="{{pathFor route='prep'}}")
+						| Prep
+				.menu-button.text-center.col-xs-3
+					button.navbar-toggle(type="button")
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
-					.wrapper.col-xs-8.col-xs-offset-2
-						a.navbar-brand.nav-plan(class="{{pageCheck 'plan'}}" href="{{pathFor route='plan'}}" data-transition-out="slideRightOut" data-transition-in="slideRightIn")
-							| Plan
-						a.navbar-brand.nav-shop(class="{{pageCheck 'shop'}}" href="{{pathFor route='shop'}}" data-transition-out="slideLeftOut" data-transition-in="slideLeftIn")
-							| Shop
-						a.navbar-brand.nav-prep(class="{{pageCheck 'prep'}}" href="{{pathFor route='prep'}}" data-transition-out="slideLeftOut" data-transition-in="slideLeftIn")
-							| Prep
-				#myNavbar.collapse.navbar-collapse
-					ul.nav.navbar-nav
+				.nav-dropdown.col-xs-12.hidden
+					ul
 						li
 							a(href='#')
 								| Home
-					ul.nav.navbar-nav.navbar-right
 						if loggedIn
 							li.btn-profile
 								a(href="{{pathFor route='profile'}}")

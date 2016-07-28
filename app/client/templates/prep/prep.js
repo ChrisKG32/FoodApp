@@ -122,6 +122,8 @@ Template.Prep.onRendered(function () {
 		Session.set('planPage', false);
 		Session.set('shopPage', false);
 	//}, 2000);
+
+	openClose = 'closed';
 	
 		
 	//Set page identifier
@@ -207,37 +209,49 @@ Template.Prep.onRendered(function () {
 					
 					//Once button and sidebar are released, transitions them to their final
 					// resting place (insert death joke here)
-					/*
-					if ((newPositionValue > (viewportWidth - (sidebarWidth - sidebarPadding))/2) && newPositionValue > positionValue ) {
-						var viewportWidth = $(window).width();
-						//var viewportPx = viewportWidth * 0.85;
-						sidebar[0].style.transition = 'transform 0.5s ease';
-						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + '0px)';
-						
-					} else if (newPositionValue < (sidebarWidth/2) && newPositionValue < positionValue) {
-						var viewportWidth = $(window).width();
-						//var viewportPx = viewportWidth * 0.85;
-						sidebar[0].style.transition = 'transform 0.5s ease';
-						sidebar[0].style.transform = 'translate(-' + (viewportWidth - sidebarWidth) + 'px)';
-					}*/
+
+					//NEW SWIPE CODE
+						var distance = e.distance;
+						var direction = (e.direction === 2) ? 'left' : (e.direction === 4) ? 'right' : 'none';
+						var flick = (e.velocityX > 0.50 || e.velocityX < -0.50);
+						var delta = e.deltaX;
+
+						if (openClose === 'closed') {
+
+							if (((distance > (sidebarWidth/4)) && (direction === 'left' || direction === 'none')) || ((direction === 'left' || direction === 'none') && flick)) {
+								sidebar[0].style.transition = 'transform 0.5s ease';
+								sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarWidth ) + 'px)';
+
+								openClose = 'open';
+
+							} else {
+								sidebar[0].style.transition = 'transform 0.5s ease';
+								sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
+								$('.prep-sidebar .wrapper').removeClass('hide-tab');
+								
+								openClose = 'closed';
+
+							}
+						} else if (openClose === 'open') {
+
+							if (((distance > (sidebarWidth/4)) && (direction === 'right' || direction === 'none')) || ((direction === 'right' || direction === 'none') && flick)) {
+								$('.prep-sidebar .wrapper').removeClass('hide-tab');
+
+								sidebar[0].style.transition = 'transform 0.5s ease';
+								sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
+
+								openClose = 'closed';
 
 
-					if (newPositionValue <= (viewportWidth - (sidebarWidth/2)) && newPositionValue < positionValue) {
-						sidebar[0].style.transition = 'transform 0.5s ease';
-						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarWidth - sidebarPadding) + 'px)';
-					} else if (newPositionValue > (viewportWidth - (sidebarWidth/2)) && newPositionValue > positionValue) {
-						sidebar[0].style.transition = 'transform 0.5s ease';
-						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
-						$('.prep-sidebar .wrapper').removeClass('hide-tab');
-					} else if (newPositionValue > positionValue) {
-						sidebar[0].style.transition = 'transform 0.5s ease';
-						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarPadding) + 'px)';
-						$('.prep-sidebar .wrapper').removeClass('hide-tab');
-					} else {
-						sidebar[0].style.transition = 'transform 0.5s ease';
-						sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarWidth ) + 'px)';
+							} else {
+								sidebar[0].style.transition = 'transform 0.5s ease';
+								sidebar[0].style.transform = 'translate(' + (viewportWidth - sidebarWidth ) + 'px)';
 
-					}
+								openClose = 'open';
+
+							}
+						}
+
 				});
 
 	//SWIPE ROUTES

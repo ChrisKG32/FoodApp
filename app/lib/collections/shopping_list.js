@@ -1,8 +1,8 @@
-Ingredients = new Mongo.Collection('ingredients');
-/*
+ShoppingList = new Mongo.Collection('shopping_list');
 
+/*
 if (Meteor.isServer) {
-  Ingredients.allow({
+  ShoppingList.allow({
     insert: function (userId, doc) {
       return false;
     },
@@ -16,7 +16,7 @@ if (Meteor.isServer) {
     }
   });
 
-  Ingredients.deny({
+  ShoppingList.deny({
     insert: function (userId, doc) {
       return true;
     },

@@ -3,7 +3,7 @@ template(name='MealPlan')
 		.col-xs-12.calendar-wrapper.text-center
 			each dayCheck
 				ul.list-inline
-					li.day-header(id='{{this.date}}' day-id='{{this.date}}').col-xs-4.day
+					li.day-header(id='{{this.date}}' day-id='{{this.date}}' class="{{hoverId}}").col-xs-4.day
 							span.day-text(aria-hidden='true')
 								| !{this.day}
 							span.badge.pull-right(aria-hidden='true')
@@ -14,6 +14,3 @@ template(name='MealPlan')
 					each recipesList
 						.dropdown-recipes
 							+RecipeItem
-					//
-						li.assigned-recipe.col-xs-6
-							| !{this.name}

@@ -19,6 +19,7 @@
 	background-color: $dark-background;
 	height: $mini-nav-height;
 	position: relative;
+	border-top: 1px solid $default-border-color;
 
 	.dropdown-container {
 		text-align: center;

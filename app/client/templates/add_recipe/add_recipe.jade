@@ -4,9 +4,8 @@ template(name='AddRecipe')
 			| Add a recipe
 		form.recipe-form.col-xs-12(autocomplete='off')
 			.image-upload.text-center
-				img(src="meatballs.jpg").col-xs-6.col-xs-offset-3
-				button.btn.btn-success
-					| Upload Image
+				img(src="meatballs.jpg").col-xs-6.col-xs-offset-3.image-file
+				input.btn.btn-success(type="file")
 			.recipe-details.col-xs-12
 				.form-group
 					input.form-control(id="recipe-name" type="text" placeholder="Recipe name")
@@ -19,12 +18,12 @@ template(name='AddRecipe')
 					select.form-control(id="recipe-difficulty" placeholder="Difficulty")
 						each attributes.difficulty.array
 							option
-								!{this.name}
+								| !{this.name}
 				.form-group
 					input.form-control(id="recipe-yield" type="text" placeholder="Yield")
 				.well.col-xs-12
 					.col-xs-6
-						each attributes.diets.array
+						each attributes.attributes.array
 							.checkbox
 								label
 									input(id="cb-!{this.value}" type="checkbox" value="")
@@ -41,7 +40,8 @@ template(name='AddRecipe')
 						h4.btn.btn-default
 							span.glyphicon.glyphicon-plus
 							| Ingredient
-							
+				.form-group
+					textarea.form-control.recipe-instructions(id="instructions" placeholder="Instructions")
 				.col-xs-6.text-center
 					button.btn.btn-default.cancel-recipe
 						| Cancel
