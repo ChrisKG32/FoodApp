@@ -10,7 +10,7 @@ template(name='MealPlan')
 								| {{badges}}
 					li.recipes-header.col-xs-8(day-id='{{this.date}}')
 						| {{badges}} Recipes
-						i.fa.fa-plus-square.pull-right.add-recipe(aria-hidden='true')
+						i.toggler.fa.fa-plus-square.pull-right.add-recipe(aria-hidden='true')
 					each recipesList
 						.dropdown-recipes
 							+RecipeItem

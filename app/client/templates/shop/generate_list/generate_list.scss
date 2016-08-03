@@ -1,0 +1,70 @@
+/*****************************************************************************/
+/* GenerateList: Style */
+/*****************************************************************************/
+@import '../../../stylesheets/_mixins';
+@import '../../../stylesheets/_placeholders';
+@import '../../../stylesheets/_variables';
+
+.generate-list {
+
+	.generate-header {
+		@extend %no-gutter;
+
+		.all-header {
+			padding-left: 0;
+		}
+
+		.expand-header {
+			padding-right: 0;
+		}
+
+
+
+	}
+
+	.meal-plan-days {
+		background: white;
+		border-bottom: 1px solid $default-font-color;
+		@extend %no-gutter;
+		
+		span {
+			
+			p {
+				margin: 0;
+				font-weight: bold;
+			}
+
+		}
+		span.fa {
+			transform: translateY(75%);
+		}
+		span.fa-plus, span.fa-minus {
+			padding-right: 0;
+		}
+		span.day-check {
+			transform: translateY(40%);
+			padding-left: 0;
+		}
+		//span.fa-check {
+		//	padding-left: 0;
+		//}
+		.dropdown-recipes {
+			@extend %no-gutter;
+			background: mix($dark-background, rgb(150,150,150));
+
+			border-top: 1px solid $default-font-color;
+			.recipe-check {
+			}
+			.planned-recipes {
+				background-color: rgb(230,230,230);
+			}
+		}
+
+	}
+
+	.generate-button {
+		.btn {
+			margin-top: 25px;
+		}
+	}
+}

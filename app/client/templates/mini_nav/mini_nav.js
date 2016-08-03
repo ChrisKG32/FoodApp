@@ -21,6 +21,10 @@ Template.MiniNav.events({
 			Session.set('prepPage', 'Prepare');
 		} else if (currentTarget.hasClass('cook-prep')) {
 			Session.set('prepPage', 'Cook');
+		} else if (currentTarget.hasClass('generate-list')) {
+			Session.set('shopPage', 'Generate');
+		} else if (currentTarget.hasClass('shopping-list')) {
+			Session.set('shopPage', 'List');
 		}
 	}
 });
@@ -53,7 +57,7 @@ Template.MiniNav.helpers({
 		var routeName = Router.current() && Router.current().route && Router.current().route.getName();
 		var shopPage = Session.get('shopPage');
 
-		if (param1 == 'Smart List'){
+		if (param1 == 'Generate'){
 			return true
 		} else {
 			return false
@@ -96,8 +100,8 @@ Template.MiniNav.helpers({
 
 		} else if (routeName === 'shop') {
 			var shopDropdown = [
-				{name: 'Smart List', class:'smart-list'},
-				{name: 'Individual', class:'single-recipe'}
+				{name: 'Generate', class:'generate-list'},
+				{name: 'List', class:'shopping-list'}
 			]
 
 			for (var i = 0; i < shopDropdown.length; i++){

@@ -1,0 +1,34 @@
+template(name='GenerateList')
+	.generate-list
+		.generate-header.col-xs-12.text-center
+			h2
+				| List Generation
+			.col-xs-3.text-center.all-header
+				input.check-all(type="checkbox" checked="true")
+			.col-xs-6.text-center.meal-day-header
+				p
+					| Meal Days
+			.col-xs-3.text-center.expand-header
+				p
+					| Recipes
+		each dayCheck
+			.meal-plan-days.text-center.col-xs-12
+				span.day-check.col-xs-3
+					input(type="checkbox" class="check-day !{this.fullDate}" checked="true")
+					
+				span.col-xs-6.dates
+					| !{this.day}
+					p
+						| !{this.month}
+						| !{this.date}
+				span.fa.fa-plus.col-xs-3(class="expand" date-id="!{this.fullDate}")
+				.dropdown-recipes.hidden.col-xs-12.text-left(date-id="!{this.fullDate}")
+					.planned-recipes.col-xs-12
+						each recipesList
+							.recipe-check
+								label
+									input(type="checkbox" class="check-day check-recipe" recipe-id="!{this._id}" checked="true")
+									| !{this.name}
+		.generate-button.text-center
+			.btn.btn-default.btn-lg.generate-button
+				| Generate

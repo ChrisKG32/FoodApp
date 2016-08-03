@@ -22,7 +22,7 @@ $li-background-color: white;
 		ul.list-inline {
 			list-style: none;
 			margin: 2px 0;
-			overflow: auto;
+			overflow: hidden;
 			//box-shadow: 3px 3px 10px mix($dark-background, black, 80%);
 			border-radius: 4px;
 

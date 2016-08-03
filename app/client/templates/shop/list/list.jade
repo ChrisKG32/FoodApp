@@ -1,0 +1,48 @@
+template(name='List')
+	.list
+		table.table
+			each generateList.array
+				if aisleExists
+					thead.aisle-header(aisle="!{this.name}")
+						tr
+							th
+								img(src="!{this.name}.png")
+								| !{this.display}
+								span.pull-right.glyphicon.glyphicon-triangle-top
+				tbody(aisle-list="!{this.name}")
+					each this.ingredient
+						tr.ingredient-header
+							td
+								.checkbox
+									label
+										input.ingredient-checkbox(ingredients="!{this.name}" type="checkbox" value="")
+										span.ingredient-amt
+											| !{this.amount} 
+										span.ingredient-scale
+											| !{this.scale} 
+										span.ingredient-name
+											| !{this.name}
+								span.fa.fa-plus.pull-right.expand-ingredient
+						each this.ingredients
+							tr.contained-ingredients(ingredients="!{this.name}")
+								td
+									span.left-indent
+									| !{this.amount}
+									| !{this.scale}
+									| for
+									| !{recipeName}
+			if gotIt
+				thead.got-it(aisle="bakery")
+					tr
+						th
+							span.fa.fa-check
+							span.pull-right.glyphicon.glyphicon-triangle-bottom
+				tbody.got-it-list(aisle-list="bakery" style="display: none;")
+					each gotIt
+						tr
+							td
+								.checkbox
+									label
+										input.got-it-checkbox(type="checkbox" value="")
+										| !{this.amount} !{this.scale} !{this.name}
+								span.fa.fa-plus.pull-right

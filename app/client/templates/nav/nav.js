@@ -27,7 +27,7 @@ Template.Nav.events({
 			Session.set('prepPage', false);			
 		} else if (currentTarget.hasClass('nav-shop')){
 			Session.set('planPage', false);
-			Session.set('shopPage', 'Smart List');
+			Session.set('shopPage', 'Generate');
 			Session.set('prepPage', false);
 		}
 		*/

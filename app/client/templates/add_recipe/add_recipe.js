@@ -373,6 +373,9 @@ Template.AddRecipe.onRendered(function () {
 	Session.set('something', 1);
 	Session.set('newIngredientInput', false);
 
+	var textarea = $('textarea', $(this.firstNode));
+	textarea.autosize();
+
 });
 
 Template.AddRecipe.onDestroyed(function () {

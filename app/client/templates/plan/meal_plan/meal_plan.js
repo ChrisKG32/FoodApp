@@ -13,35 +13,37 @@ Template.MealPlan.events({
 		var liParent = $('[day-id=' + dayId + ']').parent();
 		var hiddenRecipes = liParent.find('.assigned-recipe');
 		var dropdownRecipes = liParent.find('.dropdown-recipes');
-		var dropdownPlus = liParent.find('.fa');
-		if (hiddenRecipes) {
-			_.each(hiddenRecipes, function(entry){
-				if ($(entry).is(':visible')){
-					$(entry).hide();
-				} else {
-					$(entry).show();
-				}
-			});
-		}
-		if (dropdownRecipes) {
-			/*
-			_.each(hiddenRecipes, function(entry){
-				if ($(entry).is(':visible')){
-					$(entry).hide();
-				} else {
-					$(entry).show();
-				}
-			});
-			*/
-			dropdownRecipes.toggle();
-			if (dropdownPlus.hasClass('fa-plus-square')) {
-				dropdownPlus.removeClass('fa-plus-square');
-				dropdownPlus.addClass('fa-minus-square');
-			} else if (dropdownPlus.hasClass('fa-minus-square')) {
-				dropdownPlus.removeClass('fa-minus-square');
-				dropdownPlus.addClass('fa-plus-square');
+		var dropdownPlus = liParent.find('.toggler');
+		if (!openClose || openClose === 'closed'){
+			if (hiddenRecipes) {
+				_.each(hiddenRecipes, function(entry){
+					if ($(entry).is(':visible')){
+						$(entry).hide();
+					} else {
+						$(entry).show();
+					}
+				});
 			}
+			if (dropdownRecipes) {
+				/*
+				_.each(hiddenRecipes, function(entry){
+					if ($(entry).is(':visible')){
+						$(entry).hide();
+					} else {
+						$(entry).show();
+					}
+				});
+				*/
+				dropdownRecipes.toggle();
+				if (dropdownPlus.hasClass('fa-plus-square')) {
+					dropdownPlus.removeClass('fa-plus-square');
+					dropdownPlus.addClass('fa-minus-square');
+				} else if (dropdownPlus.hasClass('fa-minus-square')) {
+					dropdownPlus.removeClass('fa-minus-square');
+					dropdownPlus.addClass('fa-plus-square');
+				}
 
+			}
 		}
 	}
 });
