@@ -32,8 +32,48 @@ Template.Prep.events({
 		var recipeId = currentTarget.attr('id');
 		var currentRecipe = Recipes.findOne({_id: recipeId});
 		Session.set('currentRecipe', recipeId);
-		if (currentTarget.hasClass('prep-it')) {
+		if (currentTarget.hasClass('prep-it') && !target.hasClass('liked-it')) {
 			Router.go('details');
+		}
+	},
+	'click .glyphicon-chevron-right':function(e){
+
+		var selectedDate = Session.get('selectedDate');
+
+		//var newDate = new Date(today);
+		var newDay = new Date(selectedDate);
+
+		var dayValue = newDay.getDate() + 1;
+
+		//var dateValue = newDate.getDate() - 1 + i;
+		//newDate.setDate(dateValue);
+		newDay.setDate(dayValue);
+		Session.set('selectedDate', newDay);
+		dayId = (newDay).toISOString().slice(0,10).replace(/-/g,"");
+		Session.set('prepDay', dayId);
+	},
+	'click .glyphicon-chevron-left':function(e){
+
+		var selectedDate = Session.get('selectedDate');
+
+		//var newDate = new Date(today);
+		var newDay = new Date(selectedDate);
+
+		var dayValue = newDay.getDate() - 1;
+
+		//var dateValue = newDate.getDate() - 1 + i;
+		//newDate.setDate(dateValue);
+		newDay.setDate(dayValue);
+		Session.set('selectedDate', newDay);
+		dayId = (newDay).toISOString().slice(0,10).replace(/-/g,"");
+		Session.set('prepDay', dayId);
+		
+	},
+	'click .liked-it':function(e){
+		var currentTarget = $(e.currentTarget);
+		if (!currentTarget.hasClass('yes')) {
+			e.preventDefault();
+			currentTarget.addClass('yes');
 		}
 	}
 });
@@ -58,6 +98,7 @@ Template.Prep.helpers({
 
 		if (Session.get('prepDay')){
 			var dayId = Session.get('prepDay');
+
 		} else {
 			var getDayId = function(){
 				var today = new Date();
@@ -107,6 +148,77 @@ Template.Prep.helpers({
 		} else {
 			return 'Today'
 		}		
+	},
+	'dateText':function(){
+		
+		var selectedDate = Session.get('selectedDate');
+		if (selectedDate){
+
+			//Displays appropriate days for meal planner
+			//also appends date to the ID of day element
+
+			//(DATEVAR).toISOString().slice(0,10).replace(/-/g,"")
+			//Changes ISOdate to string in following format: yyymmdd
+
+			//var newDate = new Date(today);
+			var newDay = new Date(selectedDate);
+
+
+			//var dateValue = newDate.getDate() - 1 + i;
+			//newDate.setDate(dateValue);
+			var monthValue = newDay.getMonth();
+
+			var today = new Date();
+
+
+			var days = [
+				'Sunday',
+				'Monday',
+				'Tuesday',
+				'Wednesday',
+				'Thursday',
+				'Friday',
+				'Saturday'
+			];
+			var months = [
+				'January',
+				'February',
+				'March',
+				'April',
+				'May',
+				'June',
+				'July',
+				'August',
+				'September',
+				'October',
+				'November',
+				'December'
+			]
+			var dayDate = newDay.toISOString();
+			var fixedString = dayDate.substr(dayDate.lastIndexOf('-') + 1, 2);
+			var data = {};
+
+
+			if (today.getDate() === selectedDate.getDate()) {
+				data.fullDate = (newDay).toISOString().slice(0,10).replace(/-/g,"");
+				data.day = 'Today';
+				data.date = fixedString;
+				data.month = months[monthValue];
+				data.header = 'Today';
+
+			} else {
+				data.fullDate = (newDay).toISOString().slice(0,10).replace(/-/g,"");
+				data.day = days[newDay.getDay()];
+				data.month = months[monthValue];
+				data.date = fixedString;
+				data.header = data.month + ' ' + data.date;
+
+			}
+			
+			return data
+		} else {
+			return {header: 'Today'}
+		}
 	}
 });
 
@@ -117,6 +229,9 @@ Template.Prep.onCreated(function () {
 });
 
 Template.Prep.onRendered(function () {
+
+	Session.set('selectedDate', new Date());
+
 	Session.set('prepPage', 'Prepare');
 	//Meteor.defer(function(){
 		Session.set('planPage', false);

@@ -97,5 +97,9 @@ Meteor.methods({
     },
     'addNewRecipe':function(data){
     	Recipes.insert(data);
+    },
+    'testRemove':function(currentUser, dateId, recipeId){
+        Meteor.users.update({_id: currentUser, 'profile.assigned.day': dateId},
+                             {$pull: {'profile.assigned.$.recipes': recipeId}});
     }
 });

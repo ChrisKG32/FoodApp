@@ -45,6 +45,28 @@ Template.MealPlan.events({
 
 			}
 		}
+	},
+	'click .remove-plan-button':function(e){
+		var currentTarget = $(e.currentTarget);
+		
+		var container = currentTarget.parent().parent();
+		var recipeId = container.attr('recipe-id');
+		var dateContainer = container.parent().parent().parent();
+		var dateId = dateContainer.find('.day-header').attr('day-id');
+		console.log(dateId);
+		var currentUser = Meteor.userId();
+		var userProfile = Meteor.users.findOne(currentUser) && 
+			Meteor.users.findOne(currentUser).profile;
+		if (userProfile){
+
+			//Meteor.users.update({_id: currentUser, 'profile.assigned.day': 20160809},
+			//					{$pull: {'profile.assigned.$.recipes': recipeId}});
+
+			Meteor.call('testRemove', currentUser, dateId, recipeId);
+			console.log('it worked!');
+		}
+
+
 	}
 });
 

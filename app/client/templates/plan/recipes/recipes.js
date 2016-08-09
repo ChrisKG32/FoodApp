@@ -174,12 +174,17 @@ Template.Recipes.helpers({
 		}
 
 		if (param1 === 'categories') {
+			//loop through user profile of favorites recipes
 			_.each(userRecipes, function(recipeId){
+				//error debug
 				if (recipeId != undefined) {
+
 					var currentRecipe = Recipes.findOne({_id: recipeId});
+					//if recipe exists, add it to data variable
 					if (currentRecipe != null) {
 						data.recipes.push(currentRecipe);
 					}
+					//Build list of categories based on recipes
 					var existingCategory = false;
 					_.each(data.categories, function(category){
 						if (category.name === currentRecipe.category) {
@@ -187,7 +192,8 @@ Template.Recipes.helpers({
 						}
 					});
 
-					if (existingCategory == false) {
+					//if its a new category, add it to list of categories in data variable
+					if (existingCategory == false && (currentRecipe && currentRecipe.category)) {
 						var valueData = currentRecipe.category;
 						if (~valueData.indexOf(' ')) {
 							var newString = replaceIndex(valueData, valueData.indexOf(' ') + 1, valueData[valueData.indexOf(' ') + 1].toUpperCase())
@@ -208,6 +214,7 @@ Template.Recipes.helpers({
 					}
 					
 				}
+
 			});
 			var currentFilter = Session.get('currentFilter');
 			if (currentFilter) {

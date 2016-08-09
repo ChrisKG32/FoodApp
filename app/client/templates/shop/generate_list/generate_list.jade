@@ -29,6 +29,6 @@ template(name='GenerateList')
 								label
 									input(type="checkbox" class="check-day check-recipe" recipe-id="!{this._id}" checked="true")
 									| !{this.name}
-		.generate-button.text-center
-			.btn.btn-default.btn-lg.generate-button
+		.col-xs-12.text-center.button-wrapper
+			button.btn.btn-default.btn-lg.generate-button
 				| Generate

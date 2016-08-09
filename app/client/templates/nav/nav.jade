@@ -19,9 +19,21 @@ template(name='Nav')
 				.nav-dropdown.col-xs-12.hidden
 					ul
 						li
-							a(href='#')
+							a(href="{{pathFor route='plan'}}")
 								| Home
 						if loggedIn
+							li.btn-add-recipe
+								a(href="{{pathFor route='add-recipe'}}")
+									span.glyphicon.glyphicon-edit
+									|  Add Recipe
+							li.btn-edit-recipe
+								a(href="{{pathFor route='edit-recipe'}}")
+									span.glyphicon.glyphicon-th-list
+									|  Edit Recipe
+							li.btn-edit-ingredients
+								a(href="{{pathFor route='edit-ingredients'}}")
+									span.glyphicon.glyphicon-leaf
+									|  Edit Ingredients
 							li.btn-profile
 								a(href="{{pathFor route='profile'}}")
 									span.glyphicon.glyphicon-user

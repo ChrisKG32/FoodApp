@@ -4,7 +4,7 @@ template(name='Prep')
 		.meals.col-xs-12.text-center(id="prep-wrapper")
 			.meals-header.col-xs-12.text-center
 				h2.day-text
-					| !{dayText}'s Meals
+					| !{dateText.header}
 			if renderMeals
 				each renderMeals
 					.recipe-prep-item.prep-it(id="!{this._id}" style="background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)), url('!{this.img}'); background-position: center; background-size: cover;").col-xs-12
@@ -13,6 +13,7 @@ template(name='Prep')
 							br
 						small
 							| Prep Time: 30 mins
+						span.liked-it.fa.fa-thumbs-up(aria-hidden="true")
 			else
 				h3.warning
 					| Your Meal Plan is empty!

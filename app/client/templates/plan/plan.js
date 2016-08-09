@@ -2,6 +2,48 @@
 /* Plan: Event Handlers */
 /*****************************************************************************/
 Template.Plan.events({
+	'click .glyphicon-chevron-right':function(e){
+		var planPage = Session.get('planPage');
+
+		var data = [
+			'Recipes',
+			'Favorites',
+			'Meal Plan'
+		]
+
+		for(var i = 0; i < data.length; i++){
+			if (data[i] === planPage) {
+				if (i < 2){
+					Session.set('planPage', data[i + 1]);
+				} else {
+					Session.set('planPage', data[0]);
+				}
+				break
+			}
+		};
+
+	},
+	'click .glyphicon-chevron-left':function(e){
+		var planPage = Session.get('planPage');
+
+		var data = [
+			'Recipes',
+			'Favorites',
+			'Meal Plan'
+		]
+
+		for(var i = 0; i < data.length; i++){
+			if (data[i] === planPage) {
+				if (i > 0){
+					Session.set('planPage', data[i - 1]);
+				} else {
+					Session.set('planPage', data[2]);
+				}
+				break
+			}
+		};
+		
+	},
 });
 
 /*****************************************************************************/

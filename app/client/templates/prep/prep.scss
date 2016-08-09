@@ -85,6 +85,17 @@ body, html {
 				color: white;
 				font-size: 100%;
 			}
+			.liked-it {
+				@extend %absolute;
+				right: 5%;
+				top: 10%;
+				font-size: 175%;
+				color: white;
+				
+			}
+			.liked-it.yes {
+				color: LimeGreen;
+			}
 			
 		}
 	}
