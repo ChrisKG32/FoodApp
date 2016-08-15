@@ -10,11 +10,14 @@
 	height: calc(100% - (#{$navbar-height}));
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
+	-webkit-transform: translateZ(0) !important;
 	padding-bottom: 250px;
 	.recipes-inner {
 		@extend %no-gutter;
 
+		/*
 		&::before {
+			-webkit-transform: translateZ(0) !important;
 			pointer-events: none;
 		    content:"";
 		    display: block;
@@ -36,6 +39,7 @@
 			);
 		    z-index: 97;
 		}
+		*/
 
 		.category-header {
 			background-color: mix($dark-background, white, 70%);

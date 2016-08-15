@@ -74,6 +74,10 @@
 			border: 1px solid $default-border-color;
 			border-radius: 8px;
 			color: #fff;
+
+			&:hover {
+				background-color: $default-border-color;
+			}
 		}
 	}
 }

@@ -28,7 +28,7 @@ $mini-nav-height: 50px;
 
 
 .recipes, .plan-sidebar, .prep-sidebar  {
-	//-webkit-transform: translatez(0) !important;
+	//-webkit-transform: translateZ(0) !important;
 	-webkit-backface-visibility: hidden !important;
 	//-webkit-transform: translatez(0);
     //-moz-transform: translatez(0);

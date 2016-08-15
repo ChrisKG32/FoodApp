@@ -6,6 +6,9 @@
 @import '../../../stylesheets/_variables';
 
 .generate-list {
+	overflow-y: scroll;
+	height: calc(100% - #{$navbar-height});
+
 
 	.generate-header {
 		@extend %no-gutter;

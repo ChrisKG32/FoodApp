@@ -31,7 +31,7 @@ body, html {
 	.meals {
 		//height: calc(100vh - (#{$navbar-height} + #{$mini-nav-height}));
 		height: calc(100% - #{$mini-nav-height});
-		overflow:hidden;
+		overflow-y:scroll;
 		.warning {
 				margin-top: 100px;
 			}

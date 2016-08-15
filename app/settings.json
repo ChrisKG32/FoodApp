@@ -1,0 +1,8 @@
+{
+  "galaxy.meteor.com": {
+    "env": {
+      "ROOT_URL": "http://foodapp.meteorapp.com",
+      "MONGO_URL": "mongodb://inten03:zorro101@aws-us-east-1-portal.17.dblayer.com:11260/food-db"
+    }
+  }
+}
