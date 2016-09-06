@@ -9,6 +9,6 @@
 	//height: calc(100% - #{$navbar-height}) !important;
 	height: 100%;
 	overflow-y: hidden;
-	@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
+	//@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
 
 }
