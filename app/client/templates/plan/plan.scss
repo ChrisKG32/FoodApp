@@ -9,6 +9,21 @@
 	//height: calc(100% - #{$navbar-height}) !important;
 	height: 100%;
 	overflow-y: hidden;
-	@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
+	background-color: $plan-background-color;
+	//@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
 
+
+
+}
+
+.derpy {
+	position: absolute;
+	border-radius: 30px;
+	font-size: 200%;
+	bottom: 10px;
+	left: 10px;
+	background: $filter-button-background-color;
+	padding: 10px 10px 5px 10px;
+	border: 1px solid $filter-button-border-color;
+	color: $filter-button-font-color;
 }

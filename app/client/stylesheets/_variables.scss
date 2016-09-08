@@ -7,3 +7,96 @@ $default-font-color: #9d9d9d;
 
 $navbar-height: 50px;
 $mini-nav-height: 50px;
+
+//NAVBAR
+
+	//font
+		$navbar-font-color: #9d9d9d;
+		$navbar-font-hover: white;
+
+	//expand
+		$navbar-expand-color: white;
+		$navbar-expand-border-color: white;
+
+	//background
+		$navbar-background-color: #222;
+		$navbar-border-color: #333;
+		
+//MINI-NAV
+
+	//font
+		$mini-nav-font-color: #9d9d9d;
+		$mini-nav-font-hover: white;
+
+	//buttons
+		$mini-nav-button-background-color: #333;
+		$mini-nav-navigation-buttons-color: white;
+
+	//background
+		$mini-nav-border-color: #333;
+		$mini-nav-background-color: #222;
+
+//Plan
+	
+	//Header/Text
+
+	//background
+		$plan-background-color: #333;
+
+
+//SIDEBARS
+	
+	//font
+		$sidebar-font-color: #9d9d9d;
+		$sidebar-font-hover: white;
+		$sidebar-label-font-color: #9d9d9d;
+
+	//background
+		$sidebar-background-color: #222;
+		$sidebar-border-color: #333;
+
+//Sidebar BUTTON
+
+	//font
+		$filter-button-font-color: inherit;
+		$filter-button-font-hover: white;
+	//background
+		$filter-button-background-color: #019043;
+		$filter-button-border-color: #005b2a;
+
+
+//MEAL PLAN SIDEBAR
+	//font
+		$mp-sidebar-font-color: #9d9d9d;
+		$mp-sidebar-font-hover: white;
+
+	//background
+		$mp-sidebar-background-color: #222;
+		$mp-sidebar-border-color: #333;
+
+
+
+//Shop
+	
+	//Header/Text
+
+	//background
+		$shop-background-color: #333;
+
+//Prep
+
+	//background
+		$prep-background-color: #333;
+
+	//PREP SIDEBAR
+
+		//font
+			$prep-sidebar-font-color: #9d9d9d;
+			$prep-sidebar-font-hover: white;
+
+		//background
+			$prep-sidebar-background-color: #222;
+			$prep-sidebar-border-color: #333;
+
+
+//Details

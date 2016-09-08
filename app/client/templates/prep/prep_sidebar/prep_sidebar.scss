@@ -22,8 +22,8 @@ body {
 
 	
 	.wrapper {
-		background-color: $dark-background;
-		color: $default-font-color;
+		background-color: $prep-sidebar-background-color;
+		color: $prep-sidebar-font-color;
 		height: 100%;
 		box-shadow: 5px 0px 20px black;
 		border-top-left-radius: 5px;
@@ -41,7 +41,7 @@ body {
 				
 				
 				position: absolute;
-				background-color: $dark-background;
+				background-color: $prep-sidebar-background-color;
 				pointer-events: none;
 			}
 
@@ -60,7 +60,7 @@ body {
 				border-left: 1px solid black;
 				border-bottom: 1px solid black;
 				border-right: none;
-				border-color: mix($dark-background, black, 60%); 		
+				border-color: mix($prep-sidebar-border-color, black, 60%);		
 			}
 			&:after {
 				height: 194px;
@@ -73,19 +73,19 @@ body {
 				border-left: 1px solid black;
 				border-bottom: 1px solid black;
 				border-right: none;
-				border-color: mix($dark-background, white, 90%);
+				border-color: mix($prep-sidebar-border-color, white, 90%);
 			}
 
 		ul.list-group {
 			
 			li.list-group-item {
-				background:$dark-background;
-				@include linear-gradient(mix($dark-background, gray, 90%), $dark-background);
-				border-color: mix($dark-background, black, 90%);
+				background:$prep-sidebar-background-color;
+				@include linear-gradient(mix($prep-sidebar-background-color, gray, 90%), $prep-sidebar-background-color);
+				border-color: mix($prep-sidebar-border-color, black, 90%);
 				border-bottom-width: 2px;
 				padding: 15px;
 
-				box-shadow: 3px 3px 5px mix($dark-background, black, 80%);
+				box-shadow: 3px 3px 5px mix($prep-sidebar-background-color, black, 80%);
 				text-transform: uppercase;
 				font-weight: bold;
 			}

@@ -7,19 +7,20 @@
 
 @mixin select-button {
 	text-decoration: none;
-	color: $default-font-color;
+	color: $mini-nav-font-color;
 	padding: 5px 10px;
-	border: 1px solid $default-border-color;
+	border: 1px solid $mini-nav-border-color;
 	border-radius: 8px;
-	@include linear-gradient(rgba(0,0,0,0), #333333 100%);
+	@include linear-gradient($mini-nav-button-background-color, $mini-nav-background-color 100%);
+	background-color: $mini-nav-button-background-color;
 }
 
 .mini-nav {
 	padding: 0px 15px;
-	background-color: $dark-background;
+	background-color: $mini-nav-background-color;
 	height: $mini-nav-height;
 	position: relative;
-	border-top: 1px solid $default-border-color;
+	border-top: 1px solid $mini-nav-border-color;
 
 	.dropdown-container {
 		text-align: center;
@@ -41,7 +42,7 @@
 			display: none;
 			list-style: none;
 			padding: 5px 15px 5px 15px;
-			background-color: $dark-background;
+			background-color: $mini-nav-background-color;
 			border-bottom-right-radius: 5px;
 			border-bottom-left-radius: 5px;
 
@@ -49,16 +50,17 @@
 				font-size: 120%;
 				padding: 7px 0px;
 				margin: 5px 5px;
-				border: 1px solid $default-border-color;
+				border: 1px solid $mini-nav-border-color;
 				border-radius: 8px;
-				@include linear-gradient(rgba(0,0,0,0), #333333 100%);
+				background-color: $mini-nav-button-background-color;
+				@include linear-gradient($mini-nav-button-background-color, $mini-nav-background-color 100%);
 
 				&:nth-child(1) {
 					margin-top: 0;
 				}
 
 				a {
-					color: $default-font-color;
+					color: $mini-nav-font-color;
 				}
 			}
 		}
@@ -71,12 +73,12 @@
 			font-size: 180%;
 			padding: 4px 8px;
 			margin: 6px;
-			border: 1px solid $default-border-color;
+			border: 1px solid $mini-nav-border-color;
 			border-radius: 8px;
-			color: #fff;
+			color: $mini-nav-font-color;
 
 			&:hover {
-				background-color: $default-border-color;
+				background-color: $mini-nav-border-color;
 			}
 		}
 	}

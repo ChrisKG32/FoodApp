@@ -12,8 +12,9 @@
 	.main-navbar {
 
 		@extend %no-gutter;
-		@include linear-gradient(to right, #333333, #1a1a1a);
-		color: $default-font-color;
+		background: $navbar-background-color;
+		//@include linear-gradient(to right, #333333, #1a1a1a);
+		color: $navbar-font-color;
 		width: 100%;
 		z-index: 99;
 
@@ -69,21 +70,21 @@
 
 				button {
 
-					border: 1px solid #333;
+					border: 1px solid $navbar-border-color;
 
 					.icon-bar {
-						background-color: #fff;
+						background-color: $navbar-expand-color;
 					}
 
 					&:focus {
-						background-color: $default-border-color;
+						background-color: $navbar-border-color;
 					}
 				}
 
 			}
 
 			.nav-dropdown {
-				border-top: 1px solid $default-border-color;
+				border-top: 1px solid $navbar-border-color;
 				@extend %no-gutter;
 				
 
@@ -99,10 +100,10 @@
 						
 						a {
 							text-decoration: none;
-							color: $default-font-color;
+							color: $navbar-font-color;
 
 							&:hover {
-								color: white;
+								color: $navbar-font-hover;
 							}
 
 						}
@@ -111,7 +112,7 @@
 			}
 		}
 		.active {
-			color: white !important;
+			color: $navbar-font-hover;
 		}
 	}
 

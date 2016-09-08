@@ -22,7 +22,7 @@
 		
 		
 		position: absolute;
-		background-color: $dark-background;
+		background-color: $mp-sidebar-background-color;
 		pointer-events: none;
 	}
 
@@ -41,7 +41,7 @@
 		border-right: 1px solid black;
 		border-bottom: 1px solid black;
 		border-left: none;
-		border-color: mix($dark-background, black, 60%); 		
+		border-color: mix($mp-sidebar-border-color, black, 60%); 	
 	}
 	&:after {
 		height: 194px;
@@ -54,21 +54,21 @@
 		border-right: 1px solid black;
 		border-bottom: 1px solid black;
 		border-left: none;
-		border-color: mix($dark-background, white, 90%);
+		border-color: mix($mp-sidebar-border-color, white, 90%);
 	}
 
 	.wrapper {
-		background-color: $dark-background;
-		color: $default-font-color;
+		background-color: $mp-sidebar-background-color;
+		color: $mp-sidebar-font-color;
 		height: 100%;
 		//box-shadow: 5px 0px 20px black;
 	}
 	.filter-item:nth-child(2) {
-		border-top: 1px solid $default-border-color;
+		border-top: 1px solid $mp-sidebar-border-color;
 	}
 
 	.filter-item {
-		border-bottom: 1px solid $default-border-color;
+		border-bottom: 1px solid $mp-sidebar-border-color;
 		padding: 5px;
 
 		h5 {
@@ -147,7 +147,7 @@
 		}
 
 		&:last-child {
-			border-bottom: 1px solid $default-border-color;
+			border-bottom: 1px solid $mp-sidebar-border-color;
 		}
 	}
 }

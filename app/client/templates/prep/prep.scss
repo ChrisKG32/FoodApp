@@ -12,10 +12,11 @@ body, html {
 }
 
 .prep {
-	background-color: $dark-background;
-	@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
+	background-color: $prep-background-color;
+	//@include linear-gradient(to top right, $dark-background, rgb(150,150,150));
 	//height: calc(100% - #{$navbar-height});
 	//height: calc(100% - #{$navbar-height});
+
 	height: 100%;
 	overflow-x: hidden;
 
